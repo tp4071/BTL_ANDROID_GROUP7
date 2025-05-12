@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.clientapp"
+    namespace = "com.example.libraryapplication"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.clientapp"
+        applicationId = "com.example.libraryapplication"
         minSdk = 25
         targetSdk = 35
         versionCode = 1

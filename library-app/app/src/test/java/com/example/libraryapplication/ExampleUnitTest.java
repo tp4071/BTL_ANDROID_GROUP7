@@ -1,4 +1,4 @@
-package com.example.clientapp;
+package com.example.libraryapplication;
 
 import org.junit.Test;
 
