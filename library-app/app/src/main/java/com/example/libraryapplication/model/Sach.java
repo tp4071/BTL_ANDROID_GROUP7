@@ -1,0 +1,102 @@
+package com.example.libraryapplication.model;
+
+public class Sach {
+    private String maSach;
+    private String tenSach;
+    private String nxb;
+    private String nph;
+    private int soLuong;
+    private int soTrang;
+    private String tacGia;
+    private double giaTien;
+    private String maTL; // Foreign key tới TheLoai
+
+    public Sach() {
+    }
+
+    public Sach(String maSach, String tenSach, String nxb, String nph, int soLuong,
+                int soTrang, String tacGia, double giaTien, String maTL) {
+        this.maSach = maSach;
+        this.tenSach = tenSach;
+        this.nxb = nxb;
+        this.nph = nph;
+        this.soLuong = soLuong;
+        this.soTrang = soTrang;
+        this.tacGia = tacGia;
+        this.giaTien = giaTien;
+        this.maTL = maTL;
+    }
+
+    public String getMaSach() {
+        return maSach;
+    }
+
+    public void setMaSach(String maSach) {
+        this.maSach = maSach;
+    }
+
+    public String getTenSach() {
+        return tenSach;
+    }
+
+    public void setTenSach(String tenSach) {
+        this.tenSach = tenSach;
+    }
+
+    public String getNxb() {
+        return nxb;
+    }
+
+    public void setNxb(String nxb) {
+        this.nxb = nxb;
+    }
+
+    public String getNph() {
+        return nph;
+    }
+
+    public void setNph(String nph) {
+        this.nph = nph;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public int getSoTrang() {
+        return soTrang;
+    }
+
+    public void setSoTrang(int soTrang) {
+        this.soTrang = soTrang;
+    }
+
+    public String getTacGia() {
+        return tacGia;
+    }
+
+    public void setTacGia(String tacGia) {
+        this.tacGia = tacGia;
+    }
+
+    public double getGiaTien() {
+        return giaTien;
+    }
+
+    public void setGiaTien(double giaTien) {
+        this.giaTien = giaTien;
+    }
+
+    public String getMaTL() {
+        return maTL;
+    }
+
+    public void setMaTL(String maTL) {
+        this.maTL = maTL;
+    }
+}
+
