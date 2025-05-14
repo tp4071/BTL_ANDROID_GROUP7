@@ -13,6 +13,9 @@
         android:theme="@style/Theme.LibraryApplication"
         tools:targetApi="31">
         <activity
+            android:name=".view.BookDetails"
+            android:exported="false" />
+        <activity
             android:name=".view.Search"
             android:exported="false" />
         <activity
