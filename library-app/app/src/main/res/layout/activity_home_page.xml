@@ -5,8 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <include layout="@layout/status_bar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sách mới"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:textStyle="bold"
+        />
+
+    <ListView
+        android:id="@+id/newBook"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phiếu mượn mới"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:id="@+id/newPM"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
     <include layout="@layout/menu_bar" />
 
 </LinearLayout>
