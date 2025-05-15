@@ -81,4 +81,17 @@ public class PhieuMuon {
     public void setMaSach(String maSach) {
         this.maSach = maSach;
     }
+
+    @Override
+    public String toString() {
+        return "PhieuMuon{" +
+                "maPM='" + maPM + '\'' +
+                ", ngayMuon=" + ngayMuon +
+                ", ngayTra=" + ngayTra +
+                ", trangThai='" + trangThai + '\'' +
+                ", soLuongMuon=" + soLuongMuon +
+                ", maSinhVien='" + maSinhVien + '\'' +
+                ", maSach='" + maSach + '\'' +
+                '}';
+    }
 }
