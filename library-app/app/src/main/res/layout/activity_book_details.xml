@@ -1,111 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <include layout="@layout/status_bar"/>
-
-
-    <LinearLayout
+    <include
+        android:id="@+id/status_bar"
+        layout="@layout/status_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
 
-        <TextView
-            android:id="@+id/tvTenSach"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tên sách"
-            android:minLines="3"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"
-            android:textSize="25dp" />
-
-        <TextView
-            android:id="@+id/tvMaSach"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:layout_marginBottom="10dp"
-            android:text="Mã sách: ..." />
-
-        <TextView
-            android:id="@+id/tvTacGia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="25dp"
-            android:text="Tác giả: ..." />
-
-        <TextView
-            android:id="@+id/tvNXB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="25dp"
-            android:text="NXB: ..." />
-
-        <TextView
-            android:id="@+id/tvNPH"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="NPH: ..." />
-
-        <TextView
-            android:id="@+id/tvSoTrang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:layout_marginBottom="10dp"
-            android:text="Số trang: ..." />
-
-        <TextView
-            android:id="@+id/tvSoLuong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:layout_marginBottom="10dp"
-            android:text="Số lượng: ..." />
-
-        <TextView
-            android:id="@+id/tvGiaTien"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:layout_marginBottom="10dp"
-            android:text="Giá tiền: ..." />
-
-        <TextView
-            android:id="@+id/tvMaTL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="Thể loại: ..." />
-
+    <ScrollView
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/status_bar"
+        android:layout_above="@id/menu_bar"
+        android:padding="12dp"
+        android:layout_marginTop="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="end"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnEdit"
+            <TextView
+                android:id="@+id/tvMaSach"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sửa" />
+                android:layout_marginBottom="10dp"
+                android:text="ID: "
+                android:textSize="20dp" />
 
-            <Button
-                android:id="@+id/btnDelete"
+            <TextView
+                android:id="@+id/tvTenSach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên sách"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/tvTacGia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Xóa" />
+                android:layout_marginBottom="20dp"
+                android:textSize="25dp"
+                android:text="Tác giả: ..."
+                />
+
+            <TextView
+                android:id="@+id/tvNXB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:textSize="25dp"
+                android:text="NXB: ..." />
+
+            <TextView
+                android:id="@+id/tvNPH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:layout_marginBottom="20dp"
+                android:text="NPH: ..." />
+
+            <TextView
+                android:id="@+id/tvSoTrang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:layout_marginBottom="20dp"
+                android:text="Số trang: ..." />
+
+            <TextView
+                android:id="@+id/tvSoLuong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:layout_marginBottom="20dp"
+                android:text="Số lượng: ..." />
+
+            <TextView
+                android:id="@+id/tvGiaTien"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:layout_marginBottom="20dp"
+                android:text="Giá tiền: ..." />
+
+            <TextView
+                android:id="@+id/tvMaTL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:text="Thể loại: ..." />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sửa" />
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Xóa" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </ScrollView>
+    <include
+        android:id="@+id/menu_bar"
+        layout="@layout/menu_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout >
