@@ -14,12 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.PhieuMuon;
 import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 import com.example.libraryapplication.repository.PhieuMuonRepository;
+import com.example.libraryapplication.viewmodel.PhieuMuonViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,7 @@ public class PMManagedment extends AppCompatActivity {
     ListView lv_PhieuMuon ;
     Intent intent ;
     ActivityResultLauncher activityResultLauncher ;
+    private PhieuMuonViewModel viewModel ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +57,15 @@ public class PMManagedment extends AppCompatActivity {
         listPM = new ArrayList<PhieuMuon>() ;
         myMapping();
         // Get toàn bộ phiếu mượn
-        api.getAllPhieuMuon().enqueue(new Callback<List<PhieuMuon>>() {
-            @Override
-            public void onResponse(Call<List<PhieuMuon>> call, Response<List<PhieuMuon>> response) {
-                if (response.isSuccessful() && response.body() != null ) {
-                    listPM = response.body() ;
-                    arrayAdapter.notifyDataSetChanged();
-                }
-            }
+        viewModel = new ViewModelProvider(this).get(PhieuMuonViewModel.class);
 
-            @Override
-            public void onFailure(Call<List<PhieuMuon>> call, Throwable t) {
-                System.out.println("Xuất hiện lỗi : " + t.toString());
-            }
+        viewModel.getListPhieuMuon().observe(this, data -> {
+            listPM.clear();
+            listPM.addAll(data);
+            arrayAdapter.notifyDataSetChanged(); // Cập nhật UI
         });
+
+        viewModel.loadPhieuMuon(); // Gọi API khi giao diện được tạo
 
     }
 

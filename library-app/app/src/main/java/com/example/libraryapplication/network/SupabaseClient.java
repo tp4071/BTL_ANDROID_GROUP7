@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 public class SupabaseClient {
-    private static final String BASE_URL = "https://nkrupyqxoyngryuhisrx.supabase.co";
+    private static final String BASE_URL = "https://nkrupyqxoyngryuhisrx.supabase.co/rest/v1/";
     private static final String API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rcnVweXF4b3luZ3J5dWhpc3J4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwMjg4OTUsImV4cCI6MjA2MjYwNDg5NX0.2xLUKFWqedMj-36Lr5QI8Ekpsaay265lAwK-YEOkdhM";
     private static Retrofit retrofit = null;
     public static SupabaseApi getApi() {
