@@ -87,6 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mã sinh viên"
+                android:inputType="number"
+                android:maxLength="10"
                 android:textSize="20sp"
                 android:layout_marginBottom="8dp" />
 
