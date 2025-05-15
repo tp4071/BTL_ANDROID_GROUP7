@@ -6,6 +6,7 @@
     android:gravity="center"
     android:orientation="horizontal"
     android:padding="8dp"
+    android:id="@+id/menu_bar"
     android:weightSum="5">
 
     <!-- Menu Item 1 -->

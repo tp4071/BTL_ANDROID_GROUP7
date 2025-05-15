@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class PhieuMuon {
     private String maPM;
     private LocalDate ngayMuon;
-    private LocalDate ngayTra;
     private String trangThai;
     private int soLuongMuon;
     private String maSinhVien;
@@ -14,12 +13,11 @@ public class PhieuMuon {
     public PhieuMuon() {
     }
 
-    public PhieuMuon(String maPM, LocalDate ngayMuon, LocalDate ngayTra,
+    public PhieuMuon(String maPM, LocalDate ngayMuon,
                      String trangThai, int soLuongMuon,
                      String maSinhVien, String maSach) {
         this.maPM = maPM;
         this.ngayMuon = ngayMuon;
-        this.ngayTra = ngayTra;
         this.trangThai = trangThai;
         this.soLuongMuon = soLuongMuon;
         this.maSinhVien = maSinhVien;
@@ -42,13 +40,6 @@ public class PhieuMuon {
         this.ngayMuon = ngayMuon;
     }
 
-    public LocalDate getNgayTra() {
-        return ngayTra;
-    }
-
-    public void setNgayTra(LocalDate ngayTra) {
-        this.ngayTra = ngayTra;
-    }
 
     public String getTrangThai() {
         return trangThai;
@@ -87,7 +78,6 @@ public class PhieuMuon {
         return "PhieuMuon{" +
                 "maPM='" + maPM + '\'' +
                 ", ngayMuon=" + ngayMuon +
-                ", ngayTra=" + ngayTra +
                 ", trangThai='" + trangThai + '\'' +
                 ", soLuongMuon=" + soLuongMuon +
                 ", maSinhVien='" + maSinhVien + '\'' +

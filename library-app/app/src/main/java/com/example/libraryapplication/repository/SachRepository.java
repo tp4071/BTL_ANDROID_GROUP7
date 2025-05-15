@@ -1,5 +1,7 @@
 package com.example.libraryapplication.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.libraryapplication.model.Sach;
@@ -14,7 +16,9 @@ import retrofit2.Response;
 
 public class SachRepository {
     private SupabaseApi api = SupabaseClient.getApi();
+    public SachRepository(){
 
+    }
     public void getAllSach(MutableLiveData<List<Sach>> data) {
         api.getAllSach().enqueue(new Callback<List<Sach>>() {
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
@@ -23,6 +27,7 @@ public class SachRepository {
             public void onFailure(Call<List<Sach>> call, Throwable t) {}
         });
     }
+
 
     public void searchSach(String keyword, MutableLiveData<List<Sach>> data) {
         api.searchSach(keyword).enqueue(new Callback<List<Sach>>() {
@@ -62,4 +67,34 @@ public class SachRepository {
             public void onFailure(Call<Void> call, Throwable t) {}
         });
     }
+
+    public MutableLiveData<List<Sach>> getTop5MostBorrowedBooks() {
+        Log.d("REPO", "Bắt đầu gọi API top 5");
+        MutableLiveData<List<Sach>> data = new MutableLiveData<>();
+
+        api.getTop5MostBorrowedBooks().enqueue(new Callback<List<Sach>>() {
+            @Override
+            public void onResponse(Call<List<Sach>> call, Response<List<Sach>> response) {
+                Log.d("Test","test"); // bạn nói dòng này không hiện
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d("API_RESPONSE", "Dữ liệu nhận được: " + response.body().toString());
+                    data.postValue(response.body());
+                } else {
+                    Log.e("API_RESPONSE", "Phản hồi lỗi hoặc rỗng");
+                    data.postValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Sach>> call, Throwable t) {
+                Log.e("API_ERROR", "Lỗi gọi API: " + t.getMessage());
+                data.postValue(null);
+            }
+        });
+
+        return data;
+    }
+
+
+
 }

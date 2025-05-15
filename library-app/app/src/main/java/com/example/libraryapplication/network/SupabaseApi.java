@@ -38,6 +38,11 @@ public interface SupabaseApi {
     @DELETE("sach?maSach=eq.{id}")
     Call<Void> deleteSach(@Path("id") String id);
 
+    // top 5 most borrowed book
+    @GET("top_sach_duoc_muon")
+    Call<List<Sach>> getTop5MostBorrowedBooks();
+
+
     // === Phiếu vi phạm ===
     @GET("phieuvpham")
     Call<List<PhieuViPham>> getAllPhieuViPham();
