@@ -5,38 +5,107 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/status_bar"/>
+    <!-- Status bar ở trên cùng -->
+    <include layout="@layout/status_bar" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Top 5 sách được mượn nì"
-        android:textSize="18sp"
-        android:padding="8dp"
-        android:textStyle="bold"
-        />
-
-    <ListView
-        android:id="@+id/newBook"
+    <!-- Nội dung chính -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Phiếu mượn mới"
-        android:layout_marginTop="30dp"
-        android:textSize="18sp"
-        android:padding="8dp"
-        android:textStyle="bold"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ListView
-        android:id="@+id/newPM"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+            <!-- Input thời gian -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="16dp">
 
+                <EditText
+                    android:id="@+id/startDateInput"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="Từ ngày"
+                    android:focusable="false"
+                    android:inputType="date" />
+
+                <Space android:layout_width="16dp" android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/endDateInput"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="Đến ngày"
+                    android:focusable="false"
+                    android:inputType="date" />
+            </LinearLayout>
+
+            <!-- Top 5 sách được mượn -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top 5 sách được mượn nhiều nhất"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp" />
+
+            <ListView
+                android:id="@+id/topBooksList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="1dp"
+                android:nestedScrollingEnabled="true"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Biểu đồ phiếu mượn -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Biểu đồ số phiếu mượn"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/borrowChart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Biểu đồ phiếu vi phạm -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Biểu đồ số phiếu vi phạm"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/violationChart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Nút tải xuống -->
+            <Button
+                android:id="@+id/downloadButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tải xuống thống kê" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Menu bar dưới cùng -->
     <include layout="@layout/menu_bar" />
-
 </LinearLayout>
