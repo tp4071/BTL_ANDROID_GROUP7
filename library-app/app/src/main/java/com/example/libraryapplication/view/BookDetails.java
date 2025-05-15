@@ -34,7 +34,7 @@ public class BookDetails extends AppCompatActivity {
         tvNPH.setText("Nhà phát hành: "+s.getNph());
         tvSoTrang.setText("Số trang: "+s.getSoTrang());
         tvSoLuong.setText("Số lượng: "+s.getSoLuong());
-        tvGiaTien.setText("Giá tiền: "+s.getGiaTien());
+        tvGiaTien.setText("Giá tiền: "+s.getGiaTien()+ " VNĐ");
         tvMaTL.setText("Mã thể loại: "+s.getMaTL());
     }
     private void mapping(){
