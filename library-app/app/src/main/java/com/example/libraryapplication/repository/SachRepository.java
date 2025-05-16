@@ -68,19 +68,14 @@ public class SachRepository {
         });
     }
 
-    public MutableLiveData<List<Sach>> getTop5MostBorrowedBooks() {
-        Log.d("REPO", "Bắt đầu gọi API top 5");
+    public MutableLiveData<List<Sach>> getLatestBook() {
         MutableLiveData<List<Sach>> data = new MutableLiveData<>();
-
-        api.getTop5MostBorrowedBooks().enqueue(new Callback<List<Sach>>() {
+        api.getLatestBook("nph.desc",5).enqueue(new Callback<List<Sach>>() {
             @Override
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> response) {
-                Log.d("Test","test"); // bạn nói dòng này không hiện
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d("API_RESPONSE", "Dữ liệu nhận được: " + response.body().toString());
                     data.postValue(response.body());
                 } else {
-                    Log.e("API_RESPONSE", "Phản hồi lỗi hoặc rỗng");
                     data.postValue(null);
                 }
             }

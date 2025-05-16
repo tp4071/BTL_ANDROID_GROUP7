@@ -75,13 +75,6 @@ public class PhieuMuon {
 
     @Override
     public String toString() {
-        return "PhieuMuon{" +
-                "maPM='" + maPM + '\'' +
-                ", ngayMuon=" + ngayMuon +
-                ", trangThai='" + trangThai + '\'' +
-                ", soLuongMuon=" + soLuongMuon +
-                ", maSinhVien='" + maSinhVien + '\'' +
-                ", maSach='" + maSach + '\'' +
-                '}';
+        return "ID:"+maPM+" - Ngày mượn: "+ngayMuon+"\nMã sinh viên: "+maSinhVien+"\nMã sách: "+maSach;
     }
 }

@@ -19,6 +19,9 @@ public interface SupabaseApi {
     @PUT("phieumuon?maPM=eq.{id}")
     Call<PhieuMuon> updateTrangThaiPM(@Path("id") String maPM, @Body PhieuMuon pm);
 
+    @GET("phieumuon")
+    Call<List<PhieuMuon>> getLatestPhieuMuon(@Query("order")String order,@Query("limit")int limit);
+
     // === Sách ===
     @GET("sach")
     Call<List<Sach>> getAllSach();
@@ -39,8 +42,8 @@ public interface SupabaseApi {
     Call<Void> deleteSach(@Path("id") String id);
 
     // top 5 most borrowed book
-    @GET("top_sach_duoc_muon")
-    Call<List<Sach>> getTop5MostBorrowedBooks();
+    @GET("sach")
+    Call<List<Sach>> getLatestBook(@Query("order")String order,@Query("limit")int limit);
 
 
     // === Phiếu vi phạm ===

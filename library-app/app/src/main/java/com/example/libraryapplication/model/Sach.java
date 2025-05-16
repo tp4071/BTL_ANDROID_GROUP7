@@ -14,13 +14,12 @@ public class Sach implements Serializable {
     private String tacGia;
     private double giaTien;
     private String maTL; // Foreign key tới TheLoai
-    private int tong_so_luot_muon;
 
     public Sach() {
     }
 
     public Sach(String maSach, String tenSach, String nxb, String nph, int soLuong,
-                int soTrang, String tacGia, double giaTien, String maTL,int tong_so_luot_muon) {
+                int soTrang, String tacGia, double giaTien, String maTL) {
         this.maSach = maSach;
         this.tenSach = tenSach;
         this.nxb = nxb;
@@ -30,7 +29,6 @@ public class Sach implements Serializable {
         this.tacGia = tacGia;
         this.giaTien = giaTien;
         this.maTL = maTL;
-        this.tong_so_luot_muon=tong_so_luot_muon;
     }
 
     public String getMaSach() {
@@ -105,18 +103,11 @@ public class Sach implements Serializable {
         this.maTL = maTL;
     }
 
-    public int getTong_so_luot_muon() {
-        return tong_so_luot_muon;
-    }
-
-    public void setTong_so_luot_muon(int tong_so_luot_muon) {
-        this.tong_so_luot_muon = tong_so_luot_muon;
-    }
 
     @NonNull
     @Override
     public String toString() {
-        return tenSach+" - "+tacGia+"\nSố lượt mượn: "+tong_so_luot_muon;
+        return tenSach+" - "+tacGia+" - "+nph;
     }
 }
 

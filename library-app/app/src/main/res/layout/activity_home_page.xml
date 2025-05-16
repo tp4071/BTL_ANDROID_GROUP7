@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sách được mượn nhiều nhất"
+        android:text="Sách mới"
         android:textSize="18sp"
         android:padding="8dp"
         android:layout_marginTop="10dp"
@@ -22,12 +22,26 @@
         />
 
     <ListView
-        android:id="@+id/topBook"
+        android:id="@+id/newBook"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phiếu mượn mới"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        />
 
+    <ListView
+        android:id="@+id/newPM"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <include layout="@layout/menu_bar" />
 

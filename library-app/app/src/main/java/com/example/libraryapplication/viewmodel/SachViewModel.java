@@ -20,11 +20,11 @@ public class SachViewModel extends ViewModel {
     public SachViewModel() {
         this.sachRepository = new SachRepository();
     }
-    public LiveData<List<Sach>> getTop5MostBorrowedBooks() {
+    public LiveData<List<Sach>> getLatestBook() {
 
-       // if (top5Books == null) {
-            top5Books = sachRepository.getTop5MostBorrowedBooks();
-        //}
+        if (top5Books == null) {
+            top5Books = sachRepository.getLatestBook();
+        }
         return top5Books;
     }
 
