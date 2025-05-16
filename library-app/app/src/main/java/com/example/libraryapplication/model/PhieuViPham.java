@@ -1,12 +1,15 @@
 package com.example.libraryapplication.model;
 
+import java.util.Date;
+
 public class PhieuViPham {
     private String maPhieuVP;
     private double soTienPhat;
     private int soNgayQuaHan;
     private String trangThai;
     private String kieuVP;
-    private String maPM; // Foreign key tới PhieuMuon
+    private String maPM;
+    private Date ngayLap;
 
     // Constructor không tham số
     public PhieuViPham() {
@@ -14,13 +17,14 @@ public class PhieuViPham {
 
     // Constructor đầy đủ tham số
     public PhieuViPham(String maPhieuVP, double soTienPhat, int soNgayQuaHan,
-                       String trangThai, String kieuVP, String maPM) {
+                       String trangThai, String kieuVP, String maPM, Date ngayLap) {
         this.maPhieuVP = maPhieuVP;
         this.soTienPhat = soTienPhat;
         this.soNgayQuaHan = soNgayQuaHan;
         this.trangThai = trangThai;
         this.kieuVP = kieuVP;
         this.maPM = maPM;
+        this.ngayLap = ngayLap;
     }
 
     // Getter & Setter
@@ -72,4 +76,11 @@ public class PhieuViPham {
         this.maPM = maPM;
     }
 
+    public Date getNgayLap() {
+        return ngayLap;
+    }
+
+    public void setNgayLap(Date ngayLap) {
+        this.ngayLap = ngayLap;
+    }
 }

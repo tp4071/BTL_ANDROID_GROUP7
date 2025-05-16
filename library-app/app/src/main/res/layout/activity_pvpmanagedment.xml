@@ -7,7 +7,9 @@
     android:background="#FFFFFF">
 
     <!-- Thanh trạng thái tùy chỉnh -->
-    <include layout="@layout/status_bar"/>
+    <include
+        android:id="@+id/statusBar"
+        layout="@layout/status_bar"/>
 
     <!-- Thanh tìm kiếm -->
     <LinearLayout
@@ -48,6 +50,9 @@
         android:clipToPadding="false" />
 
     <!-- Thanh menu dưới cùng (nếu có) -->
-    <include layout="@layout/menu_bar" />
+    <include
+        layout="@layout/menu_bar"
+        android:id="@+id/menuBar"
+        />
 
 </LinearLayout>

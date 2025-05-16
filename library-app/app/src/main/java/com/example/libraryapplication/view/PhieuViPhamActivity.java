@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +29,10 @@ public class PhieuViPhamActivity extends AppCompatActivity {
         EditText edtSearch = findViewById(R.id.edtSearch);
         ImageButton btnAdd = findViewById(R.id.btnAdd);
         RecyclerView rvList = findViewById(R.id.rvViolationList);
+        View menuInclude = findViewById(R.id.menuBar);
+        View statusBar = findViewById(R.id.statusBar);
+        MenuBarHandler.setupMenu(menuInclude, this);
+        StatusBarHandler.backToHomePage(statusBar, this);
 
         viewModel = new ViewModelProvider(this).get(PhieuViPhamViewModel.class);
         adapter = new PhieuViPhamAdapter(this, viewModel);

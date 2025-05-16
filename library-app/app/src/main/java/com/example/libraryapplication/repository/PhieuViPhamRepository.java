@@ -1,5 +1,7 @@
 package com.example.libraryapplication.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.libraryapplication.model.PhieuViPham;
@@ -26,15 +28,26 @@ public class PhieuViPhamRepository {
         });
     }
 
-    public void updateTrangThai(String id, PhieuViPham vp) {
-        api.updateTrangThaiViPham(id, vp).enqueue(new Callback<PhieuViPham>() {
-            public void onResponse(Call<PhieuViPham> call, Response<PhieuViPham> res) {
+    public void updateTrangThai(String id, PhieuViPham vp, Runnable onSuccess) {
+        String filter = "eq." + id;
+        api.updateTrangThaiViPham(filter, vp).enqueue(new Callback<List<PhieuViPham>>() {
+            @Override
+            public void onResponse(Call<List<PhieuViPham>> call, Response<List<PhieuViPham>> res) {
+                if (res.isSuccessful() && res.body() != null && !res.body().isEmpty()) {
+                    onSuccess.run();
+                } else {
+                    Log.e("UpdateTrangThai", "Update thất bại hoặc không có dữ liệu trả về");
+                }
             }
-
-            public void onFailure(Call<PhieuViPham> call, Throwable t) {
+            @Override
+            public void onFailure(Call<List<PhieuViPham>> call, Throwable t) {
+                Log.e("UpdateTrangThai", "Lỗi mạng khi cập nhật", t);
             }
         });
     }
+
+
+
 
     public void create(PhieuViPham vp, Runnable onSuccess) {
         api.createPhieuViPham(vp).enqueue(new Callback<PhieuViPham>() {

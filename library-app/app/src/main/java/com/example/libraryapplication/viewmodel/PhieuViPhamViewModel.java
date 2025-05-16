@@ -24,8 +24,8 @@ public class PhieuViPhamViewModel extends ViewModel {
         repo.create(vp, this::loadPhieuViPham);
     }
 
-    public void updateTrangThai(String id, PhieuViPham vp) {
-        repo.updateTrangThai(id, vp);
+    public void updateTrangThai(String id, PhieuViPham vp, Runnable onSuccess) {
+        repo.updateTrangThai(id, vp, onSuccess);
     }
 
     public void search(String keyword) {

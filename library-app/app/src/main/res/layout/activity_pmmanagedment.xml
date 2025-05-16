@@ -105,7 +105,7 @@
     <!-- Danh sách phiếu mượn -->
     <ListView
         android:id="@+id/lv_DanhSachPhieuMuon"
-        android:layout_above="@id/menu_bar"
+        android:layout_above="@id/menuBar"
         android:layout_below="@id/layout_buttons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -116,7 +116,7 @@
 
     <!-- Ghim menu bar ở cuối màn hình -->
     <include
-        android:id="@+id/menu_bar"
+        android:id="@+id/menuBar"
         layout="@layout/menu_bar"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
