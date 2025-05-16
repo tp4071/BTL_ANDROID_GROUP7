@@ -39,17 +39,29 @@ public class PhieuViPhamActivity extends AppCompatActivity {
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (viewModel == null) return;
+
                 String keyword = s.toString().trim();
-                if (!keyword.isEmpty()) {
+
+                if (keyword.length() >= 2) {
                     viewModel.search(keyword);
-                } else {
+                } else if (keyword.isEmpty()) {
                     viewModel.loadPhieuViPham();
                 }
             }
+
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
         });
 
+
         btnAdd.setOnClickListener(v -> startActivity(new Intent(this, CreatePhieuViPhamActivity.class)));
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.loadPhieuViPham();
+    }
+
 }
