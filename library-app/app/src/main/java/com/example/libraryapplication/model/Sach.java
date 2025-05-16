@@ -3,12 +3,14 @@ package com.example.libraryapplication.model;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Sach implements Serializable {
     private String maSach;
     private String tenSach;
     private String nxb;
-    private String nph;
+    private Date nph;
     private int soLuong;
     private int soTrang;
     private String tacGia;
@@ -18,7 +20,7 @@ public class Sach implements Serializable {
     public Sach() {
     }
 
-    public Sach(String maSach, String tenSach, String nxb, String nph, int soLuong,
+    public Sach(String maSach, String tenSach, String nxb, Date nph, int soLuong,
                 int soTrang, String tacGia, double giaTien, String maTL) {
         this.maSach = maSach;
         this.tenSach = tenSach;
@@ -55,11 +57,11 @@ public class Sach implements Serializable {
         this.nxb = nxb;
     }
 
-    public String getNph() {
+    public Date getNph() {
         return nph;
     }
 
-    public void setNph(String nph) {
+    public void setNph(Date nph) {
         this.nph = nph;
     }
 
@@ -107,7 +109,8 @@ public class Sach implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return tenSach+" - "+tacGia+" - "+nph;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        return tenSach+" - "+tacGia+" - "+formatter.format(nph);
     }
 }
 

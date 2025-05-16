@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -29,34 +30,24 @@
             android:name=".view.BookForm"
             android:exported="false" />
         <activity
-            android:name=".view.PVPManagedment"
+            android:name=".view.PhieuViPhamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.CreatePhieuViPhamActivity"
             android:exported="false" />
         <activity
             android:name=".view.PMManagedment"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".view.PMForm"
             android:exported="false" />
         <activity
             android:name=".view.BookManagedment"
-            android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".view.HomePage"-->
-<!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <activity -->
+
         <activity
             android:name=".view.Login"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
 
         <activity
             android:name=".view.HomePage"

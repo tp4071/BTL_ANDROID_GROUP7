@@ -3,7 +3,10 @@ package com.example.libraryapplication.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -25,6 +28,7 @@ import java.util.List;
 
 public class HomePage extends AppCompatActivity {
     ListView newBook,newPM;
+    LinearLayout bookBtn,pmBtn,searchBtn,pvpBtn,tkBtn;
     ArrayAdapter<Sach> newBookAdt;
     ArrayAdapter<PhieuMuon> newPMAdt;
     ArrayList<Sach> newBookArr;
@@ -57,12 +61,13 @@ public class HomePage extends AppCompatActivity {
         newBook.setOnItemClickListener((parent, view, position, id) -> {
             Sach sach = newBookArr.get(position);
             Intent intent = new Intent(HomePage.this, BookDetails.class);
-            intent.putExtra("sach", sach); // cần implements Serializable
+            intent.putExtra("sach", sach);
             startActivity(intent);
         });
         pmViewModel.getLatestPhieuMuon().observe(this, new Observer<List<PhieuMuon>>() {
             @Override
             public void onChanged(List<PhieuMuon> phieuMuons) {
+
                 if(phieuMuons!=null){
                     newPMArr.clear();
                     newPMArr.addAll(phieuMuons);
@@ -70,6 +75,15 @@ public class HomePage extends AppCompatActivity {
                 }
             }
         });
+        //menu
+        pvpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomePage.this,PhieuViPhamActivity.class);
+                startActivity(intent);
+            }
+        });
+        //bookBtn.setOnClickListener(new )
     }
     private void mapping(){
         newBook=findViewById(R.id.newBook);
@@ -80,7 +94,13 @@ public class HomePage extends AppCompatActivity {
         newPM=findViewById(R.id.newPM);
         newPMArr=new ArrayList<>();
         newPMAdt=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,newPMArr);
+        newPM.setAdapter(newPMAdt);
         pmViewModel=new ViewModelProvider(this).get(PMViewModel.class);
+        bookBtn=findViewById(R.id.bookBtn);
+        pmBtn=findViewById(R.id.pmBtn);
+        searchBtn=findViewById(R.id.searchBtn);
+        pvpBtn=findViewById(R.id.pvpBtn);
+        tkBtn=findViewById(R.id.tkBtn);
     }
 
 }

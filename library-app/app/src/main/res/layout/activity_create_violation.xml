@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Nhập số tiền phạt (VND)"
                 android:inputType="numberDecimal"
-                android:focusable="false"
+                android:focusable="true"
                 android:clickable="true"
                 android:background="@drawable/bg_edit_text"
                 android:padding="8dp"

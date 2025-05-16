@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.libraryapplication.model.PhieuMuon;
-import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.repository.PhieuMuonRepository;
-import com.example.libraryapplication.repository.SachRepository;
 
 import java.util.List;
 

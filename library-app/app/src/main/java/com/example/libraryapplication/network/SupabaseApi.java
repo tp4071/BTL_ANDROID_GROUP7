@@ -53,6 +53,13 @@ public interface SupabaseApi {
     @PUT("phieuvpham?maPhieuVP=eq.{id}")
     Call<PhieuViPham> updateTrangThaiViPham(@Path("id") String id, @Body PhieuViPham vp);
 
+    @POST("phieuvpham")
+    Call<PhieuViPham> createPhieuViPham(@Body PhieuViPham vp);
+
+    @GET("phieuvpham?maPM=ilike.*{keyword}*")
+    Call<List<PhieuViPham>> searchPhieuViPham(@Path("keyword") String keyword);
+
+
     // === Quản lý tài khoản thủ thư ===
     @PUT("thuthu?maTK=eq.{id}")
     Call<ThuThu> updateThuThu(@Path("id") String maTK, @Body ThuThu thuThu);

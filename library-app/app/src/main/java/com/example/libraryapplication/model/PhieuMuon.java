@@ -1,10 +1,11 @@
 package com.example.libraryapplication.model;
 
-import java.time.LocalDate;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class PhieuMuon {
     private String maPM;
-    private LocalDate ngayMuon;
+    private Date ngayMuon;
     private String trangThai;
     private int soLuongMuon;
     private String maSinhVien;
@@ -13,7 +14,7 @@ public class PhieuMuon {
     public PhieuMuon() {
     }
 
-    public PhieuMuon(String maPM, LocalDate ngayMuon,
+    public PhieuMuon(String maPM, Date ngayMuon,
                      String trangThai, int soLuongMuon,
                      String maSinhVien, String maSach) {
         this.maPM = maPM;
@@ -32,11 +33,11 @@ public class PhieuMuon {
         this.maPM = maPM;
     }
 
-    public LocalDate getNgayMuon() {
+    public Date getNgayMuon() {
         return ngayMuon;
     }
 
-    public void setNgayMuon(LocalDate ngayMuon) {
+    public void setNgayMuon(Date ngayMuon) {
         this.ngayMuon = ngayMuon;
     }
 
@@ -75,6 +76,7 @@ public class PhieuMuon {
 
     @Override
     public String toString() {
-        return "ID:"+maPM+" - Ngày mượn: "+ngayMuon+"\nMã sinh viên: "+maSinhVien+"\nMã sách: "+maSach;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        return "ID:"+maPM+" - Ngày mượn: "+formatter.format(ngayMuon)+"\nMã sinh viên: "+maSinhVien+"\nMã sách: "+maSach;
     }
 }

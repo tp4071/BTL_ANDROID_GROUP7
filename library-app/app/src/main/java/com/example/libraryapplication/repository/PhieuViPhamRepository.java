@@ -30,4 +30,25 @@ public class PhieuViPhamRepository {
             public void onFailure(Call<PhieuViPham> call, Throwable t) {}
         });
     }
+
+    public void create(PhieuViPham vp, Runnable onSuccess) {
+        api.createPhieuViPham(vp).enqueue(new Callback<PhieuViPham>() {
+            public void onResponse(Call<PhieuViPham> call, Response<PhieuViPham> res) {
+                if (res.isSuccessful() && onSuccess != null) onSuccess.run();
+            }
+            public void onFailure(Call<PhieuViPham> call, Throwable t) {}
+        });
+    }
+
+    public void searchByMaPM(String keyword, MutableLiveData<List<PhieuViPham>> data) {
+        api.searchPhieuViPham("ilike.*" + keyword + "*").enqueue(new Callback<List<PhieuViPham>>() {
+            @Override
+            public void onResponse(Call<List<PhieuViPham>> call, Response<List<PhieuViPham>> res) {
+                if (res.isSuccessful()) data.setValue(res.body());
+            }
+            @Override
+            public void onFailure(Call<List<PhieuViPham>> call, Throwable t) {}
+        });
+    }
+
 }
