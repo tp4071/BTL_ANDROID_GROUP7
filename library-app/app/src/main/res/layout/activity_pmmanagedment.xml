@@ -68,6 +68,7 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
+<<<<<<< Updated upstream
         <EditText
             android:id="@+id/edt_CapNhatTrangThaiPM"
             android:layout_width="0dp"
@@ -76,6 +77,24 @@
             android:ems="10"
             android:hint="Trạng thái"
             android:textSize="15sp" />
+=======
+<!--        <EditText-->
+<!--            android:id="@+id/edt_CapNhatTrangThaiPM"-->
+<!--            android:layout_width="157dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:ems="10"-->
+<!--            android:hint="Trạng thái"-->
+<!--            android:textSize="15sp" />-->
+
+        <Spinner
+            android:id="@+id/spinnerTrangThai"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/trang_thai_array"
+            android:padding="8dp"
+            android:spinnerMode="dropdown" />
+>>>>>>> Stashed changes
     </LinearLayout>
 
     <!-- Nút cập nhật & hủy -->

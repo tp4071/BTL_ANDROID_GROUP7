@@ -17,8 +17,13 @@ public interface SupabaseApi {
     @GET("phieumuon")
     Call<List<PhieuMuon>> getAllPhieuMuon();
 
-    @PUT("phieumuon?maPM=eq.{id}")
-    Call<PhieuMuon> updateTrangThaiPM(@Path("id") String maPM, @Body PhieuMuon pm);
+//    @PUT("phieumuon?maPM=eq.{id}")
+//    Call<PhieuMuon> updateTrangThaiPM(@Path("id") String maPM, @Body PhieuMuon pm);
+    @PUT("phieumuon")
+    Call<List<PhieuMuon>> updateTrangThaiPM(
+            @Query("maPM") String maPM,  // truyền "eq.PMc9523ca3"
+            @Body PhieuMuon pm
+    );
 
     @GET("phieumuon")
     Call<List<PhieuMuon>> getLatestPhieuMuon(@Query("order")String order,@Query("limit")int limit);
@@ -73,9 +78,22 @@ public interface SupabaseApi {
     @POST("rpc/thong_ke_phieu_vi_pham_theo_ngay")
     Call<List<Map<String, Object>>> thongKePhieuViPhamTheoNgay(@Body Map<String, String> params);
 
+<<<<<<< Updated upstream
     // ===The loai ===
     @GET("theloai")
     Call<List<PhieuMuon>> getTheLoai();
     @GET("theloai/maSach=eq.{id}")
     Call<List<TheLoai>> getTLByID(@Path("id") String id);
+=======
+    @GET("rpc/sach_duoc_muon_it_nhat")
+    Call<List<Sach>> getSachMuonItNhat();
+
+    @GET("rpc/so_phieu_muon_qua_han")
+    Call<Integer> getSoLuongPhieuMuonQuaHan();
+
+    @GET("phieuvipham?trangThai=eq.ChuaThanhToan")
+    Call<List<PhieuViPham>> getViPhamChuaThanhToan();
+
+
+>>>>>>> Stashed changes
 }

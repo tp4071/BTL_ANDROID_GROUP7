@@ -52,9 +52,19 @@ public class PhieuMuonRepository {
     }
 
     public void updateTrangThai(String id, PhieuMuon pm) {
-        api.updateTrangThaiPM(id, pm).enqueue(new Callback<PhieuMuon>() {
-            public void onResponse(Call<PhieuMuon> call, Response<PhieuMuon> res) {}
-            public void onFailure(Call<PhieuMuon> call, Throwable t) {}
+        api.updateTrangThaiPM("eq." + id, pm).enqueue(new Callback<List<PhieuMuon>>() {
+            @Override
+            public void onResponse(Call<List<PhieuMuon>> call, Response<List<PhieuMuon>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("UpdatePM", "Cập nhật thành công!");
+                } else {
+                    Log.e("UpdatePM", "Lỗi cập nhật: " + response.code() + " - " + response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<PhieuMuon>> call, Throwable t) {
+                Log.e("UpdatePM", "Lỗi kết nối: " + t.getMessage());
+            }
         });
     }
 

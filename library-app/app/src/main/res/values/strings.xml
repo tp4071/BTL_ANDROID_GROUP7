@@ -2,6 +2,7 @@
     <string name="app_name">Library Application</string>
 
     <string-array name="trang_thai_array">
+        <item></item>
         <item>Đã trả</item>
         <item>Chưa trả</item>
     </string-array>

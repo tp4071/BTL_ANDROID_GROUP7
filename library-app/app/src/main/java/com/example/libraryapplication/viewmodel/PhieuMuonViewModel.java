@@ -25,6 +25,10 @@ public class PhieuMuonViewModel extends ViewModel {
         return listPhieuMuon;
     }
 
+//    public LiveData<PhieuMuon> getPhieuMuonUpdate() {
+//        return PhieuMuonUpdate;
+//    }
+
     public void loadPhieuMuon() {
         repository.getAllPhieuMuon(listPhieuMuon); // Gọi từ Repository
     }
@@ -49,4 +53,8 @@ public class PhieuMuonViewModel extends ViewModel {
         repository.updateTrangThai(maPM , pm);
     }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
