@@ -1,4 +1,29 @@
 package com.example.libraryapplication.viewmodel;
 
-public class ThongKeViewModel {
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+import com.example.libraryapplication.model.Sach;
+import com.example.libraryapplication.repository.ThongKeRepository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ThongKeViewModel extends ViewModel {
+    private ThongKeRepository thongKeRepository;
+    private MutableLiveData<List<Sach>> top5Books;
+    private MutableLiveData<List<Map<String, Object>>> pmTK;
+    private MutableLiveData<List<Map<String, Object>>> pvpTK;
+
+    public ThongKeViewModel(){this.thongKeRepository=new ThongKeRepository();}
+    public void getTK(String start,String end){
+        Map<String, String> body = new HashMap<>();
+        body.put("p_ngay_bat_dau ", start);
+        body.put("p_ngay_ket_thuc", end);
+        if(top5Books==null)top5Books=thongKeRepository.getTopSach(body);
+        if(pmTK==null)pmTK=thongKeRepository.thongKePM(body);
+        if(pvpTK==null)pvpTK=thongKeRepository.thongKePhieuViPhamTheoNgay(body);
+    }
+
 }

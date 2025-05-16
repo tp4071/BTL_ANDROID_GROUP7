@@ -2,12 +2,14 @@ package com.example.libraryapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class PMManagedment extends AppCompatActivity {
     private SupabaseApi api = SupabaseClient.getApi();
     TextView txt_HienThiMaPM ;
     EditText edt_CapNhatTrangThaiPM ;
+    Spinner spinnerTrangThaiPM ;
     Button btn_CapNhatTrangThaiPM , btn_HuyCapNhatTrangThaiPM ;
     List<PhieuMuon> listPM ;
     ArrayAdapter arrayAdapter ;
@@ -82,10 +85,13 @@ public class PMManagedment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PhieuMuon pmUpdate = listPM.get(currentPosition);
-                String trangThai = edt_CapNhatTrangThaiPM.getText().toString();
+//                String trangThai = edt_CapNhatTrangThaiPM.getText().toString();
+                String trangThai = spinnerTrangThaiPM.getSelectedItem().toString();
                 pmUpdate.setTrangThai(trangThai);
+                Log.d("CapNhatPM", "maPM = " + pmUpdate.getMaPM() + ", trangThai = " + trangThai);
                 viewModel.updatePhieuMuon(pmUpdate.getMaPM() , pmUpdate);
-                hienThiDanhSachPhieuMuon();
+                viewModel.loadPhieuMuon();
+//                clearViewInfor();
             }
         });
     }
@@ -93,12 +99,21 @@ public class PMManagedment extends AppCompatActivity {
     // Function for displaying PhieuMuon be chosen
     private void myDisplay(PhieuMuon pm) {
         txt_HienThiMaPM.setText(pm.getMaPM());
-        edt_CapNhatTrangThaiPM.setText(pm.getTrangThai());
+//        edt_CapNhatTrangThaiPM.setText(pm.getTrangThai());
+        setSpinnerText(spinnerTrangThaiPM , pm.getTrangThai());
+    }
+
+    // Function for choosing item
+    private void setSpinnerText(Spinner spinner, String value) {
+        ArrayAdapter adapter = (ArrayAdapter) spinner.getAdapter();
+        int pos = adapter.getPosition(value);
+        spinner.setSelection(pos);
     }
 
     private void myMapping() {
         txt_HienThiMaPM = findViewById(R.id.txt_HienThiMaPM);
-        edt_CapNhatTrangThaiPM = findViewById(R.id.edt_CapNhatTrangThaiPM);
+//        edt_CapNhatTrangThaiPM = findViewById(R.id.edt_CapNhatTrangThaiPM);
+        spinnerTrangThaiPM = findViewById(R.id.spinnerTrangThai);
         btn_CapNhatTrangThaiPM = findViewById(R.id.btn_CapNhatTrangThaiPM);
         btn_HuyCapNhatTrangThaiPM = findViewById(R.id.btn_HuyCapNhatTrangThaiPM);
 
@@ -117,6 +132,11 @@ public class PMManagedment extends AppCompatActivity {
         });
 
         viewModel.loadPhieuMuon(); // Gọi API khi giao diện được tạo
+    }
+
+    private void clearViewInfor(){
+        txt_HienThiMaPM.setText("");
+        spinnerTrangThaiPM.setSelection(0);
     }
 
 }

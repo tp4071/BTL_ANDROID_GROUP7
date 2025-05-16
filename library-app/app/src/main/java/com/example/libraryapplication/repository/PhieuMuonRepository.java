@@ -10,6 +10,8 @@ import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +28,19 @@ public class PhieuMuonRepository {
             public void onFailure(Call<PhieuMuon> call, Throwable t) {}
         });
     }
+    //check pm
+    public void checkLegit(Map<String,Object> body, Consumer<String> callback){
+        api.kiemTraMuonSach(body).enqueue(new Callback<String>(){
+            public void onResponse(Call<String> call, Response<String> res) {
+                if (res.isSuccessful() && res.body() != null) {
+                    callback.accept(res.body());  // truyền thông điệp trả về
+                } else {
+                    callback.accept("Lỗi kiểm tra hợp lệ");
+                }
+            }
+            public void onFailure(Call<String> call, Throwable t) {}
+        });
+    }
 
     public void getAllPhieuMuon(MutableLiveData<List<PhieuMuon>> data) {
         api.getAllPhieuMuon().enqueue(new Callback<List<PhieuMuon>>() {
@@ -37,9 +52,19 @@ public class PhieuMuonRepository {
     }
 
     public void updateTrangThai(String id, PhieuMuon pm) {
-        api.updateTrangThaiPM(id, pm).enqueue(new Callback<PhieuMuon>() {
-            public void onResponse(Call<PhieuMuon> call, Response<PhieuMuon> res) {}
-            public void onFailure(Call<PhieuMuon> call, Throwable t) {}
+        api.updateTrangThaiPM("eq." + id, pm).enqueue(new Callback<List<PhieuMuon>>() {
+            @Override
+            public void onResponse(Call<List<PhieuMuon>> call, Response<List<PhieuMuon>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("UpdatePM", "Cập nhật thành công!");
+                } else {
+                    Log.e("UpdatePM", "Lỗi cập nhật: " + response.code() + " - " + response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<PhieuMuon>> call, Throwable t) {
+                Log.e("UpdatePM", "Lỗi kết nối: " + t.getMessage());
+            }
         });
     }
 

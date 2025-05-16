@@ -29,13 +29,16 @@ public class SachRepository {
     }
 
 
-    public void searchSach(String keyword, MutableLiveData<List<Sach>> data) {
+    public MutableLiveData<List<Sach>> searchSach(String keyword) {
+        MutableLiveData<List<Sach>> data = new MutableLiveData<>();
         api.searchSach(keyword).enqueue(new Callback<List<Sach>>() {
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
+
             }
-            public void onFailure(Call<List<Sach>> call, Throwable t) {}
+            public void onFailure(Call<List<Sach>> call, Throwable t) {data.postValue(null);}
         });
+        return data;
     }
 
     public void getSachById(String id, MutableLiveData<List<Sach>> data) {

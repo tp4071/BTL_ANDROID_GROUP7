@@ -1,6 +1,7 @@
 package com.example.libraryapplication.network;
 import com.example.libraryapplication.model.*;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -16,11 +17,19 @@ public interface SupabaseApi {
     @GET("phieumuon")
     Call<List<PhieuMuon>> getAllPhieuMuon();
 
-    @PUT("phieumuon?maPM=eq.{id}")
-    Call<PhieuMuon> updateTrangThaiPM(@Path("id") String maPM, @Body PhieuMuon pm);
+//    @PUT("phieumuon?maPM=eq.{id}")
+//    Call<PhieuMuon> updateTrangThaiPM(@Path("id") String maPM, @Body PhieuMuon pm);
+    @PUT("phieumuon")
+    Call<List<PhieuMuon>> updateTrangThaiPM(
+            @Query("maPM") String maPM,  // truyền "eq.PMc9523ca3"
+            @Body PhieuMuon pm
+    );
 
     @GET("phieumuon")
     Call<List<PhieuMuon>> getLatestPhieuMuon(@Query("order")String order,@Query("limit")int limit);
+
+    @POST("rpc/kiem_tra_muon_sach")
+    Call<String> kiemTraMuonSach(@Body Map<String,Object> body);
 
     // === Sách ===
     @GET("sach")
@@ -63,9 +72,20 @@ public interface SupabaseApi {
     Call<ThuThu> updateThuThu(@Path("id") String maTK, @Body ThuThu thuThu);
 
     // === Thống kê ===
-    @GET("rpc/sach_duoc_muon_nhieu_nhat")
-    Call<List<Sach>> getSachMuonNhieuNhat();
+    @POST("rpc/top_5_sach_muon_nhieu")
+    Call<List<Sach>> getTopSach(@Body Map<String,String> params);
+    @POST("rpc/thong_ke_phieu_muon_theo_ngay")
+    Call<List<Map<String, Object>>> thongKePM(@Body Map<String, String> params);
+    @POST("rpc/thong_ke_phieu_vi_pham_theo_ngay")
+    Call<List<Map<String, Object>>> thongKePhieuViPhamTheoNgay(@Body Map<String, String> params);
 
+<<<<<<< Updated upstream
+    // ===The loai ===
+    @GET("theloai")
+    Call<List<PhieuMuon>> getTheLoai();
+    @GET("theloai/maSach=eq.{id}")
+    Call<List<TheLoai>> getTLByID(@Path("id") String id);
+=======
     @GET("rpc/sach_duoc_muon_it_nhat")
     Call<List<Sach>> getSachMuonItNhat();
 
@@ -75,4 +95,9 @@ public interface SupabaseApi {
     @GET("phieuvipham?trangThai=eq.ChuaThanhToan")
     Call<List<PhieuViPham>> getViPhamChuaThanhToan();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Stashed changes
+>>>>>>> 20a75e4c18e4870f66970f0e47931f90d257e35e
 }
