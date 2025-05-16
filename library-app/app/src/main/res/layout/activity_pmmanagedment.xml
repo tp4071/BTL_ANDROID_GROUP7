@@ -68,14 +68,14 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/edt_CapNhatTrangThaiPM"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Trạng thái"
-            android:textSize="15sp" />
+<!--        <EditText-->
+<!--            android:id="@+id/edt_CapNhatTrangThaiPM"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:ems="10"-->
+<!--            android:hint="Trạng thái"-->
+<!--            android:textSize="15sp" />-->
 <!--        <EditText-->
 <!--            android:id="@+id/edt_CapNhatTrangThaiPM"-->
 <!--            android:layout_width="157dp"-->

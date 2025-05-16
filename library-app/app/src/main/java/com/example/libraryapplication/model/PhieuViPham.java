@@ -25,7 +25,6 @@ public class PhieuViPham {
         this.kieuVP = kieuVP;
         this.maPM = maPM;
         this.ngayLap=ngayLap;
-
     }
 
     // Getter & Setter
