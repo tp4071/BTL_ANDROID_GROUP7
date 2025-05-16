@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/txt_MaPM"
-            android:layout_width="119dp"
+            android:layout_width="202dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Mã phiếu mượn : "
@@ -40,23 +40,23 @@
 
         <TextView
             android:id="@+id/txt_HienThiMaPM"
-            android:layout_width="187dp"
+            android:layout_width="159dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Mã phiếu mượn đã chọn"
-            android:textSize="16sp" />
+            android:hint="Mã đã chọn"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/txt_MaPM"
-            android:layout_width="119dp"
+            android:layout_width="206dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Trạng thái phiếu mượn : "
@@ -64,21 +64,28 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/edt_CapNhatMaPM"
-            android:layout_width="wrap_content"
+            android:id="@+id/edt_CapNhatTrangThaiPM"
+            android:layout_width="157dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Cập nhật trạng thái phiếu mượn"
-            android:inputType="text"
-            android:textSize="16sp" />
+            android:hint="Trạng thái"
+            android:textSize="15sp" />
+
+<!--        <Spinner-->
+<!--            android:id="@+id/spinnerTrangThai"-->
+<!--            android:layout_width="175dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:entries="@array/trang_thai_array"-->
+<!--            android:padding="8dp"-->
+<!--            android:spinnerMode="dropdown" />-->
     </LinearLayout>
 
     <LinearLayout
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
 
         <Button
@@ -86,7 +93,7 @@
             android:layout_width="114dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cập nhật trạng thái" />
+            android:text="Cập nhật" />
 
         <Button
             android:id="@+id/btn_HuyCapNhatTrangThaiPM"

@@ -42,6 +42,7 @@ public class PhieuMuonRepository {
             public void onFailure(Call<PhieuMuon> call, Throwable t) {}
         });
     }
+
     public MutableLiveData<List<PhieuMuon>> getLatestPhieuMuon() {
         MutableLiveData<List<PhieuMuon>> data = new MutableLiveData<>();
         api.getLatestPhieuMuon("ngayMuon.desc",5).enqueue(new Callback<List<PhieuMuon>>() {
