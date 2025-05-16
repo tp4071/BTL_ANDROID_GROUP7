@@ -8,6 +8,7 @@ import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,40 +17,45 @@ import retrofit2.Response;
 public class ThongKeRepository {
     private SupabaseApi api = SupabaseClient.getApi();
 
-    public void getSachMuonNhieu(MutableLiveData<List<Sach>> data) {
-        api.getSachMuonNhieuNhat().enqueue(new Callback<List<Sach>>() {
+    public MutableLiveData<List<Sach>> getTopSach(Map<String, String> body) {
+        MutableLiveData<List<Sach>> data= new MutableLiveData<>();
+        api.getTopSach(body).enqueue(new Callback<>() {
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
             }
-            public void onFailure(Call<List<Sach>> call, Throwable t) {}
+
+            public void onFailure(Call<List<Sach>> call, Throwable t) {
+                data.postValue(null);
+            }
         });
+        return data;
     }
 
-    public void getSachMuonIt(MutableLiveData<List<Sach>> data) {
-        api.getSachMuonItNhat().enqueue(new Callback<List<Sach>>() {
-            public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
+    public MutableLiveData<List<Map<String, Object>>> thongKePhieuViPhamTheoNgay(Map<String, String> body) {
+        MutableLiveData<List<Map<String, Object>>> data=new MutableLiveData<>();
+        api.thongKePhieuViPhamTheoNgay(body).enqueue(new Callback<>() {
+            public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
             }
-            public void onFailure(Call<List<Sach>> call, Throwable t) {}
+
+            public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
+                data.postValue(null);
+            }
         });
+        return data;
     }
 
-    public void getSoLuongQuaHan(MutableLiveData<Integer> data) {
-        api.getSoLuongPhieuMuonQuaHan().enqueue(new Callback<Integer>() {
-            public void onResponse(Call<Integer> call, Response<Integer> res) {
+    public MutableLiveData<List<Map<String, Object>>> thongKePM(Map<String, String> body) {
+        MutableLiveData<List<Map<String, Object>>> data=new MutableLiveData<>();
+        api.thongKePM(body).enqueue(new Callback<>() {
+            public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
             }
-            public void onFailure(Call<Integer> call, Throwable t) {}
-        });
-    }
-
-    public void getViPhamChuaThanhToan(MutableLiveData<List<PhieuViPham>> data) {
-        api.getViPhamChuaThanhToan().enqueue(new Callback<List<PhieuViPham>>() {
-            public void onResponse(Call<List<PhieuViPham>> call, Response<List<PhieuViPham>> res) {
-                if (res.isSuccessful()) data.setValue(res.body());
+            public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
+                data.postValue(null);
             }
-            public void onFailure(Call<List<PhieuViPham>> call, Throwable t) {}
         });
+        return data;
     }
 
 }

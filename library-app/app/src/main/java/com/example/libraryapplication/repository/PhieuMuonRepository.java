@@ -10,6 +10,8 @@ import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +26,19 @@ public class PhieuMuonRepository {
         api.createPhieuMuon(pm).enqueue(new Callback<PhieuMuon>() {
             public void onResponse(Call<PhieuMuon> call, Response<PhieuMuon> res) {}
             public void onFailure(Call<PhieuMuon> call, Throwable t) {}
+        });
+    }
+    //check pm
+    public void checkLegit(Map<String,Object> body, Consumer<String> callback){
+        api.kiemTraMuonSach(body).enqueue(new Callback<String>(){
+            public void onResponse(Call<String> call, Response<String> res) {
+                if (res.isSuccessful() && res.body() != null) {
+                    callback.accept(res.body());  // truyền thông điệp trả về
+                } else {
+                    callback.accept("Lỗi kiểm tra hợp lệ");
+                }
+            }
+            public void onFailure(Call<String> call, Throwable t) {}
         });
     }
 
