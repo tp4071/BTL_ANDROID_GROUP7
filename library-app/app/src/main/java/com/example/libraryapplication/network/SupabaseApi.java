@@ -78,13 +78,11 @@ public interface SupabaseApi {
     @POST("rpc/thong_ke_phieu_vi_pham_theo_ngay")
     Call<List<Map<String, Object>>> thongKePhieuViPhamTheoNgay(@Body Map<String, String> params);
 
-<<<<<<< Updated upstream
     // ===The loai ===
     @GET("theloai")
     Call<List<PhieuMuon>> getTheLoai();
     @GET("theloai/maSach=eq.{id}")
     Call<List<TheLoai>> getTLByID(@Path("id") String id);
-=======
     @GET("rpc/sach_duoc_muon_it_nhat")
     Call<List<Sach>> getSachMuonItNhat();
 
@@ -95,5 +93,4 @@ public interface SupabaseApi {
     Call<List<PhieuViPham>> getViPhamChuaThanhToan();
 
 
->>>>>>> Stashed changes
 }
