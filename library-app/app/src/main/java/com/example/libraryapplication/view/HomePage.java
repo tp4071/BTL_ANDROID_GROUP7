@@ -83,7 +83,37 @@ public class HomePage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //bookBtn.setOnClickListener(new )
+        pmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomePage.this, PMManagedment.class);
+                startActivity(intent);
+            }
+        });
+
+        bookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomePage.this, BookManagedment.class);
+                startActivity(intent);
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomePage.this,Search.class);
+                startActivity(intent);
+            }
+        });
+
+        tkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomePage.this, ThongKe.class);
+                startActivity(intent);
+            }
+        });
     }
     private void mapping(){
         newBook=findViewById(R.id.newBook);

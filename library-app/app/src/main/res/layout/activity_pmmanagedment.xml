@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     tools:context=".view.PMManagedment">
 
-    <include layout="@layout/status_bar" />
-
-    <include layout="@layout/menu_bar" />
+    <include
+        android:id="@+id/status_bar"
+        layout="@layout/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/txt_QuanLyPhieuMuon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/status_bar"
         android:gravity="center"
         android:padding="8dp"
         android:text="Quản lý phiếu mượn"
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <!-- Phần thông tin mã phiếu mượn -->
     <LinearLayout
-        android:padding="8dp"
+        android:id="@+id/layout_ma_pm"
+        android:layout_below="@id/txt_QuanLyPhieuMuon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/txt_MaPM"
-            android:layout_width="202dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Mã phiếu mượn : "
@@ -40,23 +43,25 @@
 
         <TextView
             android:id="@+id/txt_HienThiMaPM"
-            android:layout_width="159dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Mã đã chọn"
             android:textSize="15sp" />
-
     </LinearLayout>
 
+    <!-- Phần cập nhật trạng thái -->
     <LinearLayout
+        android:id="@+id/layout_trangthai_pm"
+        android:layout_below="@id/layout_ma_pm"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/txt_MaPM"
-            android:layout_width="206dp"
+            android:id="@+id/txt_TrangThaiPM"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Trạng thái phiếu mượn : "
@@ -65,48 +70,55 @@
 
         <EditText
             android:id="@+id/edt_CapNhatTrangThaiPM"
-            android:layout_width="157dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:hint="Trạng thái"
             android:textSize="15sp" />
-
-<!--        <Spinner-->
-<!--            android:id="@+id/spinnerTrangThai"-->
-<!--            android:layout_width="175dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:entries="@array/trang_thai_array"-->
-<!--            android:padding="8dp"-->
-<!--            android:spinnerMode="dropdown" />-->
     </LinearLayout>
 
+    <!-- Nút cập nhật & hủy -->
     <LinearLayout
+        android:id="@+id/layout_buttons"
+        android:layout_below="@id/layout_trangthai_pm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp">
 
-
         <Button
             android:id="@+id/btn_CapNhatTrangThaiPM"
-            android:layout_width="114dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cập nhật" />
 
         <Button
             android:id="@+id/btn_HuyCapNhatTrangThaiPM"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Hủy" />
     </LinearLayout>
 
+    <!-- Danh sách phiếu mượn -->
     <ListView
-        android:padding="8dp"
         android:id="@+id/lv_DanhSachPhieuMuon"
+        android:layout_above="@id/menu_bar"
+        android:layout_below="@id/layout_buttons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_weight="1"
+        android:padding="8dp" />
 
-</LinearLayout>
+    <!-- Ghim menu bar ở cuối màn hình -->
+    <include
+        android:id="@+id/menu_bar"
+        layout="@layout/menu_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
