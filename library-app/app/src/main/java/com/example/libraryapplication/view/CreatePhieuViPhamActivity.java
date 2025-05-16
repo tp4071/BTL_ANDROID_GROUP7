@@ -10,6 +10,7 @@ import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.PhieuViPham;
 import com.example.libraryapplication.viewmodel.PhieuViPhamViewModel;
 
+import java.util.Date;
 import java.util.Random;
 
 public class CreatePhieuViPhamActivity extends AppCompatActivity {
@@ -36,8 +37,9 @@ public class CreatePhieuViPhamActivity extends AppCompatActivity {
             String kieuVP = edtKieuVP.getText().toString();
 
             String maPhieuVP = generateMaPhieuVP();
+            Date createDate = new Date();
 
-            PhieuViPham vp = new PhieuViPham(maPhieuVP, tienPhat, 0, trangThai, kieuVP, maPM);
+            PhieuViPham vp = new PhieuViPham(maPhieuVP, tienPhat, 0, trangThai, kieuVP, maPM, createDate);
             viewModel.createPhieuViPham(vp);
 
             Toast.makeText(this, "Đã lưu phiếu vi phạm với mã: " + maPhieuVP, Toast.LENGTH_SHORT).show();

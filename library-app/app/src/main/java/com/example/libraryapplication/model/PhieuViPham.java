@@ -24,7 +24,11 @@ public class PhieuViPham {
         this.trangThai = trangThai;
         this.kieuVP = kieuVP;
         this.maPM = maPM;
+<<<<<<< HEAD
+        this.ngayLap = ngayLap;
+=======
         this.ngayLap=ngayLap;
+>>>>>>> 20a75e4c18e4870f66970f0e47931f90d257e35e
     }
 
     // Getter & Setter
@@ -75,6 +79,17 @@ public class PhieuViPham {
     public void setMaPM(String maPM) {
         this.maPM = maPM;
     }
+<<<<<<< HEAD
+
+    public Date getNgayLap() {
+        return ngayLap;
+    }
+
+    public void setNgayLap(Date ngayLap) {
+        this.ngayLap = ngayLap;
+    }
+=======
     public Date getngayLap(){return ngayLap;}
     public void setngayLap(Date ngayLap){this.ngayLap=ngayLap;}
+>>>>>>> 20a75e4c18e4870f66970f0e47931f90d257e35e
 }

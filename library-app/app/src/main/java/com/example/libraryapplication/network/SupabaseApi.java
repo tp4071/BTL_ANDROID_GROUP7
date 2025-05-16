@@ -56,8 +56,9 @@ public interface SupabaseApi {
     @GET("phieuvipham")
     Call<List<PhieuViPham>> getAllPhieuViPham();
 
-    @PUT("phieuvipham")
-    Call<PhieuViPham> updateTrangThaiViPham(@Query("maPhieuVP") String id, @Body PhieuViPham vp);
+    @Headers("Prefer: return=representation")
+    @PATCH("phieuvipham")
+    Call<List<PhieuViPham>> updateTrangThaiViPham(@Query("maPhieuVP") String filter, @Body PhieuViPham vp);
 
     @POST("phieuvipham")
     Call<PhieuViPham> createPhieuViPham(@Body PhieuViPham vp);
@@ -91,6 +92,5 @@ public interface SupabaseApi {
 
     @GET("phieuvipham?trangThai=eq.ChuaThanhToan")
     Call<List<PhieuViPham>> getViPhamChuaThanhToan();
-
 
 }

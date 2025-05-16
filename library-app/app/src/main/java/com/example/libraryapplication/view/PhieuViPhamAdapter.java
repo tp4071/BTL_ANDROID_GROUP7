@@ -1,10 +1,10 @@
 package com.example.libraryapplication.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.PhieuViPham;
 import com.example.libraryapplication.viewmodel.PhieuViPhamViewModel;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.ViewHolder> {
@@ -40,6 +43,8 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PhieuViPham item = list.get(position);
+        Date date = item.getNgayLap();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if (item == null) return;
 
         holder.tvMaPhieu.setText("Mã phiếu: " + item.getMaPhieuVP());
@@ -48,6 +53,7 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
         holder.tvSoNgayQuaHan.setText("Ngày quá hạn: " + item.getSoNgayQuaHan());
         holder.tvKieuVP.setText("Kiểu VP: " + item.getKieuVP());
         holder.tvTrangThai.setText("Trạng thái: " + item.getTrangThai());
+        holder.createDate.setText("Ngày tạo: " + sdf.format(date));
 
         // Long click để đổi trạng thái nếu chưa xử lý
         holder.layoutItem.setOnLongClickListener(v -> {
@@ -62,7 +68,11 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
                     .setPositiveButton("Đồng ý", (dialog, which) -> {
                         item.setTrangThai("Đã thanh toán");
                         holder.tvTrangThai.setText("Trạng thái: Đã thanh toán");
-                        viewModel.updateTrangThai(item.getMaPhieuVP(), item);
+                        viewModel.updateTrangThai(item.getMaPhieuVP(), item, () -> {
+                            Toast.makeText(context, "Cập nhật trạng thái thành công", Toast.LENGTH_SHORT).show();
+                            viewModel.loadPhieuViPham();
+                        });
+
                         notifyItemChanged(position);
                     })
                     .setNegativeButton("Hủy", null)
@@ -78,7 +88,7 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvMaPhieu, tvMaPM, tvSoTienPhat, tvSoNgayQuaHan, tvKieuVP, tvTrangThai;
+        TextView tvMaPhieu, tvMaPM, tvSoTienPhat, tvSoNgayQuaHan, tvKieuVP, tvTrangThai, createDate;
         View layoutItem;
 
         public ViewHolder(@NonNull View itemView) {
@@ -89,7 +99,8 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
             tvSoNgayQuaHan = itemView.findViewById(R.id.tvSoNgayQuaHan);
             tvKieuVP = itemView.findViewById(R.id.tvKieuVP);
             tvTrangThai = itemView.findViewById(R.id.tvTrangThai);
-            layoutItem = itemView.findViewById(R.id.layoutItem); // Thêm dòng này
+            createDate = itemView.findViewById(R.id.createDate);
+            layoutItem = itemView.findViewById(R.id.layoutItem);
         }
     }
 
