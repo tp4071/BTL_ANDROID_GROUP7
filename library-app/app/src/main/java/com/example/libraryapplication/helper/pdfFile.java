@@ -3,6 +3,8 @@ package com.example.libraryapplication.helper;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.view.View;
 import android.widget.ListAdapter;
@@ -51,6 +53,17 @@ public class pdfFile {
 
     public static File createPDF(String date,Bitmap topBook, Bitmap chart1, Bitmap chart2,){
         PdfDocument pdfDocument=new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(36f);
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+
+        canvas.drawText("Thống kê ( "+date+" ) ", 40, 50, paint);
+        canvas.drawBitmap(topBook);
 
     }
 }
