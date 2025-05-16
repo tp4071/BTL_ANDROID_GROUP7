@@ -40,11 +40,8 @@ public interface SupabaseApi {
 
     @DELETE("sach?maSach=eq.{id}")
     Call<Void> deleteSach(@Path("id") String id);
-
-    // top 5 most borrowed book
     @GET("sach")
     Call<List<Sach>> getLatestBook(@Query("order")String order,@Query("limit")int limit);
-
 
     // === Phiếu vi phạm ===
     @GET("phieuvpham")
@@ -76,4 +73,6 @@ public interface SupabaseApi {
 
     @GET("phieuvipham?trangThai=eq.ChuaThanhToan")
     Call<List<PhieuViPham>> getViPhamChuaThanhToan();
+
+    @
 }
