@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.libraryapplication.R;
@@ -47,16 +49,28 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
         holder.tvKieuVP.setText("Kiểu VP: " + item.getKieuVP());
         holder.tvTrangThai.setText("Trạng thái: " + item.getTrangThai());
 
-        boolean isDaXuLy = "Đã xử lý".equalsIgnoreCase(item.getTrangThai());
-        holder.switchTrangThai.setChecked(isDaXuLy);
+        // Long click để đổi trạng thái nếu chưa xử lý
+        holder.layoutItem.setOnLongClickListener(v -> {
+            if ("Đã thanh toán".equalsIgnoreCase(item.getTrangThai())) {
+                Toast.makeText(context, "Trạng thái đã được xử lý, không thể thay đổi.", Toast.LENGTH_SHORT).show();
+                return true;
+            }
 
-        holder.switchTrangThai.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            String newTrangThai = isChecked ? "Đã xử lý" : "Chưa xử lý";
-            item.setTrangThai(newTrangThai);
-            holder.tvTrangThai.setText("Trạng thái: " + newTrangThai);
-            viewModel.updateTrangThai(item.getMaPhieuVP(), item);
+            new android.app.AlertDialog.Builder(context)
+                    .setTitle("Xác nhận")
+                    .setMessage("Bạn có chắc muốn chuyển trạng thái thành 'Đã thanh toán'?")
+                    .setPositiveButton("Đồng ý", (dialog, which) -> {
+                        item.setTrangThai("Đã thanh toán");
+                        holder.tvTrangThai.setText("Trạng thái: Đã thanh toán");
+                        viewModel.updateTrangThai(item.getMaPhieuVP(), item);
+                        notifyItemChanged(position);
+                    })
+                    .setNegativeButton("Hủy", null)
+                    .show();
+            return true;
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -65,7 +79,7 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvMaPhieu, tvMaPM, tvSoTienPhat, tvSoNgayQuaHan, tvKieuVP, tvTrangThai;
-        Switch switchTrangThai;
+        View layoutItem;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,7 +89,8 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
             tvSoNgayQuaHan = itemView.findViewById(R.id.tvSoNgayQuaHan);
             tvKieuVP = itemView.findViewById(R.id.tvKieuVP);
             tvTrangThai = itemView.findViewById(R.id.tvTrangThai);
-            switchTrangThai = itemView.findViewById(R.id.switchTrangThai);
+            layoutItem = itemView.findViewById(R.id.layoutItem); // Thêm dòng này
         }
     }
+
 }
