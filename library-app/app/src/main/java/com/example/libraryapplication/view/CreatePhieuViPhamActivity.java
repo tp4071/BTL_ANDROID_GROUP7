@@ -10,6 +10,8 @@ import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.PhieuViPham;
 import com.example.libraryapplication.viewmodel.PhieuViPhamViewModel;
 
+import java.util.Random;
+
 public class CreatePhieuViPhamActivity extends AppCompatActivity {
     private PhieuViPhamViewModel viewModel;
 
@@ -33,13 +35,26 @@ public class CreatePhieuViPhamActivity extends AppCompatActivity {
             String trangThai = edtTrangThai.getText().toString();
             String kieuVP = edtKieuVP.getText().toString();
 
-            PhieuViPham vp = new PhieuViPham(null, tienPhat, 0, trangThai, kieuVP, maPM);
+            String maPhieuVP = generateMaPhieuVP();
+
+            PhieuViPham vp = new PhieuViPham(maPhieuVP, tienPhat, 0, trangThai, kieuVP, maPM);
             viewModel.createPhieuViPham(vp);
 
-            Toast.makeText(this, "Đã lưu phiếu vi phạm", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Đã lưu phiếu vi phạm với mã: " + maPhieuVP, Toast.LENGTH_SHORT).show();
             finish();
         });
 
         btnCancel.setOnClickListener(v -> finish());
     }
+
+    private String generateMaPhieuVP() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder sb = new StringBuilder("VP");
+        Random rnd = new Random();
+        for (int i = 0; i < 8; i++) {
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        }
+        return sb.toString();
+    }
 }
+

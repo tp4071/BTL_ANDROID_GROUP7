@@ -44,17 +44,17 @@ public interface SupabaseApi {
     Call<List<Sach>> getLatestBook(@Query("order")String order,@Query("limit")int limit);
 
     // === Phiếu vi phạm ===
-    @GET("phieuvpham")
+    @GET("phieuvipham")
     Call<List<PhieuViPham>> getAllPhieuViPham();
 
-    @PUT("phieuvpham?maPhieuVP=eq.{id}")
-    Call<PhieuViPham> updateTrangThaiViPham(@Path("id") String id, @Body PhieuViPham vp);
+    @PUT("phieuvipham")
+    Call<PhieuViPham> updateTrangThaiViPham(@Query("maPhieuVP") String id, @Body PhieuViPham vp);
 
-    @POST("phieuvpham")
+    @POST("phieuvipham")
     Call<PhieuViPham> createPhieuViPham(@Body PhieuViPham vp);
 
-    @GET("phieuvpham?maPM=ilike.*{keyword}*")
-    Call<List<PhieuViPham>> searchPhieuViPham(@Path("keyword") String keyword);
+    @GET("phieuvipham")
+    Call<List<PhieuViPham>> searchPhieuViPham(@Query("maPhieuVP") String keyword);
 
 
     // === Quản lý tài khoản thủ thư ===

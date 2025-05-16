@@ -20,14 +20,19 @@ public class PhieuViPhamRepository {
             public void onResponse(Call<List<PhieuViPham>> call, Response<List<PhieuViPham>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
             }
-            public void onFailure(Call<List<PhieuViPham>> call, Throwable t) {}
+
+            public void onFailure(Call<List<PhieuViPham>> call, Throwable t) {
+            }
         });
     }
 
     public void updateTrangThai(String id, PhieuViPham vp) {
         api.updateTrangThaiViPham(id, vp).enqueue(new Callback<PhieuViPham>() {
-            public void onResponse(Call<PhieuViPham> call, Response<PhieuViPham> res) {}
-            public void onFailure(Call<PhieuViPham> call, Throwable t) {}
+            public void onResponse(Call<PhieuViPham> call, Response<PhieuViPham> res) {
+            }
+
+            public void onFailure(Call<PhieuViPham> call, Throwable t) {
+            }
         });
     }
 
@@ -36,19 +41,32 @@ public class PhieuViPhamRepository {
             public void onResponse(Call<PhieuViPham> call, Response<PhieuViPham> res) {
                 if (res.isSuccessful() && onSuccess != null) onSuccess.run();
             }
-            public void onFailure(Call<PhieuViPham> call, Throwable t) {}
+
+            public void onFailure(Call<PhieuViPham> call, Throwable t) {
+            }
         });
     }
 
     public void searchByMaPM(String keyword, MutableLiveData<List<PhieuViPham>> data) {
-        api.searchPhieuViPham("ilike.*" + keyword + "*").enqueue(new Callback<List<PhieuViPham>>() {
+        // Chuẩn hóa keyword với định dạng Supabase ILIKE
+        String formatted = "ilike.*" + keyword + "*";
+
+        api.searchPhieuViPham(formatted).enqueue(new Callback<List<PhieuViPham>>() {
             @Override
-            public void onResponse(Call<List<PhieuViPham>> call, Response<List<PhieuViPham>> res) {
-                if (res.isSuccessful()) data.setValue(res.body());
+            public void onResponse(Call<List<PhieuViPham>> call, Response<List<PhieuViPham>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    data.postValue(response.body());
+                } else {
+                    data.postValue(null);
+                }
             }
+
             @Override
-            public void onFailure(Call<List<PhieuViPham>> call, Throwable t) {}
+            public void onFailure(Call<List<PhieuViPham>> call, Throwable t) {
+                data.postValue(null);
+            }
         });
     }
+
 
 }
