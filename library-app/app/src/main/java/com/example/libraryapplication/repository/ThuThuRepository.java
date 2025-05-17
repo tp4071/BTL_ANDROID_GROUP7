@@ -66,14 +66,14 @@ public class ThuThuRepository {
                     result.postValue(true);
                 } else {
                     // Sai tài khoản hoặc mật khẩu
-                    Log.e("LOGIN", "Tài khoản hoặc mật khẩu không đúng!");
-                    result.postValue(true);
+                    Log.e("Login", "Tài khoản hoặc mật khẩu không đúng!");
+                    result.postValue(false);
                 }
             }
             @Override
             public void onFailure(Call<List<ThuThu>> call, Throwable t) {
                 // Lỗi kết nối
-                Log.e("LOGIN", "Lỗi kết nối: " + t.getMessage());
+                Log.e("Login", "Lỗi kết nối: " + t.getMessage());
                 result.postValue(false);
             }
         });
