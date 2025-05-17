@@ -1,5 +1,7 @@
 package com.example.libraryapplication.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.libraryapplication.model.PhieuViPham;
@@ -21,10 +23,12 @@ public class ThongKeRepository {
         MutableLiveData<List<Sach>> data= new MutableLiveData<>();
         api.getTopSach(body).enqueue(new Callback<>() {
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
+                Log.d("MSG", body.toString());
                 if (res.isSuccessful()) data.setValue(res.body());
             }
 
             public void onFailure(Call<List<Sach>> call, Throwable t) {
+                Log.d("Error while call API",t.getMessage());
                 data.postValue(null);
             }
         });
@@ -39,6 +43,7 @@ public class ThongKeRepository {
             }
 
             public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
+                Log.d("Error while call API",t.getMessage());
                 data.postValue(null);
             }
         });
@@ -52,6 +57,7 @@ public class ThongKeRepository {
                 if (res.isSuccessful()) data.setValue(res.body());
             }
             public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
+                Log.d("Error while call API",t.getMessage());
                 data.postValue(null);
             }
         });

@@ -1,11 +1,13 @@
 package com.example.libraryapplication.viewmodel;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.repository.ThongKeRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +20,22 @@ public class ThongKeViewModel extends ViewModel {
 
     public ThongKeViewModel(){this.thongKeRepository=new ThongKeRepository();}
     public void getTK(String start,String end){
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, String> body = new HashMap<>();
-        body.put("p_ngay_bat_dau ", start);
+        body.put("p_ngay_bat_dau", start);
         body.put("p_ngay_ket_thuc", end);
-        if(top5Books==null)top5Books=thongKeRepository.getTopSach(body);
-        if(pmTK==null)pmTK=thongKeRepository.thongKePM(body);
-        if(pvpTK==null)pvpTK=thongKeRepository.thongKePhieuViPhamTheoNgay(body);
+        top5Books=thongKeRepository.getTopSach(body);
+        pmTK=thongKeRepository.thongKePM(body);
+        pvpTK=thongKeRepository.thongKePhieuViPhamTheoNgay(body);
+    }
+    public LiveData<List<Sach>> getTop5Books(){
+        return top5Books;
+    }
+    public LiveData<List<Map<String, Object>>> getPmTK(){
+        return pmTK;
+    }
+    public LiveData<List<Map<String, Object>>> getPvpTK(){
+        return pvpTK;
     }
 
 }

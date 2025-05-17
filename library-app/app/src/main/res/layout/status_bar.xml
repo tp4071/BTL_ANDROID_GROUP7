@@ -15,7 +15,6 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!-- Tên app -->
         <TextView
             android:id="@+id/home"
             android:layout_width="wrap_content"
@@ -27,7 +26,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- Vùng user icon -->
         <LinearLayout
             android:id="@+id/user_section"
             android:layout_width="wrap_content"
@@ -58,7 +56,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Menu xổ xuống -->
     <LinearLayout
         android:id="@+id/dropdown_menu"
         android:layout_width="wrap_content"

@@ -15,13 +15,14 @@ public class Sach implements Serializable {
     private int soTrang;
     private String tacGia;
     private double giaTien;
-    private String maTL; // Foreign key tới TheLoai
+    private String maTL;
+    private int slMuon;
 
     public Sach() {
     }
 
     public Sach(String maSach, String tenSach, String nxb, Date nph, int soLuong,
-                int soTrang, String tacGia, double giaTien, String maTL) {
+                int soTrang, String tacGia, double giaTien, String maTL, int slMuon) {
         this.maSach = maSach;
         this.tenSach = tenSach;
         this.nxb = nxb;
@@ -31,6 +32,7 @@ public class Sach implements Serializable {
         this.tacGia = tacGia;
         this.giaTien = giaTien;
         this.maTL = maTL;
+        this.slMuon=slMuon;
     }
 
     public String getMaSach() {
@@ -105,6 +107,8 @@ public class Sach implements Serializable {
         this.maTL = maTL;
     }
 
+    public int getSlMuon(){return slMuon;}
+    public void setSLMuon(int slMuon){this.slMuon=slMuon;}
 
     @NonNull
     @Override

@@ -50,4 +50,7 @@ dependencies {
     // ViewModel + LiveData (Jetpack)
     implementation(libs.lifecycle.livedata)
     implementation(libs.lifecycle.viewmodel)
+
+    //Chart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
