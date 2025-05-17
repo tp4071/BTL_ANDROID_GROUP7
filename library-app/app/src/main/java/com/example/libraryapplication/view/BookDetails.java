@@ -1,6 +1,9 @@
 package com.example.libraryapplication.view;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -8,13 +11,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.libraryapplication.R;
 
 import com.example.libraryapplication.model.Sach;
+import com.example.libraryapplication.model.TheLoai;
+import com.example.libraryapplication.viewmodel.TheLoaiViewModel;
 
 public class BookDetails extends AppCompatActivity {
     TextView tvMaSach,tvTenSach,tvTacGia,tvNXB,tvNPH,tvSoTrang,tvSoLuong, tvGiaTien,tvMaTL;
+    Button borrowBook;
+    TheLoaiViewModel theLoaiViewModel;
+    TheLoai tl;
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +37,27 @@ public class BookDetails extends AppCompatActivity {
         });
         mapping();
         Sach s=(Sach)getIntent().getSerializableExtra("sach");
-        tvMaSach.setText("ID:"+s.getMaSach());
-        tvTenSach.setText(s.getTenSach());
-        tvTacGia.setText("Tác giả: "+s.getTacGia());
-        tvNXB.setText("Nhà xuất bản: "+s.getNxb());
-        tvNPH.setText("Nhà phát hành: "+s.getNph());
-        tvSoTrang.setText("Số trang: "+s.getSoTrang());
-        tvSoLuong.setText("Số lượng: "+s.getSoLuong());
-        tvGiaTien.setText("Giá tiền: "+s.getGiaTien()+ " VNĐ");
-        tvMaTL.setText("Mã thể loại: "+s.getMaTL());
+        if (s != null) {
+            theLoaiViewModel.getTLById(s.getMaTL()).observe(this, theLoai -> tl=theLoai);
+        }
+        if (s != null) {
+            tvMaSach.setText(String.format("ID:%s", s.getMaSach()));
+            tvTenSach.setText(s.getTenSach());
+            tvTacGia.setText(String.format("Tác giả: %s", s.getTacGia()));
+            tvNXB.setText(String.format("Nhà xuất bản: %s", s.getNxb()));
+            tvNPH.setText(String.format("Nhà phát hành: %s", s.getNph()));
+            tvSoTrang.setText(String.format("Số trang: %d", s.getSoTrang()));
+            tvSoLuong.setText(String.format("Số lượng: %d", s.getSoLuong()));
+            tvGiaTien.setText(String.format("Giá tiền: %s VNĐ", s.getGiaTien()));
+            tvMaTL.setText(String.format("Thể loại: %s", tl.getTenTL()));
+            borrowBook.setOnClickListener(v -> {
+                Intent intent=new Intent(BookDetails.this,PMForm.class);
+                intent.putExtra("sach",s);
+                intent.putExtra("theLoai",tl);
+                startActivity(intent);
+            });
+        }
+
     }
     private void mapping(){
         tvMaSach=findViewById(R.id.tvMaSach);
@@ -47,5 +69,8 @@ public class BookDetails extends AppCompatActivity {
         tvSoLuong=findViewById(R.id.tvSoLuong);
         tvGiaTien=findViewById(R.id.tvGiaTien);
         tvMaTL=findViewById(R.id.tvMaTL);
+        theLoaiViewModel=new ViewModelProvider(this).get(TheLoaiViewModel.class);
+        borrowBook=findViewById(R.id.borrowBook);
+        tl=new TheLoai();
     }
 }

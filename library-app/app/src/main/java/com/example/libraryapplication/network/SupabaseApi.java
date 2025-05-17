@@ -81,9 +81,9 @@ public interface SupabaseApi {
 
     // ===The loai ===
     @GET("theloai")
-    Call<List<PhieuMuon>> getTheLoai();
+    Call<List<TheLoai>> getTheLoai();
     @GET("theloai/maSach=eq.{id}")
-    Call<List<TheLoai>> getTLByID(@Path("id") String id);
+    Call<TheLoai> getTLByID(@Path("id") String id);
     @GET("rpc/sach_duoc_muon_it_nhat")
     Call<List<Sach>> getSachMuonItNhat();
 

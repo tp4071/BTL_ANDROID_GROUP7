@@ -2,10 +2,8 @@ package com.example.libraryapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -14,17 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.PhieuMuon;
 import com.example.libraryapplication.model.Sach;
-import com.example.libraryapplication.viewmodel.PMViewModel;
+import com.example.libraryapplication.viewmodel.PhieuMuonViewModel;
 import com.example.libraryapplication.viewmodel.SachViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomePage extends AppCompatActivity {
     ListView newBook,newPM;
@@ -34,7 +30,7 @@ public class HomePage extends AppCompatActivity {
     ArrayList<Sach> newBookArr;
     ArrayList<PhieuMuon> newPMArr;
     private SachViewModel sachViewModel;
-    private PMViewModel pmViewModel;
+    private PhieuMuonViewModel pmViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +44,11 @@ public class HomePage extends AppCompatActivity {
             return insets;
         });
         mapping();
-        sachViewModel.getLatestBook().observe(this, new Observer<List<Sach>>() {
-            @Override
-            public void onChanged(List<Sach> saches) {
-                if (saches != null) {
-                    newBookArr.clear();
-                    newBookArr.addAll(saches);
-                    newBookAdt.notifyDataSetChanged();
-                }
+        sachViewModel.getLatestBook().observe(this, saches -> {
+            if (saches != null) {
+                newBookArr.clear();
+                newBookArr.addAll(saches);
+                newBookAdt.notifyDataSetChanged();
             }
         });
         newBook.setOnItemClickListener((parent, view, position, id) -> {
@@ -64,55 +57,36 @@ public class HomePage extends AppCompatActivity {
             intent.putExtra("sach", sach);
             startActivity(intent);
         });
-        pmViewModel.getLatestPhieuMuon().observe(this, new Observer<List<PhieuMuon>>() {
-            @Override
-            public void onChanged(List<PhieuMuon> phieuMuons) {
-
-                if(phieuMuons!=null){
-                    newPMArr.clear();
-                    newPMArr.addAll(phieuMuons);
-                    newPMAdt.notifyDataSetChanged();
-                }
+        pmViewModel.getLatestPhieuMuon().observe(this, phieuMuons -> {
+            if(phieuMuons!=null){
+                newPMArr.clear();
+                newPMArr.addAll(phieuMuons);
+                newPMAdt.notifyDataSetChanged();
             }
         });
         //menu
-        pvpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomePage.this,PhieuViPhamActivity.class);
-                startActivity(intent);
-            }
+        pvpBtn.setOnClickListener(v -> {
+            Intent intent=new Intent(HomePage.this,PhieuViPhamActivity.class);
+            startActivity(intent);
         });
-        pmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomePage.this, PMManagedment.class);
-                startActivity(intent);
-            }
+        pmBtn.setOnClickListener(v -> {
+            Intent intent=new Intent(HomePage.this, PMManagedment.class);
+            startActivity(intent);
         });
 
-        bookBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomePage.this, BookManagedment.class);
-                startActivity(intent);
-            }
+        bookBtn.setOnClickListener(v -> {
+            Intent intent=new Intent(HomePage.this, BookManagedment.class);
+            startActivity(intent);
         });
 
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomePage.this,Search.class);
-                startActivity(intent);
-            }
+        searchBtn.setOnClickListener(v -> {
+            Intent intent=new Intent(HomePage.this,Search.class);
+            startActivity(intent);
         });
 
-        tkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(HomePage.this, ThongKe.class);
-                startActivity(intent);
-            }
+        tkBtn.setOnClickListener(v -> {
+            Intent intent=new Intent(HomePage.this, ThongKe.class);
+            startActivity(intent);
         });
     }
     private void mapping(){
@@ -125,7 +99,7 @@ public class HomePage extends AppCompatActivity {
         newPMArr=new ArrayList<>();
         newPMAdt=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,newPMArr);
         newPM.setAdapter(newPMAdt);
-        pmViewModel=new ViewModelProvider(this).get(PMViewModel.class);
+        pmViewModel=new ViewModelProvider(this).get(PhieuMuonViewModel.class);
         bookBtn=findViewById(R.id.bookBtn);
         pmBtn=findViewById(R.id.pmBtn);
         searchBtn=findViewById(R.id.searchBtn);

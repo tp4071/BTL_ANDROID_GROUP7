@@ -1,6 +1,8 @@
 package com.example.libraryapplication.model;
 
-public class TheLoai {
+import java.io.Serializable;
+
+public class TheLoai implements Serializable {
     private String maTL;
     private String tenTL;
 
