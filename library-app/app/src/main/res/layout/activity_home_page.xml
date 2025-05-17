@@ -9,7 +9,9 @@
     tools:context=".view.HomePage"
     >
 
-    <include layout="@layout/status_bar"/>
+    <include
+        android:id="@+id/status_bar"
+        layout="@layout/status_bar"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -40,6 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <include layout="@layout/menu_bar" />
+    <include
+        android:id="@+id/menuBar"
+        layout="@layout/menu_bar" />
 
 </LinearLayout>

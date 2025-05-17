@@ -3,6 +3,7 @@ package com.example.libraryapplication.view;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,6 +39,13 @@ public class HomePage extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page);
 
+        View menuInclude = findViewById(R.id.menuBar);
+        View status = findViewById(R.id.status_bar);
+        StatusBarHandler.backToHomePage(status, this);
+        StatusBarHandler.comeToQLTKTT(status , this);
+        StatusBarHandler.updateNameTK(status , this);
+        MenuBarHandler.setupMenu(menuInclude, this);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -65,29 +73,29 @@ public class HomePage extends AppCompatActivity {
             }
         });
         //menu
-        pvpBtn.setOnClickListener(v -> {
-            Intent intent=new Intent(HomePage.this,PhieuViPhamActivity.class);
-            startActivity(intent);
-        });
-        pmBtn.setOnClickListener(v -> {
-            Intent intent=new Intent(HomePage.this, PMManagedment.class);
-            startActivity(intent);
-        });
-
-        bookBtn.setOnClickListener(v -> {
-            Intent intent=new Intent(HomePage.this, BookManagedment.class);
-            startActivity(intent);
-        });
-
-        searchBtn.setOnClickListener(v -> {
-            Intent intent=new Intent(HomePage.this,Search.class);
-            startActivity(intent);
-        });
-
-        tkBtn.setOnClickListener(v -> {
-            Intent intent=new Intent(HomePage.this, ThongKe.class);
-            startActivity(intent);
-        });
+//        pvpBtn.setOnClickListener(v -> {
+//            Intent intent=new Intent(HomePage.this,PhieuViPhamActivity.class);
+//            startActivity(intent);
+//        });
+//        pmBtn.setOnClickListener(v -> {
+//            Intent intent=new Intent(HomePage.this, PMManagedment.class);
+//            startActivity(intent);
+//        });
+//
+//        bookBtn.setOnClickListener(v -> {
+//            Intent intent=new Intent(HomePage.this, BookManagedment.class);
+//            startActivity(intent);
+//        });
+//
+//        searchBtn.setOnClickListener(v -> {
+//            Intent intent=new Intent(HomePage.this,Search.class);
+//            startActivity(intent);
+//        });
+//
+//        tkBtn.setOnClickListener(v -> {
+//            Intent intent=new Intent(HomePage.this, ThongKe.class);
+//            startActivity(intent);
+//        });
     }
     private void mapping(){
         newBook=findViewById(R.id.newBook);
