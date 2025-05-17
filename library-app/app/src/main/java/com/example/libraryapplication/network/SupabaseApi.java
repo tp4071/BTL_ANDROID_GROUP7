@@ -68,8 +68,22 @@ public interface SupabaseApi {
 
 
     // === Quản lý tài khoản thủ thư ===
-    @PUT("thuthu?maTK=eq.{id}")
-    Call<ThuThu> updateThuThu(@Path("id") String maTK, @Body ThuThu thuThu);
+    @PUT("thuthu")
+    Call<ThuThu> updateThuThu(
+            @Query("id") String maTK,
+            @Body ThuThu thuThu
+    );
+    @GET("thuthu")
+    Call<ThuThu> getThuThu(
+            @Query("id") String maTK
+    );
+
+    // === Đăng nhập ===
+    @GET("thuthu")
+    Call<List<ThuThu>> dangNhap(
+            @Query("tenTK") String tenTK,
+            @Query("matKhau") String matKhau
+    );
 
     // === Thống kê ===
     @POST("rpc/top_5_sach_muon_nhieu")

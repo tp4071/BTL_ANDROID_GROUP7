@@ -84,14 +84,22 @@ public class PMManagedment extends AppCompatActivity {
         btn_CapNhatTrangThaiPM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhieuMuon pmUpdate = listPM.get(currentPosition);
+                if ( txt_HienThiMaPM.getText().toString().trim().isEmpty() || spinnerTrangThaiPM.getSelectedItem().toString().isEmpty() ) {
+                    Toast.makeText(PMManagedment.this, "VUI LÒNG CHỌN 1 PHIẾU MƯỢN ĐỂ THỰC HIỆN THAO TÁC", Toast.LENGTH_SHORT).show();
+                } else {
+                    PhieuMuon pmUpdate = listPM.get(currentPosition);
 //                String trangThai = edt_CapNhatTrangThaiPM.getText().toString();
-                String trangThai = spinnerTrangThaiPM.getSelectedItem().toString();
-                pmUpdate.setTrangThai(trangThai);
-                Log.d("CapNhatPM", "maPM = " + pmUpdate.getMaPM() + ", trangThai = " + trangThai);
-                viewModel.updatePhieuMuon(pmUpdate.getMaPM() , pmUpdate);
-                viewModel.loadPhieuMuon();
-//                clearViewInfor();
+                    String trangThai = spinnerTrangThaiPM.getSelectedItem().toString();
+                    if (pmUpdate.getTrangThai().equals(trangThai)) {
+                        Toast.makeText(PMManagedment.this, "BẠN ĐÃ THỰC HIỆN CẬP NHẬT TRẠNG THÁI PHIẾU MƯỢN CHƯA ?", Toast.LENGTH_SHORT).show();
+                    } else {
+                        pmUpdate.setTrangThai(trangThai);
+                        Log.d("CapNhatPM", "maPM = " + pmUpdate.getMaPM() + ", trangThai = " + trangThai);
+                        viewModel.updatePhieuMuon(pmUpdate.getMaPM() , pmUpdate);
+                        viewModel.loadPhieuMuon();
+                        Toast.makeText(PMManagedment.this, "CẬP NHẬT TRẠNG THÁI PHIẾU MƯỢN THÀNH CÔNG !!! ", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
