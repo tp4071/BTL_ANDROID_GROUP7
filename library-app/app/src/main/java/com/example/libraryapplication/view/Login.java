@@ -1,6 +1,8 @@
 package com.example.libraryapplication.view;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,19 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
+        // Thiết lập observer CHỈ MỘT LẦN
+        accountThuThuViewModel.getLoginResult().observe(this, isSuccess -> {
+            if (isSuccess != null && isSuccess) {
+                Toast.makeText(getApplicationContext(), "ĐĂNG NHẬP THÀNH CÔNG", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Login.this, HomePage.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "ĐĂNG NHẬP THẤT BẠI", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -49,25 +64,17 @@ public class Login extends AppCompatActivity {
                 String tenTK = edt_TenTaiKhoan.getText().toString().trim() ;
                 String matKhau = edt_MatKhau.getText().toString().trim() ;
                 accountThuThuViewModel.dangNhapThuThu(tenTK , matKhau , Login.this);
-//                if (statusLogin) {
-//                    Toast.makeText(Login.this, "--->>> ĐĂNG NHẬP THÀNH CÔNG", Toast.LENGTH_SHORT).show();
-//                    intent = new Intent(Login.this , HomePage.class);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    Toast.makeText(Login.this, "--->>> ĐĂNG NHẬP THẤT BẠI", Toast.LENGTH_SHORT).show();
-//                }
                 // Quan sát kết quả login
-                accountThuThuViewModel.getLoginResult().observe(Login.this, isSuccess -> {
-                    if (isSuccess != null && isSuccess) {
-                        Toast.makeText(Login.this, "ĐĂNG NHẬP THÀNH CÔNG", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Login.this, HomePage.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(Login.this, "ĐĂNG NHẬP THẤT BẠI", Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                accountThuThuViewModel.getLoginResult().observe(Login.this, isSuccess -> {
+//                    if (isSuccess != null && isSuccess) {
+//                        Toast.makeText(getApplicationContext(), "ĐĂNG NHẬP THÀNH CÔNG", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(Login.this, HomePage.class);
+//                        startActivity(intent);
+//                        finish();
+//                    } else {
+//                        Toast.makeText(getApplicationContext(), "ĐĂNG NHẬP THẤT BẠI", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
             }
         });
     }

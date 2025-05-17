@@ -2,6 +2,7 @@ package com.example.libraryapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.libraryapplication.R;
+import com.example.libraryapplication.sharedPreferences.SessionManager;
 import com.example.libraryapplication.viewmodel.AccountThuThuViewModel;
 
 public class AccountManagedment extends AppCompatActivity {
@@ -45,8 +47,15 @@ public class AccountManagedment extends AppCompatActivity {
         btn_CapNhatMK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkInput()) {
-                }
+                SessionManager sessionManager = new SessionManager(AccountManagedment.this);
+                String tenTK = sessionManager.getTenTK() ;
+                String matKhau = sessionManager.getMatKhau();
+                Log.d("Tên mật khẩu log ra ","Tên tài khoản : " + tenTK) ;
+                Log.d("Mật khẩu cũ " , "Mật khẩu cũ : " + matKhau) ;
+//                if (checkInput()) {
+//
+//
+//                }
             }
         });
     }
