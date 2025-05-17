@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:id="@+id/activity_thong_ke"
     android:layout_height="match_parent">
 
     <!-- Status bar ở trên cùng -->
@@ -37,7 +38,7 @@
                     android:focusable="false"
                     android:inputType="date" />
 
-                <Space android:layout_width="16dp" android:layout_height="wrap_content" />
+                <Space android:layout_width="5dp" android:layout_height="wrap_content" />
 
                 <EditText
                     android:id="@+id/endDateInput"
@@ -47,6 +48,27 @@
                     android:hint="Đến ngày"
                     android:focusable="false"
                     android:inputType="date" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <Button
+                    android:layout_width="0dp"
+                    android:id="@+id/tk"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thống kê"
+                    android:layout_marginEnd="8dp"
+                    />
+                <Button
+                    android:layout_width="0dp"
+                    android:id="@+id/tx"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tải xuống"
+                    />
             </LinearLayout>
 
             <!-- Top 5 sách được mượn -->
@@ -76,7 +98,7 @@
                 android:textSize="18sp"
                 android:layout_marginBottom="8dp" />
 
-            <com.github.mikephil.charting.charts.BarChart
+            <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/borrowChart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -91,7 +113,7 @@
                 android:textSize="18sp"
                 android:layout_marginBottom="8dp" />
 
-            <com.github.mikephil.charting.charts.BarChart
+            <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/violationChart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
