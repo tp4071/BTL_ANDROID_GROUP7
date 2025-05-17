@@ -1,5 +1,7 @@
 package com.example.libraryapplication.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.libraryapplication.model.TheLoai;
@@ -15,13 +17,16 @@ import retrofit2.Response;
 public class TheLoaiRepository {
     private final SupabaseApi api = SupabaseClient.getApi();
     public TheLoaiRepository(){}
-    public MutableLiveData<TheLoai> getTLByID(String id) {
+    public MutableLiveData<TheLoai> getTLByID(String maTL) {
         MutableLiveData<TheLoai> data=new MutableLiveData<>();
-        api.getTLByID(id).enqueue(new Callback<>() {
-            public void onResponse(Call<TheLoai> call, Response<TheLoai> res) {
-                if (res.isSuccessful()) data.setValue(res.body());
+        api.getTLByID("eq."+maTL).enqueue(new Callback<>() {
+            public void onResponse(Call<List<TheLoai>> call, Response<List<TheLoai>> res) {
+                if (res.isSuccessful()) {
+                    data.setValue(res.body().get(0));
+                }
             }
-            public void onFailure(Call<TheLoai> call, Throwable t) {
+            public void onFailure(Call<List<TheLoai>> call, Throwable t) {
+                Log.d("Error while call API",t.getMessage());
                 data.postValue(null);
             }
         });
@@ -30,11 +35,16 @@ public class TheLoaiRepository {
 
     public MutableLiveData<List<TheLoai>> getTheLoai() {
         MutableLiveData<List<TheLoai>> data=new MutableLiveData<>();
-        api.getTheLoai().enqueue(new Callback<List<TheLoai>>() {
+        api.getTheLoai().enqueue(new Callback<>() {
             public void onResponse(Call<List<TheLoai>> call, Response<List<TheLoai>> res) {
+
                 if (res.isSuccessful()) data.setValue(res.body());
+                else data.setValue(null);
             }
-            public void onFailure(Call<List<TheLoai>> call, Throwable t) {data.postValue(null);}
+
+            public void onFailure(Call<List<TheLoai>> call, Throwable t) {
+                data.postValue(null);
+            }
         });
         return data;
     }

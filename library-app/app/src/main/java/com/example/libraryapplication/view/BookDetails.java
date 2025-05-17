@@ -3,6 +3,7 @@ package com.example.libraryapplication.view;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,14 +17,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.libraryapplication.R;
 
 import com.example.libraryapplication.model.Sach;
-import com.example.libraryapplication.model.TheLoai;
 import com.example.libraryapplication.viewmodel.TheLoaiViewModel;
+
+import java.text.SimpleDateFormat;
 
 public class BookDetails extends AppCompatActivity {
     TextView tvMaSach,tvTenSach,tvTacGia,tvNXB,tvNPH,tvSoTrang,tvSoLuong, tvGiaTien,tvMaTL;
     Button borrowBook;
     TheLoaiViewModel theLoaiViewModel;
-    TheLoai tl;
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +39,24 @@ public class BookDetails extends AppCompatActivity {
         mapping();
         Sach s=(Sach)getIntent().getSerializableExtra("sach");
         if (s != null) {
-            theLoaiViewModel.getTLById(s.getMaTL()).observe(this, theLoai -> tl=theLoai);
-        }
-        if (s != null) {
-            tvMaSach.setText(String.format("ID:%s", s.getMaSach()));
-            tvTenSach.setText(s.getTenSach());
-            tvTacGia.setText(String.format("Tác giả: %s", s.getTacGia()));
-            tvNXB.setText(String.format("Nhà xuất bản: %s", s.getNxb()));
-            tvNPH.setText(String.format("Nhà phát hành: %s", s.getNph()));
-            tvSoTrang.setText(String.format("Số trang: %d", s.getSoTrang()));
-            tvSoLuong.setText(String.format("Số lượng: %d", s.getSoLuong()));
-            tvGiaTien.setText(String.format("Giá tiền: %s VNĐ", s.getGiaTien()));
-            tvMaTL.setText(String.format("Thể loại: %s", tl.getTenTL()));
-            borrowBook.setOnClickListener(v -> {
-                Intent intent=new Intent(BookDetails.this,PMForm.class);
-                intent.putExtra("sach",s);
-                intent.putExtra("theLoai",tl);
-                startActivity(intent);
+            SimpleDateFormat dateFormat=new SimpleDateFormat("dd/MM/yyyy");
+            theLoaiViewModel.getTLById(s.getMaTL()).observe(this, theLoai -> {
+                tvMaSach.setText(String.format("ID:%s", s.getMaSach()));
+                tvTenSach.setText(s.getTenSach());
+                tvTacGia.setText(String.format("Tác giả: %s", s.getTacGia()));
+                tvNXB.setText(String.format("Nhà xuất bản: %s", s.getNxb()));
+                tvNPH.setText(String.format("Ngay phát hành: %s",dateFormat.format(s.getNph())));
+                tvSoTrang.setText(String.format("Số trang: %d", s.getSoTrang()));
+                tvSoLuong.setText(String.format("Số lượng: %d", s.getSoLuong()));
+                tvGiaTien.setText(String.format("Giá tiền: %s VNĐ", s.getGiaTien()));
+                tvMaTL.setText(String.format("Thể loại: %s", theLoai.getTenTL()));
+
+                borrowBook.setOnClickListener(v -> {
+                    Intent intent = new Intent(BookDetails.this, PMForm.class);
+                    intent.putExtra("sach", s);
+                    intent.putExtra("theLoai", theLoai);
+                    startActivity(intent);
+                });
             });
         }
 
@@ -71,6 +73,5 @@ public class BookDetails extends AppCompatActivity {
         tvMaTL=findViewById(R.id.tvMaTL);
         theLoaiViewModel=new ViewModelProvider(this).get(TheLoaiViewModel.class);
         borrowBook=findViewById(R.id.borrowBook);
-        tl=new TheLoai();
     }
 }

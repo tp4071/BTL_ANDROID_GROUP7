@@ -109,8 +109,8 @@ public class Sach implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-        return tenSach+" - "+tacGia+" - "+formatter.format(nph);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return tenSach+" - "+tacGia+" - "+nxb+" - "+formatter.format(nph);
     }
 }
 

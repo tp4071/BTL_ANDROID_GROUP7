@@ -30,7 +30,7 @@ public class PMForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pmform);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_pmform), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -51,14 +51,18 @@ public class PMForm extends AppCompatActivity {
                     Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                phieuMuonViewModel.createPhieuMuon(bookId.getText().toString(),bookQuantity.getText().toString(),studentIdInput.getText().toString());
+                if(studentIdInput.getText().toString().length()<10){
+                    Toast.makeText(this, "Mã sinh viên bao gồm 10 số, vui lòng nhập lại", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                phieuMuonViewModel.createPhieuMuon(s,quantityInput.getText().toString(),studentIdInput.getText().toString());
             });
         }
         phieuMuonViewModel.getStatusMessage().observe(this,message->{
             if(message==null)return;
+
             if(!message.equals("OK")){
                 Toast.makeText(this,message,Toast.LENGTH_LONG).show();
-                return;
             }
             else Toast.makeText(this,"Tạo phiếu mượn thành công",Toast.LENGTH_SHORT).show();
         });

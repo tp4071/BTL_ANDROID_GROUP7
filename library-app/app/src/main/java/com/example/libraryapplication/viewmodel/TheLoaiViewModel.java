@@ -1,5 +1,7 @@
 package com.example.libraryapplication.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -15,7 +17,7 @@ public class TheLoaiViewModel extends  ViewModel{
     private MutableLiveData<List<TheLoai>> theLoais;
     public TheLoaiViewModel(){this.theLoaiRepository=new TheLoaiRepository();}
     public LiveData<TheLoai> getTLById(String id){
-        if(theLoai==null)theLoai=theLoaiRepository.getTLByID(id);
+        theLoai=theLoaiRepository.getTLByID(id);
         return theLoai;
     }
     public LiveData<List<TheLoai>> getTheLoai(){

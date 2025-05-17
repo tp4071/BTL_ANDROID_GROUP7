@@ -9,6 +9,7 @@ import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,14 +30,16 @@ public class SachRepository {
     }
 
 
-    public MutableLiveData<List<Sach>> searchSach(String keyword) {
+    public MutableLiveData<List<Sach>> searchSach(Map<String,String> body) {
         MutableLiveData<List<Sach>> data = new MutableLiveData<>();
-        api.searchSach(keyword).enqueue(new Callback<List<Sach>>() {
+        api.searchSach(body).enqueue(new Callback<>() {
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
-
             }
-            public void onFailure(Call<List<Sach>> call, Throwable t) {data.postValue(null);}
+
+            public void onFailure(Call<List<Sach>> call, Throwable t) {
+                data.postValue(null);
+            }
         });
         return data;
     }
@@ -59,7 +62,13 @@ public class SachRepository {
 
     public void updateSach(String id, Sach sach) {
         api.updateSach(id, sach).enqueue(new Callback<Sach>() {
-            public void onResponse(Call<Sach> call, Response<Sach> res) {}
+            public void onResponse(Call<Sach> call, Response<Sach> res) {
+                Log.d("Id",id);
+                Log.d("Sach",sach.toString());
+                Sach updatedSach = res.body();
+                // Ví dụ: bạn có thể thông báo rằng việc cập nhật sách thành công
+                Log.d("API_SUCCESS", "Sách đã được cập nhật: " + updatedSach);
+            }
             public void onFailure(Call<Sach> call, Throwable t) {}
         });
     }
