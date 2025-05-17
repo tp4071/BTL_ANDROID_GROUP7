@@ -19,7 +19,7 @@
         android:layout_below="@id/status_bar"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Quản lý phiếu mượn"
+        android:text="Trả sách"
         android:textSize="20sp"
         android:textStyle="bold" />
 
