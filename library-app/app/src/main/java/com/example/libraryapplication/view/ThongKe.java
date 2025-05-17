@@ -64,14 +64,14 @@ public class ThongKe extends AppCompatActivity {
         tk.setOnClickListener(v -> {
             SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             try {
+                if(start.getText().toString().isEmpty()||end.getText().toString().isEmpty()){
+                    Toast.makeText(ThongKe.this,"Hãy nhập khoảng thời gian cần thống kê",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Date startDate=sdf.parse(start.getText().toString());
                 Date endDate=sdf.parse(end.getText().toString());
                 if(startDate.after(endDate)){
                     Toast.makeText(ThongKe.this,"Thời gian thống kê không hợp lệ",Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(start.getText().toString().isEmpty()||end.getText().toString().isEmpty()){
-                    Toast.makeText(ThongKe.this,"Hãy nhập khoảng thời gian cần thống kê",Toast.LENGTH_LONG).show();
                     return;
                 }
                 thongKeViewModel.getTK(start.getText().toString(),end.getText().toString());
