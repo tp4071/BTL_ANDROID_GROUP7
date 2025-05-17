@@ -29,6 +29,14 @@ public class CreatePhieuViPhamActivity extends AppCompatActivity {
         EditText edtKieuVP = findViewById(R.id.edtType);
         Button btnSave = findViewById(R.id.btnSave);
         Button btnCancel = findViewById(R.id.btnCancel);
+        edtTrangThai.setKeyListener(null);
+        edtTrangThai.setCursorVisible(false);
+        edtTrangThai.setFocusable(false);
+        edtTrangThai.setFocusableInTouchMode(false);
+        edtKieuVP.setKeyListener(null);
+        edtKieuVP.setCursorVisible(false);
+        edtKieuVP.setFocusable(false);
+        edtKieuVP.setFocusableInTouchMode(false);
 
         btnSave.setOnClickListener(v -> {
             String maPM = edtMaPM.getText().toString();
