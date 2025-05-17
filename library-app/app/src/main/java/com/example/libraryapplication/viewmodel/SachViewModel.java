@@ -1,6 +1,7 @@
 package com.example.libraryapplication.viewmodel;
 
 
+
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -10,7 +11,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.repository.SachRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SachViewModel extends ViewModel {
     private SachRepository sachRepository;
@@ -26,9 +29,9 @@ public class SachViewModel extends ViewModel {
         return top5Books;
     }
     public LiveData<List<Sach>> getSearchResult(String keyword){
-        if (searchResult == null) {
-            searchResult = sachRepository.searchSach(keyword);
-        }
+        Map<String, String> body = new HashMap<>();
+        body.put("p_tu_khoa", keyword);
+        searchResult = sachRepository.searchSach(body);
         return searchResult;
     }
 

@@ -76,7 +76,7 @@ public class PhieuMuon {
 
     @Override
     public String toString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return "ID:"+maPM+" - Ngày mượn: "+formatter.format(ngayMuon)+"\nMã sinh viên: "+maSinhVien+"\nMã sách: "+maSach+"\nTrạng thái: "+trangThai;
     }
 

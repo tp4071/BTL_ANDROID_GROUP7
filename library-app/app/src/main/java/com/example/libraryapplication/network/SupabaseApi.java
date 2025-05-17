@@ -21,7 +21,7 @@ public interface SupabaseApi {
 //    Call<PhieuMuon> updateTrangThaiPM(@Path("id") String maPM, @Body PhieuMuon pm);
     @PUT("phieumuon")
     Call<List<PhieuMuon>> updateTrangThaiPM(
-            @Query("maPM") String maPM,  // truyền "eq.PMc9523ca3"
+            @Query("maPM") String maPM,
             @Body PhieuMuon pm
     );
 
@@ -35,8 +35,10 @@ public interface SupabaseApi {
     @GET("sach")
     Call<List<Sach>> getAllSach();
 
-    @GET("sach?tenSach=ilike.*{keyword}*")  // tìm kiếm theo từ khóa (keyword)
-    Call<List<Sach>> searchSach(@Path("keyword") String keyword);
+    @POST("rpc/tim_kiem_sach")
+    Call<List<Sach>> searchSach(
+            @Body Map<String, String> body
+    );
 
     @GET("sach?maSach=eq.{id}")
     Call<List<Sach>> getSachById(@Path("id") String id);
@@ -44,8 +46,8 @@ public interface SupabaseApi {
     @POST("sach")
     Call<Sach> createSach(@Body Sach sach);
 
-    @PUT("sach?maSach=eq.{id}")
-    Call<Sach> updateSach(@Path("id") String id, @Body Sach sach);
+    @PUT("sach")
+    Call<Sach> updateSach(@Query("maSach") String id, @Body Sach sach);
 
     @DELETE("sach?maSach=eq.{id}")
     Call<Void> deleteSach(@Path("id") String id);
@@ -96,8 +98,9 @@ public interface SupabaseApi {
     // ===The loai ===
     @GET("theloai")
     Call<List<TheLoai>> getTheLoai();
-    @GET("theloai/maSach=eq.{id}")
-    Call<TheLoai> getTLByID(@Path("id") String id);
+    @GET("theloai")
+    Call<List<TheLoai>> getTLByID(@Query("maTL") String maTL);
+
     @GET("rpc/sach_duoc_muon_it_nhat")
     Call<List<Sach>> getSachMuonItNhat();
 

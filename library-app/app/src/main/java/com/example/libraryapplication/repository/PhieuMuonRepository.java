@@ -30,15 +30,17 @@ public class PhieuMuonRepository {
     }
     //check pm
     public void checkLegit(Map<String,Object> body, Consumer<String> callback){
-        api.kiemTraMuonSach(body).enqueue(new Callback<String>(){
+        api.kiemTraMuonSach(body).enqueue(new Callback<>() {
             public void onResponse(Call<String> call, Response<String> res) {
+                Log.d("msg", body.toString());
                 if (res.isSuccessful() && res.body() != null) {
-                    callback.accept(res.body());  // truyền thông điệp trả về
-                } else {
-                    callback.accept("Lỗi kiểm tra hợp lệ");
+                    callback.accept(res.body());
                 }
             }
-            public void onFailure(Call<String> call, Throwable t) {}
+
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("Error while call APi", t.getMessage());
+            }
         });
     }
 
