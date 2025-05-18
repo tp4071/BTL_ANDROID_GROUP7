@@ -24,7 +24,9 @@
             android:text="Quản lý thư viện"
             android:textColor="#FAFAFA"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="?attr/selectableItemBackground"
+            />
 
         <LinearLayout
             android:id="@+id/user_section"

@@ -6,10 +6,9 @@
     android:id="@+id/activity_thong_ke"
     android:layout_height="match_parent">
 
-    <!-- Status bar ở trên cùng -->
-    <include layout="@layout/status_bar" />
+    <include layout="@layout/status_bar" android:id="@+id/status_bar"/>
 
-    <!-- Nội dung chính -->
+    <!-- Main Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -55,23 +54,15 @@
                 android:orientation="horizontal"
                 android:gravity="center">
                 <Button
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:id="@+id/tk"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="Thống kê"
                     android:layout_marginEnd="8dp"
                     />
-                <Button
-                    android:layout_width="0dp"
-                    android:id="@+id/tx"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tải xuống"
-                    />
             </LinearLayout>
 
-            <!-- Top 5 sách được mượn -->
+            <!-- Most borrowed book -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,13 +74,13 @@
             <ListView
                 android:id="@+id/topBooksList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:divider="@android:color/darker_gray"
                 android:dividerHeight="1dp"
                 android:nestedScrollingEnabled="true"
                 android:layout_marginBottom="24dp" />
 
-            <!-- Biểu đồ phiếu mượn -->
+            <!-- PM Chart -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,9 +93,9 @@
                 android:id="@+id/borrowChart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="15dp" />
 
-            <!-- Biểu đồ phiếu vi phạm -->
+            <!-- PVP Chart -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,15 +110,15 @@
                 android:layout_height="200dp"
                 android:layout_marginBottom="24dp" />
 
-            <!-- Nút tải xuống -->
+            <!-- Download -->
             <Button
                 android:id="@+id/downloadButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tải xuống thống kê" />
         </LinearLayout>
     </ScrollView>
 
-    <!-- Menu bar dưới cùng -->
-    <include layout="@layout/menu_bar" />
+    <!-- Menu bar -->
+    <include layout="@layout/menu_bar" android:id="@+id/menu_bar" />
 </LinearLayout>

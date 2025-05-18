@@ -40,15 +40,17 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_search);
-        View status=findViewById(R.id.status_bar);
-        View menu=findViewById(R.id.menuBar);
-        //MenuBarHandler.setupMenu(menu, this);
-        //StatusBarHandler.backToHomePage(status, this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_search), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        View menuInclude = findViewById(R.id.menu_bar);
+        View status = findViewById(R.id.status_bar);
+        StatusBarHandler.backToHomePage(status, this);
+        StatusBarHandler.comeToQLTKTT(status , this);
+        StatusBarHandler.updateNameTK(status , this);
+        MenuBarHandler.setupMenu(menuInclude, this);
         mapping();
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override

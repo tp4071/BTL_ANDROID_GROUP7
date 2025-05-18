@@ -34,9 +34,8 @@
             android:exported="false" />
         <activity
             android:name=".view.CreatePhieuViPhamActivity"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".view.PMManagedment" -->
-        <!-- android:exported="false"></activity> -->
+            android:exported="false" />
+
 <!--        <activity-->
 <!--            android:name=".view.HomePage"-->
 <!--            android:exported="true">-->
@@ -51,7 +50,7 @@
             android:exported="false" />
         <activity
             android:name=".view.BookManagedment"
-            android:exported="false" /> <!-- <activity -->
+            android:exported="false" />
         <activity
             android:name=".view.Login"
             android:exported="true">

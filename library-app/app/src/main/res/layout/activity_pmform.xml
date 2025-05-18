@@ -7,13 +7,13 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/statusBar"
+        android:id="@+id/status_bar"
         layout="@layout/status_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <include
-        android:id="@+id/menuBar"
+        android:id="@+id/menu_bar"
         layout="@layout/menu_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,8 +24,8 @@
         android:id="@+id/formScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/statusBar"
-        android:layout_above="@id/menuBar">
+        android:layout_below="@id/status_bar"
+        android:layout_above="@id/menu_bar">
         <LinearLayout
             android:layout_marginTop="30dp"
             android:layout_marginLeft="7dp"

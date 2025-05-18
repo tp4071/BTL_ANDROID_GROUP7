@@ -2,6 +2,7 @@ package com.example.libraryapplication.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,6 +36,13 @@ public class PMForm extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //navigate
+        View menuInclude = findViewById(R.id.menu_bar);
+        View status = findViewById(R.id.status_bar);
+        StatusBarHandler.backToHomePage(status, this);
+        StatusBarHandler.comeToQLTKTT(status , this);
+        StatusBarHandler.updateNameTK(status , this);
+        MenuBarHandler.setupMenu(menuInclude, this);
         mapping();
         Sach s=(Sach)getIntent().getSerializableExtra("sach");
         TheLoai theLoai=(TheLoai)getIntent().getSerializableExtra("tl");

@@ -1,7 +1,9 @@
 package com.example.libraryapplication.view;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,12 +19,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.libraryapplication.R;
+import com.example.libraryapplication.helper.BookRank;
 import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.viewmodel.ThongKeViewModel;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,8 +42,8 @@ import java.util.Map;
 
 public class ThongKe extends AppCompatActivity {
     ListView topSach;
-    ArrayList<Sach> topSachArr;
-    ArrayAdapter<Sach> topSachAdt;
+    ArrayList<BookRank> topSachArr;
+    ArrayAdapter<BookRank> topSachAdt;
     EditText start,end;
     Button tk,tx;
     ThongKeViewModel thongKeViewModel;
@@ -52,6 +59,13 @@ public class ThongKe extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //navigate
+        View menuInclude = findViewById(R.id.menu_bar);
+        View status = findViewById(R.id.status_bar);
+        StatusBarHandler.backToHomePage(status, this);
+        StatusBarHandler.comeToQLTKTT(status , this);
+        StatusBarHandler.updateNameTK(status , this);
+        MenuBarHandler.setupMenu(menuInclude, this);
         mapping();
         start.setOnClickListener(v->{
             DatePickerDialog datePickerDialog=createDatePicker(start);
@@ -70,45 +84,129 @@ public class ThongKe extends AppCompatActivity {
                 }
                 Date startDate=sdf.parse(start.getText().toString());
                 Date endDate=sdf.parse(end.getText().toString());
-                if(startDate.after(endDate)){
-                    Toast.makeText(ThongKe.this,"Thời gian thống kê không hợp lệ",Toast.LENGTH_LONG).show();
+                if (startDate != null && startDate.after(endDate)) {
+                    Toast.makeText(ThongKe.this, "Thời gian thống kê không hợp lệ", Toast.LENGTH_LONG).show();
                     return;
                 }
                 thongKeViewModel.getTK(start.getText().toString(),end.getText().toString());
                 thongKeViewModel.getTop5Books().observe(this,saches->{
                     if (saches != null) {
                         topSachArr.clear();
-                        topSachArr.addAll(saches);
+                        int i=1;
+                        for(Sach s : saches){
+                            topSachArr.add(new BookRank(s,String.valueOf(i)));
+                            i++;
+                        }
                         topSachAdt.notifyDataSetChanged();
                     }
                 });
-                thongKeViewModel.getPmTK().observe(this,data -> {
+                thongKeViewModel.getPmTK().observe(this, data -> {
+                    //data source
                     List<Entry> entries = new ArrayList<>();
+                    List<String> labels = new ArrayList<>();
                     for (int i = 0; i < data.size(); i++) {
                         Map<String, Object> item = data.get(i);
                         float value = Float.parseFloat(item.get("sophieumuon").toString());
                         entries.add(new Entry(i, value));
+                        labels.add(item.get("ngay").toString());
                     }
+                    LineDataSet dataSet = new LineDataSet(entries, "Số phiếu mượn");
 
-                    LineDataSet dataSet = new LineDataSet(entries, "Phiếu Mượn");
+                    //cast datatype to int
+                    dataSet.setValueFormatter(new ValueFormatter() {
+                        @Override
+                        public String getPointLabel(Entry entry) {
+                            return String.valueOf((int) entry.getY());
+                        }
+                    });
                     lineChartPM.setData(new LineData(dataSet));
+                    YAxis yAxisL = lineChartPM.getAxisLeft();
+                    yAxisL.setValueFormatter(new ValueFormatter() {
+                        @Override
+                        public String getFormattedValue(float value) {
+                            return String.valueOf((int) value);
+                        }
+                    });
+                    YAxis yAxisR = lineChartPM.getAxisRight();
+                    yAxisR.setValueFormatter(new ValueFormatter() {
+                        @Override
+                        public String getFormattedValue(float value) {
+                            return String.valueOf((int) value);
+                        }
+                    });
+
+                    //label formatting
+                    XAxis xAxis = lineChartPM.getXAxis();
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+                    xAxis.setGranularity(1f);
+                    xAxis.setGranularityEnabled(true);
+                    xAxis.setLabelCount(labels.size(), true);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    xAxis.setLabelRotationAngle(-15f);
+                    xAxis.setTextSize(10f);
+                    //scrollable
+                    lineChartPM.setDragEnabled(true);
+                    lineChartPM.setScaleXEnabled(true);
+                    lineChartPM.setVisibleXRangeMaximum(5f);
                     lineChartPM.invalidate();
                 });
-                thongKeViewModel.getPvpTK().observe(this,data->{
+                thongKeViewModel.getPvpTK().observe(this, data -> {
+                    //data source
                     List<Entry> entries = new ArrayList<>();
+                    List<String> labels = new ArrayList<>();
                     for (int i = 0; i < data.size(); i++) {
                         Map<String, Object> item = data.get(i);
                         float value = Float.parseFloat(item.get("sophieuvipham").toString());
                         entries.add(new Entry(i, value));
+                        labels.add(item.get("ngay").toString());
                     }
 
-                    LineDataSet dataSet = new LineDataSet(entries, "Vi Phạm");
+                    LineDataSet dataSet = new LineDataSet(entries, "Số phiếu vi phạm");
+                    //cast datatype to int
+                    dataSet.setValueFormatter(new ValueFormatter() {
+                        @Override
+                        public String getPointLabel(Entry entry) {
+                            return String.valueOf((int) entry.getY());
+                        }
+                    });
                     lineChartPVP.setData(new LineData(dataSet));
+                    YAxis yAxisL = lineChartPVP.getAxisLeft();
+                    yAxisL.setValueFormatter(new ValueFormatter() {
+                        @Override
+                        public String getFormattedValue(float value) {
+                            return String.valueOf((int) value);
+                        }
+                    });
+                    YAxis yAxisR = lineChartPVP.getAxisRight();
+                    yAxisR.setValueFormatter(new ValueFormatter() {
+                        @Override
+                        public String getFormattedValue(float value) {
+                            return String.valueOf((int) value);
+                        }
+                    });
+                    //label formatting
+                    XAxis xAxis = lineChartPVP.getXAxis();
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+                    xAxis.setGranularity(1f);
+                    xAxis.setGranularityEnabled(true);
+                    xAxis.setLabelCount(labels.size(), true);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    xAxis.setLabelRotationAngle(-15f);
+                    xAxis.setTextSize(10f);
+                    lineChartPVP.setDragEnabled(true);
+                    lineChartPVP.setScaleXEnabled(true);
+                    lineChartPVP.setVisibleXRangeMaximum(5f);
                     lineChartPVP.invalidate();
                 });
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
+        });
+        topSach.setOnItemClickListener((parent, view, position, id) -> {
+            Sach sach = topSachArr.get(position).getSach();
+            Intent intent = new Intent(ThongKe.this, BookDetails.class);
+            intent.putExtra("sach", sach);
+            startActivity(intent);
         });
     }
     private void mapping(){
@@ -119,7 +217,7 @@ public class ThongKe extends AppCompatActivity {
         start=findViewById(R.id.startDateInput);
         end=findViewById(R.id.endDateInput);
         tk=findViewById(R.id.tk);
-        tx=findViewById(R.id.tx);
+        tx=findViewById(R.id.downloadButton);
         thongKeViewModel=new ViewModelProvider(this).get(ThongKeViewModel.class);
         lineChartPM = findViewById(R.id.borrowChart);
         lineChartPVP = findViewById(R.id.violationChart);
@@ -133,7 +231,6 @@ public class ThongKe extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 ThongKe.this,
                 (DatePicker view1, int selectedYear, int selectedMonth, int selectedDay) -> {
-                    // Format ngày (tháng + 1 vì tháng bắt đầu từ 0)
                     String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
                     dateInp.setText(date);
                 },
