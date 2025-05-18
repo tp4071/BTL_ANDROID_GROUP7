@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutItem"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#EEEEEE"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
     android:padding="12dp"
-    android:layout_marginBottom="8dp"
-    android:clickable="true"
-    android:focusable="true">
+    android:layout_marginBottom="8dp"> <!-- Tạo khoảng cách giữa các item -->
 
     <TextView
         android:id="@+id/tvMaPhieu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mã phiếu vi phạm: "
-        android:textStyle="bold" />
+        android:text="Mã phiếu vi phạm:"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvMaPM"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mã phiếu mượn: " />
+        android:text="Mã phiếu mượn:" />
 
     <TextView
         android:id="@+id/tvSoTienPhat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Số tiền phạt: " />
+        android:text="Số tiền phạt:" />
 
     <TextView
         android:id="@+id/tvSoNgayQuaHan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Số ngày quá hạn: " />
+        android:text="Số ngày quá hạn:" />
 
     <TextView
         android:id="@+id/tvKieuVP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kiểu vi phạm: " />
+        android:text="Kiểu vi phạm:" />
 
     <TextView
         android:id="@+id/tvTrangThai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Trạng thái: " />
+        android:text="Trạng thái:" />
 
     <TextView
         android:id="@+id/createDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ngày tạo: "
-        />
+        android:text="Ngày tạo:" />
 </LinearLayout>

@@ -12,6 +12,6 @@ public class BookResult {
     public Sach getSach(){return s;}
     public String toString(){
         if(s==null)return text;
-        else return s.toString();
+        else return s.toString()+"\n";
     }
 }

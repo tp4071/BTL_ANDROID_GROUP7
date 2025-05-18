@@ -1,15 +1,14 @@
 package com.example.libraryapplication.view;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.PhieuViPham;
 import com.example.libraryapplication.viewmodel.PhieuViPhamViewModel;
@@ -18,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.ViewHolder> {
+public class PhieuViPhamAdapter extends BaseAdapter {
     private List<PhieuViPham> list;
     private final Context context;
     private final PhieuViPhamViewModel viewModel;
@@ -33,19 +32,50 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
         notifyDataSetChanged();
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_violation, parent, false);
-        return new ViewHolder(view);
+    public int getCount() {
+        return list == null ? 0 : list.size();
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public Object getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    static class ViewHolder {
+        TextView tvMaPhieu, tvMaPM, tvSoTienPhat, tvSoNgayQuaHan, tvKieuVP, tvTrangThai, createDate;
+        View layoutItem;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_violation, parent, false);
+            holder = new ViewHolder();
+            holder.tvMaPhieu = convertView.findViewById(R.id.tvMaPhieu);
+            holder.tvMaPM = convertView.findViewById(R.id.tvMaPM);
+            holder.tvSoTienPhat = convertView.findViewById(R.id.tvSoTienPhat);
+            holder.tvSoNgayQuaHan = convertView.findViewById(R.id.tvSoNgayQuaHan);
+            holder.tvKieuVP = convertView.findViewById(R.id.tvKieuVP);
+            holder.tvTrangThai = convertView.findViewById(R.id.tvTrangThai);
+            holder.createDate = convertView.findViewById(R.id.createDate);
+            holder.layoutItem = convertView.findViewById(R.id.layoutItem);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
         PhieuViPham item = list.get(position);
+        if (item == null) return convertView;
+
         Date date = item.getNgayLap();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        if (item == null) return;
 
         holder.tvMaPhieu.setText("Mã phiếu: " + item.getMaPhieuVP());
         holder.tvMaPM.setText("Mã PM: " + item.getMaPM());
@@ -55,14 +85,13 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
         holder.tvTrangThai.setText("Trạng thái: " + item.getTrangThai());
         holder.createDate.setText("Ngày tạo: " + sdf.format(date));
 
-        // Long click để đổi trạng thái nếu chưa xử lý
         holder.layoutItem.setOnLongClickListener(v -> {
             if ("Đã thanh toán".equalsIgnoreCase(item.getTrangThai())) {
                 Toast.makeText(context, "Trạng thái đã được xử lý, không thể thay đổi.", Toast.LENGTH_SHORT).show();
                 return true;
             }
 
-            new android.app.AlertDialog.Builder(context)
+            new AlertDialog.Builder(context)
                     .setTitle("Xác nhận")
                     .setMessage("Bạn có chắc muốn chuyển trạng thái thành 'Đã thanh toán'?")
                     .setPositiveButton("Đồng ý", (dialog, which) -> {
@@ -72,36 +101,14 @@ public class PhieuViPhamAdapter extends RecyclerView.Adapter<PhieuViPhamAdapter.
                             Toast.makeText(context, "Cập nhật trạng thái thành công", Toast.LENGTH_SHORT).show();
                             viewModel.loadPhieuViPham();
                         });
-
-                        notifyItemChanged(position);
+                        notifyDataSetChanged();
                     })
                     .setNegativeButton("Hủy", null)
                     .show();
+
             return true;
         });
+
+        return convertView;
     }
-
-
-    @Override
-    public int getItemCount() {
-        return list == null ? 0 : list.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvMaPhieu, tvMaPM, tvSoTienPhat, tvSoNgayQuaHan, tvKieuVP, tvTrangThai, createDate;
-        View layoutItem;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvMaPhieu = itemView.findViewById(R.id.tvMaPhieu);
-            tvMaPM = itemView.findViewById(R.id.tvMaPM);
-            tvSoTienPhat = itemView.findViewById(R.id.tvSoTienPhat);
-            tvSoNgayQuaHan = itemView.findViewById(R.id.tvSoNgayQuaHan);
-            tvKieuVP = itemView.findViewById(R.id.tvKieuVP);
-            tvTrangThai = itemView.findViewById(R.id.tvTrangThai);
-            createDate = itemView.findViewById(R.id.createDate);
-            layoutItem = itemView.findViewById(R.id.layoutItem);
-        }
-    }
-
 }

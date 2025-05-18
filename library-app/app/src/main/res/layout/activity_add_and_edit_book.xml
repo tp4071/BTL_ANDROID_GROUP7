@@ -6,6 +6,15 @@
     android:background="#FFFFFF">
 
     <include layout="@layout/status_bar"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm mới thông tin sách"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_gravity="center"
+        />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -15,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="0dp">
 
 
             <EditText
@@ -43,7 +52,9 @@
                 android:id="@+id/etNPH"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nhà phát hành"
+                android:hint="Ngày phát hành"
+                android:focusable="false"
+                android:clickable="true"
                 android:layout_marginTop="8dp" />
 
             <EditText

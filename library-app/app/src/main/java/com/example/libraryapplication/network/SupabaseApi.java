@@ -40,14 +40,14 @@ public interface SupabaseApi {
             @Body Map<String, String> body
     );
 
-    @GET("sach?maSach=eq.{id}")
-    Call<List<Sach>> getSachById(@Path("id") String id);
+    @GET("sach")
+    Call<List<Sach>> getSachById(@Query("maSach") String id);
 
     @POST("sach")
     Call<Sach> createSach(@Body Sach sach);
 
-    @PUT("sach")
-    Call<Sach> updateSach(@Query("maSach") String id, @Body Sach sach);
+    @PATCH("sach")
+    Call<List<Sach>> updateSach(@Query("maSach") String maSachFilter, @Body Sach sach);
 
     @DELETE("sach?maSach=eq.{id}")
     Call<Void> deleteSach(@Path("id") String id);

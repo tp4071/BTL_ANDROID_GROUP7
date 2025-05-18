@@ -1,18 +1,23 @@
 package com.example.libraryapplication.view;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -45,10 +50,12 @@ public class ThongKe extends AppCompatActivity {
     ArrayList<BookRank> topSachArr;
     ArrayAdapter<BookRank> topSachAdt;
     EditText start,end;
-    Button tk,tx;
+    Button tk;
     ThongKeViewModel thongKeViewModel;
     LineChart lineChartPM;
     LineChart lineChartPVP;
+    ImageView backIcon;
+    private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,6 +215,10 @@ public class ThongKe extends AppCompatActivity {
             intent.putExtra("sach", sach);
             startActivity(intent);
         });
+        backIcon.setOnClickListener(v->{
+            setResult(RESULT_OK);
+            finish();
+        });
     }
     private void mapping(){
         topSach=findViewById(R.id.topBooksList);
@@ -217,10 +228,10 @@ public class ThongKe extends AppCompatActivity {
         start=findViewById(R.id.startDateInput);
         end=findViewById(R.id.endDateInput);
         tk=findViewById(R.id.tk);
-        tx=findViewById(R.id.downloadButton);
         thongKeViewModel=new ViewModelProvider(this).get(ThongKeViewModel.class);
         lineChartPM = findViewById(R.id.borrowChart);
         lineChartPVP = findViewById(R.id.violationChart);
+        backIcon=findViewById(R.id.backIcon);
     }
     private DatePickerDialog createDatePicker(EditText dateInp){
         final Calendar calendar = Calendar.getInstance();

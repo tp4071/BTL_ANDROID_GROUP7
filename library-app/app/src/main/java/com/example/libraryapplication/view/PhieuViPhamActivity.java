@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.viewmodel.PhieuViPhamViewModel;
@@ -28,7 +26,7 @@ public class PhieuViPhamActivity extends AppCompatActivity {
 
         EditText edtSearch = findViewById(R.id.edtSearch);
         ImageButton btnAdd = findViewById(R.id.btnAdd);
-        RecyclerView rvList = findViewById(R.id.rvViolationList);
+        ListView lvList = findViewById(R.id.lvViolationList); // Đã đổi từ RecyclerView sang ListView
         View menuInclude = findViewById(R.id.menuBar);
         View statusBar = findViewById(R.id.statusBar);
         MenuBarHandler.setupMenu(menuInclude, this);
@@ -36,9 +34,7 @@ public class PhieuViPhamActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(PhieuViPhamViewModel.class);
         adapter = new PhieuViPhamAdapter(this, viewModel);
-
-        rvList.setLayoutManager(new LinearLayoutManager(this));
-        rvList.setAdapter(adapter);
+        lvList.setAdapter(adapter);
 
         viewModel.getPhieuViPhamList().observe(this, list -> adapter.setData(list));
         viewModel.loadPhieuViPham();
@@ -47,20 +43,16 @@ public class PhieuViPhamActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (viewModel == null) return;
-
                 String keyword = s.toString().trim();
-
                 if (keyword.length() >= 2) {
                     viewModel.search(keyword);
                 } else if (keyword.isEmpty()) {
                     viewModel.loadPhieuViPham();
                 }
             }
-
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
         });
-
 
         btnAdd.setOnClickListener(v -> startActivity(new Intent(this, CreatePhieuViPhamActivity.class)));
     }
@@ -70,5 +62,4 @@ public class PhieuViPhamActivity extends AppCompatActivity {
         super.onResume();
         viewModel.loadPhieuViPham();
     }
-
 }

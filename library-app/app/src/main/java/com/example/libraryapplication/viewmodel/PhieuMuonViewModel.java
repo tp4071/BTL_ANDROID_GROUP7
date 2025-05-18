@@ -65,6 +65,9 @@ public class PhieuMuonViewModel extends ViewModel {
     }
 
     public void updatePhieuMuon(String maPM, PhieuMuon pm) {
+        Sach s=sachRepository.getSachById("eq."+pm.getMaSach()).getValue().get(0);
+        s.setSoLuong(s.getSoLuong()+Integer.valueOf(pm.getSoLuongMuon()));
+        sachRepository.updateSach("eq."+s.getMaSach(),s);
         repository.updateTrangThai(maPM, pm);
     }
 }

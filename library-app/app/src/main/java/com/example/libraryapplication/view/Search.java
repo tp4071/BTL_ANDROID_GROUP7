@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 public class Search extends AppCompatActivity {
     ListView searchResult;
     EditText searchBar;
+    ImageView backIcon;
     ShapeableImageView search;
     SachViewModel sachViewModel;
     ArrayAdapter<BookResult> resultAdt;
@@ -93,6 +95,10 @@ public class Search extends AppCompatActivity {
             });
 
         });
+        backIcon.setOnClickListener(v->{
+            setResult(RESULT_OK);
+            finish();
+        });
         searchResult.setOnItemClickListener((parent, view, position, id) -> {
             BookResult br = resultArr.get(position);
             Intent intent = new Intent(Search.this, BookDetails.class);
@@ -108,5 +114,6 @@ public class Search extends AppCompatActivity {
         resultAdt=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,resultArr);
         searchResult.setAdapter(resultAdt);
         sachViewModel= new ViewModelProvider(this).get(SachViewModel.class);
+        backIcon=findViewById(R.id.backIcon);
     }
 }

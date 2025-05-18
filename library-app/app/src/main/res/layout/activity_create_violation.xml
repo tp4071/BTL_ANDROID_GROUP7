@@ -7,12 +7,11 @@
 
     <include layout="@layout/status_bar"/>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
         android:background="#FFFFFF">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,6 +30,26 @@
                 android:gravity="center"
                 android:paddingBottom="16dp" />
 
+            <!-- Danh sách phiếu mượn -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danh sách phiếu mượn"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <ListView
+                android:id="@+id/lvBorrowList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="8dp"
+                android:nestedScrollingEnabled="true"
+                android:scrollbars="vertical"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Nhập thông tin -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,12 +80,10 @@
                 android:padding="8dp"
                 android:layout_marginBottom="12dp" />
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trạng thái" />
-
             <EditText
                 android:id="@+id/edtStatus"
                 android:layout_width="match_parent"
@@ -88,8 +105,6 @@
                 android:padding="8dp"
                 android:text="Làm mất sách"
                 android:layout_marginBottom="12dp" />
-
-
 
             <!-- Nút hành động -->
             <LinearLayout
@@ -120,6 +135,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
-

@@ -11,6 +11,6 @@ public class BookRank {
     }
     public Sach getSach(){return s;}
     public String toString(){
-        return rank+". "+s.toString();
+        return "\n"+rank+". "+s.getTenSach()+"\n"+"Tác giả: "+s.getTacGia()+"\nNhà xuất bản: "+s.getNxb()+"\n"+"Số lượt mượn: "+s.getSlMuon()+"\n";
     }
 }

@@ -8,6 +8,7 @@ import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -44,34 +45,66 @@ public class SachRepository {
         return data;
     }
 
-    public void getSachById(String id, MutableLiveData<List<Sach>> data) {
-        api.getSachById(id).enqueue(new Callback<List<Sach>>() {
+    public MutableLiveData<List<Sach>> getSachById(String id) {
+        MutableLiveData<List<Sach>> data=new MutableLiveData<>();
+
+        api.getSachById(id).enqueue(new Callback<>() {
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
-                if (res.isSuccessful()) data.setValue(res.body());
+                Log.d("Body", String.valueOf(res.isSuccessful()));
+                if (res.isSuccessful()) {
+                    Log.d("Data",res.body().get(0).toString());
+                    data.setValue(res.body());
+                }
+
             }
-            public void onFailure(Call<List<Sach>> call, Throwable t) {}
+            public void onFailure(Call<List<Sach>> call, Throwable t) {
+                Log.d("Error while call",t.getMessage());
+                data.postValue(null);
+            }
         });
+        return data;
     }
 
     public void createSach(Sach sach) {
         api.createSach(sach).enqueue(new Callback<Sach>() {
-            public void onResponse(Call<Sach> call, Response<Sach> res) {}
+            public void onResponse(Call<Sach> call, Response<Sach> res) {
+
+                if (res.isSuccessful()) {
+                    Log.d("API_SUCCESS", "Tạo sách thành công: " + res.body());
+                } else {
+                    Log.e("API_ERROR", "Mã lỗi: " + res.code() + ", message: " + res.message());
+                    try {
+                        Log.e("API_ERROR_BODY", "Chi tiết: " + res.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             public void onFailure(Call<Sach> call, Throwable t) {}
         });
     }
 
     public void updateSach(String id, Sach sach) {
-        api.updateSach(id, sach).enqueue(new Callback<Sach>() {
-            public void onResponse(Call<Sach> call, Response<Sach> res) {
-                Log.d("Id",id);
-                Log.d("Sach",sach.toString());
-                Sach updatedSach = res.body();
-                // Ví dụ: bạn có thể thông báo rằng việc cập nhật sách thành công
-                Log.d("API_SUCCESS", "Sách đã được cập nhật: " + updatedSach);
+        String filter = "eq." + id;
+
+        api.updateSach(filter, sach).enqueue(new Callback<List<Sach>>() {
+            @Override
+            public void onResponse(Call<List<Sach>> call, Response<List<Sach>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    Log.d("API_SUCCESS", "Sách đã được cập nhật: " + response.body().get(0));
+                } else {
+                    Log.e("API_FAIL", "Cập nhật thất bại. Mã lỗi: " + response.code());
+                }
             }
-            public void onFailure(Call<Sach> call, Throwable t) {}
+
+            @Override
+            public void onFailure(Call<List<Sach>> call, Throwable t) {
+                Log.e("API_ERROR", "Lỗi kết nối: " + t.getMessage());
+            }
         });
     }
+
+
 
     public void deleteSach(String id) {
         api.deleteSach(id).enqueue(new Callback<Void>() {

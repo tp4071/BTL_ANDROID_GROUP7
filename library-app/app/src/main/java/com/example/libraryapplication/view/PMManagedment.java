@@ -23,6 +23,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.libraryapplication.R;
+import com.example.libraryapplication.helper.SortPriority;
 import com.example.libraryapplication.model.PhieuMuon;
 import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
@@ -72,7 +73,7 @@ public class PMManagedment extends AppCompatActivity {
 
         listPM = new ArrayList<PhieuMuon>() ;
         myMapping();
-        // Get toàn bộ phiếu mượn
+        // Get ALL PM
         hienThiDanhSachPhieuMuon();
 
         // Event for clicking one item on listView PhieuMuon
@@ -139,6 +140,9 @@ public class PMManagedment extends AppCompatActivity {
 
         viewModel.getListPhieuMuon().observe(this, data -> {
             listPM.clear();
+            data.sort((pm1, pm2) -> {
+                return SortPriority.getPriorityPM(pm1.getTrangThai()) - SortPriority.getPriorityPM(pm2.getTrangThai());
+            });
             listPM.addAll(data);
             arrayAdapter.notifyDataSetChanged(); // Cập nhật UI
         });

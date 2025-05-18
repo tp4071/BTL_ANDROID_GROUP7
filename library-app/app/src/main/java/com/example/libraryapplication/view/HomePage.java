@@ -3,12 +3,15 @@ package com.example.libraryapplication.view;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -32,6 +35,8 @@ public class HomePage extends AppCompatActivity {
     ArrayList<PhieuMuon> newPMArr;
     private SachViewModel sachViewModel;
     private PhieuMuonViewModel pmViewModel;
+    private ActivityResultLauncher<Intent> bookDetailsLauncher;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +64,34 @@ public class HomePage extends AppCompatActivity {
                 newBookAdt.notifyDataSetChanged();
             }
         });
+
+        bookDetailsLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        sachViewModel.getLatestBook().observe(this, saches -> {
+                            if (saches != null) {
+                                newBookArr.clear();
+                                newBookArr.addAll(saches);
+                                newBookAdt.notifyDataSetChanged();
+                            }
+                        });
+                        pmViewModel.getLatestPhieuMuon().observe(this, phieuMuons -> {
+                            if(phieuMuons!=null){
+                                newPMArr.clear();
+                                newPMArr.addAll(phieuMuons);
+                                newPMAdt.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                }
+        );
+
         newBook.setOnItemClickListener((parent, view, position, id) -> {
             Sach sach = newBookArr.get(position);
             Intent intent = new Intent(HomePage.this, BookDetails.class);
             intent.putExtra("sach", sach);
-            startActivity(intent);
+            bookDetailsLauncher.launch(intent);
         });
         pmViewModel.getLatestPhieuMuon().observe(this, phieuMuons -> {
             if(phieuMuons!=null){
@@ -72,31 +100,9 @@ public class HomePage extends AppCompatActivity {
                 newPMAdt.notifyDataSetChanged();
             }
         });
-        //menu
-//        pvpBtn.setOnClickListener(v -> {
-//            Intent intent=new Intent(HomePage.this,PhieuViPhamActivity.class);
-//            startActivity(intent);
-//        });
-//        pmBtn.setOnClickListener(v -> {
-//            Intent intent=new Intent(HomePage.this, PMManagedment.class);
-//            startActivity(intent);
-//        });
-//
-//        bookBtn.setOnClickListener(v -> {
-//            Intent intent=new Intent(HomePage.this, BookManagedment.class);
-//            startActivity(intent);
-//        });
-//
-//        searchBtn.setOnClickListener(v -> {
-//            Intent intent=new Intent(HomePage.this,Search.class);
-//            startActivity(intent);
-//        });
-//
-//        tkBtn.setOnClickListener(v -> {
-//            Intent intent=new Intent(HomePage.this, ThongKe.class);
-//            startActivity(intent);
-//        });
+
     }
+
     private void mapping(){
         newBook=findViewById(R.id.newBook);
         newBookArr=new ArrayList<>();
