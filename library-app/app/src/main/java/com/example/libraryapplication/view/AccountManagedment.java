@@ -3,6 +3,7 @@ package com.example.libraryapplication.view;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,8 +24,9 @@ import com.example.libraryapplication.viewmodel.AccountThuThuViewModel;
 public class AccountManagedment extends AppCompatActivity {
     private final AccountThuThuViewModel viewModel = new AccountThuThuViewModel() ;
     EditText edt_NhapMKcu , edt_CapNhatMK , edt_XacNhanMKMoi ;
-    Button btn_CapNhatMK , btn_HuyCapNhatMK ;
+    Button btn_CapNhatMK , btn_HuyCapNhatMK , btn_hienMK , btn_dangXuat;
     Intent intent;
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,52 @@ public class AccountManagedment extends AppCompatActivity {
                 }
             }
         });
+
+        btn_dangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SessionManager sessionManager = new SessionManager(AccountManagedment.this);
+                sessionManager.clearSession();
+                Toast.makeText(getApplicationContext(), "ĐĂNG XUẤT THÀNH CÔNG", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(Login.this, HomePage.class);
+                intent = new Intent(AccountManagedment.this , Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btn_HuyCapNhatMK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edt_NhapMKcu.setText("");
+                edt_CapNhatMK.setText("");
+                edt_XacNhanMKMoi.setText("");
+            }
+        });
+
+        btn_hienMK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPasswordVisible) {
+                    // Chuyển sang ẩn mật khẩu
+                    edt_NhapMKcu.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    edt_CapNhatMK.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    edt_XacNhanMKMoi.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    isPasswordVisible = false;
+                } else {
+                    // Chuyển sang hiển thị mật khẩu
+                    edt_NhapMKcu.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    edt_CapNhatMK.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    edt_XacNhanMKMoi.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    isPasswordVisible = true;
+                }
+
+                // Giữ vị trí con trỏ ở cuối chuỗi sau khi đổi inputType
+                edt_NhapMKcu.setSelection(edt_NhapMKcu.getText().length());
+                edt_CapNhatMK.setSelection(edt_CapNhatMK.getText().length());
+                edt_XacNhanMKMoi.setSelection(edt_XacNhanMKMoi.getText().length());
+            }
+        });
     }
 
     private void myMapping() {
@@ -73,6 +121,8 @@ public class AccountManagedment extends AppCompatActivity {
         edt_XacNhanMKMoi = findViewById(R.id.edt_XacNhanMKMoi);
         btn_CapNhatMK = findViewById(R.id.btn_CapNhatMK);
         btn_HuyCapNhatMK = findViewById(R.id.btn_HuyCapNhatMK);
+        btn_hienMK = findViewById(R.id.btn_hienMK);
+        btn_dangXuat = findViewById(R.id.btn_dangXuat);
     }
 
     private boolean checkInput(){
