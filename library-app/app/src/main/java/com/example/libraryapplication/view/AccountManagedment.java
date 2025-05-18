@@ -1,5 +1,6 @@
 package com.example.libraryapplication.view;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.libraryapplication.R;
+import com.example.libraryapplication.model.ThuThu;
 import com.example.libraryapplication.sharedPreferences.SessionManager;
 import com.example.libraryapplication.viewmodel.AccountThuThuViewModel;
 
@@ -23,6 +25,7 @@ public class AccountManagedment extends AppCompatActivity {
     EditText edt_NhapMKcu , edt_CapNhatMK , edt_XacNhanMKMoi ;
     Button btn_CapNhatMK , btn_HuyCapNhatMK ;
     Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,14 +51,18 @@ public class AccountManagedment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SessionManager sessionManager = new SessionManager(AccountManagedment.this);
-                String tenTK = sessionManager.getTenTK() ;
-                String matKhau = sessionManager.getMatKhau();
-                Log.d("Tên mật khẩu log ra ","Tên tài khoản : " + tenTK) ;
+                String maTK = sessionManager.getMaTK().trim() ;
+                String tenTK = sessionManager.getTenTK().trim() ;
+                String matKhau = sessionManager.getMatKhau().trim();
+                Log.d("Mã tài khoản" , "maTK : " + maTK);
+                Log.d("Tên tài khoản log ra ","Tên tài khoản : " + tenTK) ;
                 Log.d("Mật khẩu cũ " , "Mật khẩu cũ : " + matKhau) ;
-//                if (checkInput()) {
-//
-//
-//                }
+                if (checkInput()) {
+                    ThuThu tt = new ThuThu(maTK , tenTK , edt_XacNhanMKMoi.getText().toString().trim()) ;
+                    sessionManager.saveThuThu(tt);
+                    viewModel.updateThongTin(maTK , tt);
+                    Toast.makeText(AccountManagedment.this, "BẠN ĐÃ ĐỔI MẬT KHẨU THÀNH CÔNG !!! ", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -69,16 +76,32 @@ public class AccountManagedment extends AppCompatActivity {
     }
 
     private boolean checkInput(){
-        if ( edt_NhapMKcu.getText().toString().trim().equals("") ||
-                edt_CapNhatMK.getText().toString().trim().equals("") ||
-                edt_XacNhanMKMoi.getText().toString().trim().equals("")  ) {
+        String mkCu = edt_NhapMKcu.getText().toString().trim();
+        Log.d("mkCu" , "Hàm checkInput mkCu : " + mkCu);
+        String mkMoi = edt_CapNhatMK.getText().toString().trim();
+        Log.d("mkMoi" , "Hàm checkInput mkMoi : " + mkMoi);
+        String xacNhanMK = edt_XacNhanMKMoi.getText().toString().trim();
+        Log.d("xacNhanMK" , "Hàm checkInput xacNhanMK : " + xacNhanMK);
+        SessionManager sessionManager = new SessionManager(AccountManagedment.this);
+        String mkSession = sessionManager.getMatKhau().trim();
+        Log.d("MK_CHECK", "MK Nhập: [" + mkCu + "] - MK session: [" + mkSession + "]");
+
+        if (mkCu.isEmpty() || mkMoi.isEmpty() || xacNhanMK.isEmpty()) {
             Toast.makeText(this, "VUI LÒNG NHẬP ĐẦY ĐỦ THÔNG TIN !!!", Toast.LENGTH_SHORT).show();
-            return false ;
-        } else if (edt_CapNhatMK.getText().toString().trim().equals(edt_XacNhanMKMoi.getText().toString().trim())) {
-            return true ;
-        } else {
-            Toast.makeText(this, "VUI LÒNG XÁC NHẬN THẬT KỸ MẬT KHẨU MỚI CỦA BẠN !!! ", Toast.LENGTH_SHORT).show();
-            return false ;
+            return false;
         }
+
+        if (!mkCu.equals(sessionManager.getMatKhau().trim())) {
+            Toast.makeText(this, "MẬT KHẨU CŨ MÀ BẠN NHẬP KHÔNG ĐÚNG !!! ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!mkMoi.equals(xacNhanMK)) {
+            Toast.makeText(this, "MẬT KHẨU MỚI VÀ XÁC NHẬN KHÔNG KHỚP !!!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
+
 }

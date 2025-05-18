@@ -22,4 +22,8 @@ public class AccountThuThuViewModel extends ViewModel {
     public void dangNhapThuThu(String maTK , String matKhau , Context context) {
         thuThuRepository.dangNhapThuThu(maTK , matKhau , context , loginResult);
     }
+
+    public void updateThongTin(String maTK , ThuThu tt) {
+        thuThuRepository.updateThongTin(maTK , tt );
+    }
 }

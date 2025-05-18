@@ -72,7 +72,7 @@ public interface SupabaseApi {
     // === Quản lý tài khoản thủ thư ===
     @PUT("thuthu")
     Call<ThuThu> updateThuThu(
-            @Query("id") String maTK,
+            @Query("maTK") String maTK,
             @Body ThuThu thuThu
     );
     @GET("thuthu")

@@ -7,6 +7,7 @@ import com.example.libraryapplication.model.ThuThu;
 
 public class SessionManager {
     private static final String PREF_NAME = "ThuThuSession";
+    private static final String maTK = "maTK";
     private static final String tenTK = "tenTK";
     private static final String matKhau = "matKhau";
 
@@ -19,6 +20,7 @@ public class SessionManager {
     }
 
     public void saveThuThu(ThuThu thuThu) {
+        editor.putString(maTK , thuThu.getMaTK());
         editor.putString(tenTK, thuThu.getTenTK());
         editor.putString(matKhau, thuThu.getMatKhau());
         editor.apply(); // Lưu thay đổi
@@ -30,6 +32,10 @@ public class SessionManager {
 
     public String getMatKhau() {
         return prefs.getString(matKhau, null);
+    }
+
+    public String getMaTK(){
+        return prefs.getString(maTK , null);
     }
 
     // Log out
