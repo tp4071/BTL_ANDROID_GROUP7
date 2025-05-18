@@ -38,8 +38,10 @@ public class ThuThuRepository {
             @Override
             public void onResponse(Call<ThuThu> call, Response<ThuThu> response) {
                 if (response.isSuccessful()) {
+                    Log.d("UpdateThuThu", "Dữ liệu gửi đi: " + tt.toString());
                     Log.d("UpdateThuThu", "CẬP NHẬT THÀNH CÔNG THÔNG TIN THỦ THƯ!");
                 } else {
+                    Log.d("UpdateThuThu", "Dữ liệu gửi đi: " + tt.toString());
                     Log.e("UpdateThuThu", "LỖI CẬP NHẬT : " + response.code() + " - " + response.message());
                 }
             }
