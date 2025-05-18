@@ -138,8 +138,8 @@ public class PMManagedment extends AppCompatActivity {
         btn_HuyCapNhatTrangThaiPM = findViewById(R.id.btn_HuyCapNhatTrangThaiPM);
 
         lv_DanhSachPhieuMuon = findViewById(R.id.lv_DanhSachPhieuMuon);
-        // Thay dữ liệu listPMKoCoPVP vào adapter
-        arrayAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 , listPMKoCoPVP) ;
+
+        arrayAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 , listPM) ;
         lv_DanhSachPhieuMuon.setAdapter(arrayAdapter);
     }
 
@@ -150,7 +150,7 @@ public class PMManagedment extends AppCompatActivity {
             listPM.clear();
             listPM.addAll(data);
 
-            listPMKoCoPVP = ListPhieuMuonKoCoPVP(listPM);
+//            listPMKoCoPVP = ListPhieuMuonKoCoPVP(listPM);
 
             arrayAdapter.notifyDataSetChanged(); // Cập nhật UI
         });
@@ -163,31 +163,31 @@ public class PMManagedment extends AppCompatActivity {
         spinnerTrangThaiPM.setSelection(0);
     }
 
-    private List<PhieuMuon> ListPhieuMuonKoCoPVP(List<PhieuMuon> listPmKhongCoPVP) {
-//        List<PhieuMuon> listPMnew = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        try {
-            // Lấy ngày hôm nay
-            Date today = calendar.getTime();
-
-            for (PhieuMuon pm : listPM) {
-                Date ngayMuon = pm.getNgayMuon(); // sử dụng trực tiếp Date
-
-                // Tính số ngày chênh lệch
-                long diffMillis = today.getTime() - ngayMuon.getTime();
-                long diffDays = diffMillis / (1000 * 60 * 60 * 24);
-
-                if (diffDays < 15) {
-                    listPmKhongCoPVP.add(pm); // còn hạn -> hiển thị
-                } else {
-                    // quá hạn -> tạo phiếu vi phạm
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return listPmKhongCoPVP;
-    }
+//    private List<PhieuMuon> ListPhieuMuonKoCoPVP(List<PhieuMuon> listPmKhongCoPVP) {
+////        List<PhieuMuon> listPMnew = new ArrayList<>();
+//        Calendar calendar = Calendar.getInstance();
+//        try {
+//            // Lấy ngày hôm nay
+//            Date today = calendar.getTime();
+//
+//            for (PhieuMuon pm : listPM) {
+//                Date ngayMuon = pm.getNgayMuon(); // sử dụng trực tiếp Date
+//
+//                // Tính số ngày chênh lệch
+//                long diffMillis = today.getTime() - ngayMuon.getTime();
+//                long diffDays = diffMillis / (1000 * 60 * 60 * 24);
+//
+//                if (diffDays < 15) {
+//                    listPmKhongCoPVP.add(pm); // còn hạn -> hiển thị
+//                } else {
+//                    // quá hạn -> tạo phiếu vi phạm
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return listPmKhongCoPVP;
+//    }
 
 }
