@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class PMForm extends AppCompatActivity {
     TextView bookId,bookTitle,tl,bookQuantity,bookPrice;
     EditText studentIdInput, quantityInput;
     Button addPM;
+    ImageView backIcon;
     PhieuMuonViewModel phieuMuonViewModel;
     @SuppressLint("DefaultLocale")
     @Override
@@ -90,6 +92,10 @@ public class PMForm extends AppCompatActivity {
                 finish();
             }
         });
+        backIcon.setOnClickListener(v->{
+            setResult(RESULT_OK);
+            finish();
+        });
     }
     private void mapping(){
         bookId=findViewById(R.id.bookId);
@@ -100,6 +106,7 @@ public class PMForm extends AppCompatActivity {
         studentIdInput=findViewById(R.id.studentIdInput);
         quantityInput=findViewById(R.id.quantityInput);
         addPM=findViewById(R.id.addPM);
+        backIcon=findViewById(R.id.backIcon);
         phieuMuonViewModel=new ViewModelProvider(this).get(PhieuMuonViewModel.class);
     }
 }
