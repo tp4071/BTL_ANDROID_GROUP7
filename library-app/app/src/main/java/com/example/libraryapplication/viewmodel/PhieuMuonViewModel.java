@@ -7,14 +7,17 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.libraryapplication.model.PhieuMuon;
+import com.example.libraryapplication.model.PhieuViPham;
 import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.repository.PhieuMuonRepository;
 import com.example.libraryapplication.repository.SachRepository;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 public class PhieuMuonViewModel extends ViewModel {
@@ -23,13 +26,10 @@ public class PhieuMuonViewModel extends ViewModel {
     private final MutableLiveData<List<PhieuMuon>> listPhieuMuon = new MutableLiveData<>();
     private MutableLiveData<List<PhieuMuon>> top5PhieuMuon;
     private final MutableLiveData<String> statusMessage = new MutableLiveData<>();
+    private static final int NGAY_TOI_DA = 14; // 2 tuần
 
     public LiveData<String> getStatusMessage() {
         return statusMessage;
-    }
-
-    public LiveData<List<PhieuMuon>> getListPhieuMuon() {
-        return listPhieuMuon;
     }
 
     public LiveData<List<PhieuMuon>> getLatestPhieuMuon() {
@@ -40,8 +40,53 @@ public class PhieuMuonViewModel extends ViewModel {
         return top5PhieuMuon;
     }
 
+    private List<PhieuMuon> filterPhieuMuonConHan(List<PhieuMuon> danhSach) {
+        List<PhieuMuon> ketQua = new java.util.ArrayList<>();
+        Date today = new Date();
+
+        for (PhieuMuon pm : danhSach) {
+            Date ngayMuon = pm.getNgayMuon();
+            if (ngayMuon == null) continue;
+
+            long diffMillis = today.getTime() - ngayMuon.getTime();
+            long diffDays = diffMillis / (1000 * 60 * 60 * 24);
+
+            if (diffDays <= NGAY_TOI_DA) {
+                ketQua.add(pm);
+            } else {
+                Log.d("View ID phiếu mượn quá hạn : " , pm.getMaPM());
+//                String maPM = pm.getMaPM();
+//                double tienPhat = 5000 * diffDays;
+//                String trangThai = "Chưa xử lý";
+//                String kieuVP = "Quá hạn";
+//
+//                String maPhieuVP = generateMaPhieuVP();
+//                Date createDate = new Date();
+//
+//                PhieuViPham vp = new PhieuViPham(maPhieuVP, tienPhat, 0, trangThai, kieuVP, maPM, createDate);
+            }
+        }
+
+        return ketQua;
+    }
+
+    //    public void loadPhieuMuon() {
+    //        repository.getAllPhieuMuon(listPhieuMuon); // Gọi từ Repository
+    //    }
+
     public void loadPhieuMuon() {
-        repository.getAllPhieuMuon(listPhieuMuon); // Gọi từ Repository
+        repository.getAllPhieuMuon(new MutableLiveData<List<PhieuMuon>>() {
+            @Override
+            public void setValue(List<PhieuMuon> danhSach) {
+                // Lọc danh sách trước khi đẩy vào LiveData thật sự
+                List<PhieuMuon> ketQua = filterPhieuMuonConHan(danhSach);
+                listPhieuMuon.postValue(ketQua);
+            }
+        });
+    }
+
+    public LiveData<List<PhieuMuon>> getListPhieuMuon() {
+        return listPhieuMuon;
     }
 
     public void createPhieuMuon(Sach s, String sl, String msv) {
@@ -65,9 +110,19 @@ public class PhieuMuonViewModel extends ViewModel {
     }
 
     public void updatePhieuMuon(String maPM, PhieuMuon pm) {
-        Sach s=sachRepository.getSachById("eq."+pm.getMaSach()).getValue().get(0);
-        s.setSoLuong(s.getSoLuong()+Integer.valueOf(pm.getSoLuongMuon()));
-        sachRepository.updateSach("eq."+s.getMaSach(),s);
+//        Sach s=sachRepository.getSachById("eq."+pm.getMaSach()).getValue().get(0);
+//        s.setSoLuong(s.getSoLuong()+Integer.valueOf(pm.getSoLuongMuon()));
+//        sachRepository.updateSach("eq."+s.getMaSach(),s);
         repository.updateTrangThai(maPM, pm);
+    }
+
+    private String generateMaPhieuVP() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder sb = new StringBuilder("VP");
+        Random rnd = new Random();
+        for (int i = 0; i < 8; i++) {
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        }
+        return sb.toString();
     }
 }
