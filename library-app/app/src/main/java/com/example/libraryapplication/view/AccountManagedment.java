@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,9 +25,11 @@ import com.example.libraryapplication.viewmodel.AccountThuThuViewModel;
 
 public class AccountManagedment extends AppCompatActivity {
     private final AccountThuThuViewModel viewModel = new AccountThuThuViewModel() ;
+    TextView txt_HienThiTenTK ;
     EditText edt_NhapMKcu , edt_CapNhatMK , edt_XacNhanMKMoi ;
     Button btn_CapNhatMK , btn_HuyCapNhatMK , btn_hienMK , btn_dangXuat;
     Intent intent;
+    ImageView backIconAccountMM;
     private boolean isPasswordVisible = false;
 
     @Override
@@ -48,6 +52,9 @@ public class AccountManagedment extends AppCompatActivity {
         });
 
         myMapping() ;
+
+        SessionManager sessionManager = new SessionManager(AccountManagedment.this);
+        txt_HienThiTenTK.setText(sessionManager.getTenTK());
 
         btn_CapNhatMK.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +120,14 @@ public class AccountManagedment extends AppCompatActivity {
                 edt_XacNhanMKMoi.setSelection(edt_XacNhanMKMoi.getText().length());
             }
         });
+        backIconAccountMM.setOnClickListener(v->{
+            setResult(RESULT_OK);
+            finish();
+        });
     }
 
     private void myMapping() {
+        txt_HienThiTenTK = findViewById(R.id.txt_HienThiTenTK);
         edt_NhapMKcu = findViewById(R.id.edt_NhapMKcu);
         edt_CapNhatMK = findViewById(R.id.edt_CapNhatMK);
         edt_XacNhanMKMoi = findViewById(R.id.edt_XacNhanMKMoi);
@@ -123,6 +135,7 @@ public class AccountManagedment extends AppCompatActivity {
         btn_HuyCapNhatMK = findViewById(R.id.btn_HuyCapNhatMK);
         btn_hienMK = findViewById(R.id.btn_hienMK);
         btn_dangXuat = findViewById(R.id.btn_dangXuat);
+        backIconAccountMM = findViewById(R.id.backIconAccountMM);
     }
 
     private boolean checkInput(){

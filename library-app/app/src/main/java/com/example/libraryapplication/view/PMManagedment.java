@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class PMManagedment extends AppCompatActivity {
     ArrayAdapter arrayAdapter ;
     ListView lv_DanhSachPhieuMuon ;
     Intent intent ;
+    ImageView backIconPMManagedment;
     ActivityResultLauncher activityResultLauncher ;
     private PhieuMuonViewModel viewModel ;
 //    private PhieuViPhamViewModel phieuViPhamViewModel ;
@@ -141,6 +143,11 @@ public class PMManagedment extends AppCompatActivity {
                 }
             }
         });
+
+        backIconPMManagedment.setOnClickListener(v->{
+            setResult(RESULT_OK);
+            finish();
+        });
     }
 
     private String generateMaPhieuVP() {
@@ -173,7 +180,7 @@ public class PMManagedment extends AppCompatActivity {
         spinnerTrangThaiPM = findViewById(R.id.spinnerTrangThai);
         btn_CapNhatTrangThaiPM = findViewById(R.id.btn_CapNhatTrangThaiPM);
         btn_HuyCapNhatTrangThaiPM = findViewById(R.id.btn_HuyCapNhatTrangThaiPM);
-
+        backIconPMManagedment = findViewById(R.id.backIconPMManagedment) ;
         lv_DanhSachPhieuMuon = findViewById(R.id.lv_DanhSachPhieuMuon);
 
         arrayAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 , listPM) ;
