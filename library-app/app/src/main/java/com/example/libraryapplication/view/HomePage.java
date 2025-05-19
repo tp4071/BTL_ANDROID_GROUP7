@@ -103,6 +103,18 @@ public class HomePage extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sachViewModel.getLatestBook().observe(this, saches -> {
+            if (saches != null) {
+                newBookArr.clear();
+                newBookArr.addAll(saches);
+                newBookAdt.notifyDataSetChanged();
+            }
+        });
+    }
+
     private void mapping(){
         newBook=findViewById(R.id.newBook);
         newBookArr=new ArrayList<>();

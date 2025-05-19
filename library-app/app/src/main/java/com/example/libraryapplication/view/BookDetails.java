@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -66,6 +67,18 @@ public class BookDetails extends AppCompatActivity {
             setResult(RESULT_OK);
             finish();
         });
+        btnDelete.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Xác nhận xoá")
+                    .setMessage("Bạn có chắc chắn muốn xoá sách này không?")
+                    .setPositiveButton("Xoá", (dialog, which) -> {
+                        sachViewModel.deleteSach(s.getMaSach());
+                        finish();
+                    })
+                    .setNegativeButton("Huỷ", null)
+                    .show();
+        });
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -80,7 +93,6 @@ public class BookDetails extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (s != null) {
-            // Load lại dữ liệu mới nhất theo maSach
             sachViewModel.getSachById(s.getMaSach()).observe(this, sachList -> {
                 if (sachList != null && !sachList.isEmpty()) {
                     s = sachList.get(0);

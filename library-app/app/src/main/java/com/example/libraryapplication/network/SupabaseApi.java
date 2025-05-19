@@ -49,8 +49,8 @@ public interface SupabaseApi {
     @PATCH("sach")
     Call<List<Sach>> updateSach(@Query("maSach") String maSachFilter, @Body Sach sach);
 
-    @DELETE("sach?maSach=eq.{id}")
-    Call<Void> deleteSach(@Path("id") String id);
+    @DELETE("sach")
+    Call<Void> deleteSach(@Query("maSach") String id);
     @GET("sach")
     Call<List<Sach>> getLatestBook(@Query("order")String order,@Query("limit")int limit);
 

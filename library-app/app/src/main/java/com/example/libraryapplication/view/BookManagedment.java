@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +25,7 @@ public class BookManagedment extends AppCompatActivity {
     SachViewModel viewmodel;
     ArrayAdapter adapter;
     Button btnAddBook;
+    ImageView backIcon;
     ListView lvBooks;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +49,30 @@ public class BookManagedment extends AppCompatActivity {
             intent.putExtra("sach", sach);
             startActivity(intent);
         });
+        lvBooks.setOnItemLongClickListener((parent, view, position, id) -> {
+            String ms = listBook.get(position).getMaSach();
+
+            new androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle("Xác nhận xoá")
+                    .setMessage("Bạn có chắc chắn muốn xoá sách này không?")
+                    .setPositiveButton("Xoá", (dialog, which) -> {
+                        viewmodel.deleteSach(ms);
+
+                        // Sau khi xoá thì gọi lại loadBookLists() để cập nhật danh sách
+                        viewmodel.loadBookLists();
+                    })
+                    .setNegativeButton("Huỷ", null)
+                    .show();
+
+            return true;
+        });
+
         btnAddBook.setOnClickListener(v -> {
             Intent intent = new Intent(BookManagedment.this, AddAndEditBookActivity.class);
             startActivity(intent);
         });
-
+        backIcon = findViewById(R.id.backIcon);
+        backIcon.setOnClickListener(v->{finish();});
     }
 
     private void displayListBook() {
@@ -65,6 +86,13 @@ public class BookManagedment extends AppCompatActivity {
         viewmodel.loadBookLists();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            displayListBook();
+        }
+    }
     private void myMapping() {
         lvBooks = findViewById(R.id.lvBooks);
         btnAddBook = findViewById(R.id.btnAddBook);

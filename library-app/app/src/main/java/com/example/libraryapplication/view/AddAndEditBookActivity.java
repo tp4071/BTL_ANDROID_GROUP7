@@ -181,6 +181,8 @@ public class AddAndEditBookActivity extends AppCompatActivity {
             Sach newSach = new Sach(maSach, tenSach, nxb, ngayPhatHanh, soLuong, soTrang, tacGia, giaTien, maTL);
             sachViewModel.createSach(newSach);
             Toast.makeText(this, "Thêm sách thành công!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(AddAndEditBookActivity.this, BookManagedment.class);
+            setResult(RESULT_OK, intent);
         }
 
         finish();

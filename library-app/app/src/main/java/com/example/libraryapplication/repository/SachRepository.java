@@ -107,11 +107,16 @@ public class SachRepository {
 
 
     public void deleteSach(String id) {
-        api.deleteSach(id).enqueue(new Callback<Void>() {
-            public void onResponse(Call<Void> call, Response<Void> res) {}
-            public void onFailure(Call<Void> call, Throwable t) {}
+        api.deleteSach("eq." + id).enqueue(new Callback<Void>() {
+            public void onResponse(Call<Void> call, Response<Void> res) {
+
+            }
+            public void onFailure(Call<Void> call, Throwable t) {
+                // xử lý thất bại
+            }
         });
     }
+
 
     public MutableLiveData<List<Sach>> getLatestBook() {
         MutableLiveData<List<Sach>> data = new MutableLiveData<>();
