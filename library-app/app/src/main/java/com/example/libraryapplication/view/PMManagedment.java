@@ -23,14 +23,17 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.libraryapplication.R;
-import com.example.libraryapplication.helper.SortPriority;
 import com.example.libraryapplication.model.PhieuMuon;
 import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 import com.example.libraryapplication.repository.PhieuMuonRepository;
 import com.example.libraryapplication.viewmodel.PhieuMuonViewModel;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -45,6 +48,7 @@ public class PMManagedment extends AppCompatActivity {
     Spinner spinnerTrangThaiPM ;
     Button btn_CapNhatTrangThaiPM , btn_HuyCapNhatTrangThaiPM ;
     List<PhieuMuon> listPM ;
+    List<PhieuMuon> listPMKoCoPVP ;
     ArrayAdapter arrayAdapter ;
     ListView lv_DanhSachPhieuMuon ;
     Intent intent ;
@@ -72,8 +76,11 @@ public class PMManagedment extends AppCompatActivity {
         });
 
         listPM = new ArrayList<PhieuMuon>() ;
+
+        // Tham chiếu giao diện
         myMapping();
-        // Get ALL PM
+
+        // Get toàn bộ phiếu mượn
         hienThiDanhSachPhieuMuon();
 
         // Event for clicking one item on listView PhieuMuon
@@ -81,7 +88,7 @@ public class PMManagedment extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentPosition=position;
-                myDisplay(listPM.get(position));
+                myDisplay(listPMKoCoPVP.get(position));
             }
         });
 
@@ -131,6 +138,7 @@ public class PMManagedment extends AppCompatActivity {
         btn_HuyCapNhatTrangThaiPM = findViewById(R.id.btn_HuyCapNhatTrangThaiPM);
 
         lv_DanhSachPhieuMuon = findViewById(R.id.lv_DanhSachPhieuMuon);
+
         arrayAdapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 , listPM) ;
         lv_DanhSachPhieuMuon.setAdapter(arrayAdapter);
     }
@@ -140,10 +148,10 @@ public class PMManagedment extends AppCompatActivity {
 
         viewModel.getListPhieuMuon().observe(this, data -> {
             listPM.clear();
-            data.sort((pm1, pm2) -> {
-                return SortPriority.getPriorityPM(pm1.getTrangThai()) - SortPriority.getPriorityPM(pm2.getTrangThai());
-            });
             listPM.addAll(data);
+
+//            listPMKoCoPVP = ListPhieuMuonKoCoPVP(listPM);
+
             arrayAdapter.notifyDataSetChanged(); // Cập nhật UI
         });
 
@@ -154,5 +162,32 @@ public class PMManagedment extends AppCompatActivity {
         txt_HienThiMaPM.setText("");
         spinnerTrangThaiPM.setSelection(0);
     }
+
+//    private List<PhieuMuon> ListPhieuMuonKoCoPVP(List<PhieuMuon> listPmKhongCoPVP) {
+////        List<PhieuMuon> listPMnew = new ArrayList<>();
+//        Calendar calendar = Calendar.getInstance();
+//        try {
+//            // Lấy ngày hôm nay
+//            Date today = calendar.getTime();
+//
+//            for (PhieuMuon pm : listPM) {
+//                Date ngayMuon = pm.getNgayMuon(); // sử dụng trực tiếp Date
+//
+//                // Tính số ngày chênh lệch
+//                long diffMillis = today.getTime() - ngayMuon.getTime();
+//                long diffDays = diffMillis / (1000 * 60 * 60 * 24);
+//
+//                if (diffDays < 15) {
+//                    listPmKhongCoPVP.add(pm); // còn hạn -> hiển thị
+//                } else {
+//                    // quá hạn -> tạo phiếu vi phạm
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return listPmKhongCoPVP;
+//    }
 
 }
