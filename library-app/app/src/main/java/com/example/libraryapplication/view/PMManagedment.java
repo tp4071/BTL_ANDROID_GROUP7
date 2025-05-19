@@ -88,7 +88,7 @@ public class PMManagedment extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currentPosition=position;
-                myDisplay(listPMKoCoPVP.get(position));
+                myDisplay(listPM.get(position));
             }
         });
 
