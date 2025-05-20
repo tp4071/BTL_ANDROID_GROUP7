@@ -148,6 +148,13 @@ public class PMManagedment extends AppCompatActivity {
             setResult(RESULT_OK);
             finish();
         });
+
+        btn_HuyCapNhatTrangThaiPM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearViewInfor();
+            }
+        });
     }
 
     private String generateMaPhieuVP() {

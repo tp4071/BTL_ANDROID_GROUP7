@@ -77,6 +77,13 @@ public class Login extends AppCompatActivity {
 //                });
             }
         });
+
+        btn_HuyDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAffinity();
+            }
+        });
     }
 
     private void myMapping() {
