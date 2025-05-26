@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.libraryapplication.model.Sach;
+import com.example.libraryapplication.repository.PhieuMuonRepository;
 import com.example.libraryapplication.repository.SachRepository;
 
 import java.util.HashMap;
@@ -17,11 +18,17 @@ import java.util.Map;
 
 public class SachViewModel extends ViewModel {
     private final SachRepository sachRepository;
+    private final PhieuMuonRepository phieuMuonRepository;
     private MutableLiveData<List<Sach>> top5Books;
     private MutableLiveData<List<Sach>> searchResult;
     private final MutableLiveData<List<Sach>> listBook = new MutableLiveData<>();
 
-    public SachViewModel() {this.sachRepository = new SachRepository();}
+    public SachViewModel() {
+        this.sachRepository = new SachRepository();
+        this.phieuMuonRepository = new PhieuMuonRepository() ;
+    }
+
+
     public LiveData<List<Sach>> getLatestBook() {
 
         top5Books = sachRepository.getLatestBook();

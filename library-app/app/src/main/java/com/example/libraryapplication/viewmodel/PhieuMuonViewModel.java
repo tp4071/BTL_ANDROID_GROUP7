@@ -48,31 +48,24 @@ public class PhieuMuonViewModel extends ViewModel {
             Date ngayMuon = pm.getNgayMuon();
             if (ngayMuon == null) continue;
 
-            long diffMillis = today.getTime() - ngayMuon.getTime();
-            long diffDays = diffMillis / (1000 * 60 * 60 * 24);
+//            long diffMillis = today.getTime() - ngayMuon.getTime();
+//            long diffDays = diffMillis / (1000 * 60 * 60 * 24);
+//
+//            if (diffDays <= NGAY_TOI_DA) {
+//                ketQua.add(pm);
+//            } else {
+//                Log.d("View ID phiếu mượn quá hạn : " , pm.getMaPM());
+//            }
 
-            if (diffDays <= NGAY_TOI_DA) {
+            if (pm.getTrangThai().equals("Chưa trả")) {
                 ketQua.add(pm);
             } else {
                 Log.d("View ID phiếu mượn quá hạn : " , pm.getMaPM());
-//                String maPM = pm.getMaPM();
-//                double tienPhat = 5000 * diffDays;
-//                String trangThai = "Chưa xử lý";
-//                String kieuVP = "Quá hạn";
-//
-//                String maPhieuVP = generateMaPhieuVP();
-//                Date createDate = new Date();
-//
-//                PhieuViPham vp = new PhieuViPham(maPhieuVP, tienPhat, 0, trangThai, kieuVP, maPM, createDate);
             }
         }
 
         return ketQua;
     }
-
-    //    public void loadPhieuMuon() {
-    //        repository.getAllPhieuMuon(listPhieuMuon); // Gọi từ Repository
-    //    }
 
     public void loadPhieuMuon() {
         repository.getAllPhieuMuon(new MutableLiveData<List<PhieuMuon>>() {

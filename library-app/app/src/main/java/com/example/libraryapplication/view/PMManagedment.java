@@ -124,17 +124,19 @@ public class PMManagedment extends AppCompatActivity {
                             // Tính số ngày, ép kiểu về int nếu cần
                             int diffDays = (int) (diffMillis / (1000 * 60 * 60 * 24));
 
-                            // Đảm bảo diffDays >= 0 (nếu tính ngày quá hạn dương)
-                            if (diffDays < 0) {
-                                diffDays = 0;
-                            }
-                            int soTienPhat = 5000 * diffDays;
-                            Log.d("SỐ TIỀN PHẠT", String.valueOf(soTienPhat));
-                            Log.d("SỐ NGÀY QUÁ HẠN", String.valueOf(diffDays));
+                            int soNgayToiDa = 14 ;
 
-                            PhieuViPham vp = new PhieuViPham(generateMaPhieuVP(), soTienPhat, diffDays, "Chưa xử lý", "Quá hạn", pmUpdate.getMaPM(), today);
-                            PhieuViPhamViewModel phieuViPhamViewModel = new PhieuViPhamViewModel() ;
-                            phieuViPhamViewModel.createPhieuViPham(vp);
+                            // Đảm bảo diffDays >= 14
+                            if (diffDays >= soNgayToiDa) {
+//                                diffDays = 0;
+                                int soTienPhat = 5000 * diffDays;
+                                Log.d("SỐ TIỀN PHẠT", String.valueOf(soTienPhat));
+                                Log.d("SỐ NGÀY QUÁ HẠN", String.valueOf(diffDays));
+
+                                PhieuViPham vp = new PhieuViPham(generateMaPhieuVP(), soTienPhat, diffDays, "Chưa xử lý", "Quá hạn", pmUpdate.getMaPM(), today);
+                                PhieuViPhamViewModel phieuViPhamViewModel = new PhieuViPhamViewModel() ;
+                                phieuViPhamViewModel.createPhieuViPham(vp);
+                            }
                         }
                         viewModel.updatePhieuMuon(pmUpdate.getMaPM() , pmUpdate);
                         viewModel.loadPhieuMuon();

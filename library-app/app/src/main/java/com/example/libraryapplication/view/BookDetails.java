@@ -70,7 +70,7 @@ public class BookDetails extends AppCompatActivity {
         btnDelete.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setTitle("Xác nhận xoá")
-                    .setMessage("Bạn có chắc chắn muốn xoá sách này không?")
+                    .setMessage("Bạn có chắc chắn muốn xoá sách này không (Xóa sách sẽ đồng thời xóa các phiếu mượn liên quan)?")
                     .setPositiveButton("Xoá", (dialog, which) -> {
                         sachViewModel.deleteSach(s.getMaSach());
                         finish();
