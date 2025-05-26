@@ -55,6 +55,7 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -79,6 +80,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -105,6 +107,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -131,6 +134,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -140,23 +144,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Xác nhận mật khẩu  : "
+            android:text="Nhập lại MK : "
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edt_XacNhanMKMoi"
-            android:layout_width="267dp"
+            android:layout_width="231dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Xác nhận mật khẩu mới"
+            android:hint="Nhập lại mật khẩu mới"
             android:inputType="textPassword" />
 
 
     </LinearLayout>
 
     <LinearLayout
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -178,6 +183,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
