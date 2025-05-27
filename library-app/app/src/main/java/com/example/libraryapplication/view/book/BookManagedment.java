@@ -55,7 +55,7 @@ public class BookManagedment extends AppCompatActivity {
 
             new androidx.appcompat.app.AlertDialog.Builder(this)
                     .setTitle("Xác nhận xoá")
-                    .setMessage("Bạn có chắc chắn muốn xoá sách này không?")
+                    .setMessage("Bạn có chắc chắn muốn xoá sách này không?\n(Đồng thời sẽ xóa các phiếu mượn liện quan)")
                     .setPositiveButton("Xoá", (dialog, which) -> {
                         viewmodel.deleteSach(ms);
 
