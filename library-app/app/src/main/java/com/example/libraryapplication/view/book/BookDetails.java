@@ -91,19 +91,6 @@ public class BookDetails extends AppCompatActivity {
             loadBookDetails(s);
         }
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (s != null) {
-            sachViewModel.getSachById(s.getMaSach()).observe(this, sachList -> {
-                if (sachList != null && !sachList.isEmpty()) {
-                    s = sachList.get(0);
-                    loadBookDetails(s);
-                }
-            });
-        }
-    }
-
     private void loadBookDetails(Sach s) {
         theLoaiViewModel.getTLById(s.getMaTL()).observe(this, theLoai -> {
             tvMaSach.setText(String.format("ID:%s", s.getMaSach()));
