@@ -23,7 +23,7 @@ public class SessionManager {
         editor.putString(maTK , thuThu.getMaTK());
         editor.putString(tenTK, thuThu.getTenTK());
         editor.putString(matKhau, thuThu.getMatKhau());
-        editor.apply(); // Lưu thay đổi
+        editor.apply();
     }
 
     public String getTenTK() {

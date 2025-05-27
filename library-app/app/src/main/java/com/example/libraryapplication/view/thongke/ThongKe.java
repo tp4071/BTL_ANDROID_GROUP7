@@ -82,6 +82,7 @@ public class ThongKe extends AppCompatActivity {
             datePickerDialog.show();
         });
         tk.setOnClickListener(v -> {
+            //handle exception
             SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             try {
                 if(start.getText().toString().isEmpty()||end.getText().toString().isEmpty()){
@@ -95,6 +96,8 @@ public class ThongKe extends AppCompatActivity {
                     return;
                 }
                 thongKeViewModel.getTK(start.getText().toString(),end.getText().toString());
+
+                //latest book
                 thongKeViewModel.getTop5Books().observe(this,saches->{
                     if (saches != null) {
                         topSachArr.clear();
@@ -106,6 +109,8 @@ public class ThongKe extends AppCompatActivity {
                         topSachAdt.notifyDataSetChanged();
                     }
                 });
+
+                //pm chart
                 thongKeViewModel.getPmTK().observe(this, data -> {
                     //data source
                     List<Entry> entries = new ArrayList<>();
@@ -116,9 +121,10 @@ public class ThongKe extends AppCompatActivity {
                         entries.add(new Entry(i, value));
                         labels.add(item.get("ngay").toString());
                     }
+                    //init chart
                     LineDataSet dataSet = new LineDataSet(entries, "Số phiếu mượn");
 
-                    //cast datatype to int
+                    //show data point as string
                     dataSet.setValueFormatter(new ValueFormatter() {
                         @Override
                         public String getPointLabel(Entry entry) {
@@ -126,6 +132,8 @@ public class ThongKe extends AppCompatActivity {
                         }
                     });
                     lineChartPM.setData(new LineData(dataSet));
+
+                    //show datapoint in YAxis as string
                     YAxis yAxisL = lineChartPM.getAxisLeft();
                     yAxisL.setValueFormatter(new ValueFormatter() {
                         @Override
@@ -156,6 +164,8 @@ public class ThongKe extends AppCompatActivity {
                     lineChartPM.setVisibleXRangeMaximum(5f);
                     lineChartPM.invalidate();
                 });
+
+                //pvp chart
                 thongKeViewModel.getPvpTK().observe(this, data -> {
                     //data source
                     List<Entry> entries = new ArrayList<>();
@@ -166,9 +176,9 @@ public class ThongKe extends AppCompatActivity {
                         entries.add(new Entry(i, value));
                         labels.add(item.get("ngay").toString());
                     }
-
+                    //init chart
                     LineDataSet dataSet = new LineDataSet(entries, "Số phiếu vi phạm");
-                    //cast datatype to int
+                    //show data point as string
                     dataSet.setValueFormatter(new ValueFormatter() {
                         @Override
                         public String getPointLabel(Entry entry) {
@@ -176,6 +186,8 @@ public class ThongKe extends AppCompatActivity {
                         }
                     });
                     lineChartPVP.setData(new LineData(dataSet));
+
+                    //show YAxis data point as string
                     YAxis yAxisL = lineChartPVP.getAxisLeft();
                     yAxisL.setValueFormatter(new ValueFormatter() {
                         @Override
@@ -199,6 +211,7 @@ public class ThongKe extends AppCompatActivity {
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setLabelRotationAngle(-15f);
                     xAxis.setTextSize(10f);
+                    //scrollable
                     lineChartPVP.setDragEnabled(true);
                     lineChartPVP.setScaleXEnabled(true);
                     lineChartPVP.setVisibleXRangeMaximum(5f);
@@ -208,6 +221,8 @@ public class ThongKe extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         });
+
+        //navigate to bookDetails
         topSach.setOnItemClickListener((parent, view, position, id) -> {
             Sach sach = topSachArr.get(position).getSach();
             Intent intent = new Intent(ThongKe.this, BookDetails.class);

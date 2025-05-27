@@ -54,16 +54,7 @@ public class Search extends AppCompatActivity {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
-                        sachViewModel.getSearchResult(searchBar.getText().toString()).observe(this, saches -> {
-                            if (saches != null) {
-                                resultArr.clear();
-                                if(saches.isEmpty())resultArr.add(new BookResult(null,"Hãy thử nhập lại"));
-                                for(Sach s :saches){
-                                    resultArr.add(new BookResult(s,null));
-                                }
-                                resultAdt.notifyDataSetChanged();
-                            }
-                        });
+                        getSearchResult();
                     }
                 }
         );
@@ -82,17 +73,7 @@ public class Search extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                sachViewModel.getSearchResult(searchBar.getText().toString()).observe(Search.this,saches -> {
-                    if(saches!=null){
-                        resultArr.clear();
-                        if(saches.isEmpty())resultArr.add(new BookResult(null,"Hãy thử nhập lại"));
-                        for(Sach onSach :saches){
-                            resultArr.add(new BookResult(onSach,null));
-                        }
-                        resultAdt.notifyDataSetChanged();
-                    }
-                });
-
+                getSearchResult();
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -104,16 +85,7 @@ public class Search extends AppCompatActivity {
                 Toast.makeText(Search.this,"Hãy nhập từ khóa cần tìm",Toast.LENGTH_SHORT).show();
                 return;
             }
-            sachViewModel.getSearchResult(searchBar.getText().toString()).observe(this,saches -> {
-                if(saches!=null){
-                    resultArr.clear();
-                    if(saches.isEmpty())resultArr.add(new BookResult(null,"Hãy thử nhập lại"));
-                    for(Sach s :saches){
-                        resultArr.add(new BookResult(s,null));
-                    }
-                    resultAdt.notifyDataSetChanged();
-                }
-            });
+            getSearchResult();
 
         });
         backIcon.setOnClickListener(v->{
@@ -136,5 +108,17 @@ public class Search extends AppCompatActivity {
         searchResult.setAdapter(resultAdt);
         sachViewModel= new ViewModelProvider(this).get(SachViewModel.class);
         backIcon=findViewById(R.id.backIcon);
+    }
+    private void getSearchResult(){
+        sachViewModel.getSearchResult(searchBar.getText().toString()).observe(Search.this,saches -> {
+            if(saches!=null){
+                resultArr.clear();
+                if(saches.isEmpty())resultArr.add(new BookResult(null,"Hãy thử nhập lại"));
+                for(Sach onSach :saches){
+                    resultArr.add(new BookResult(onSach,null));
+                }
+                resultAdt.notifyDataSetChanged();
+            }
+        });
     }
 }

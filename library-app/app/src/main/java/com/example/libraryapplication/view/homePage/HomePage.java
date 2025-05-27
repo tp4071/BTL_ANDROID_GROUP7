@@ -37,7 +37,7 @@ public class HomePage extends AppCompatActivity {
     ArrayList<PhieuMuon> newPMArr;
     private SachViewModel sachViewModel;
     private PhieuMuonViewModel pmViewModel;
-    private ActivityResultLauncher<Intent> bookDetailsLauncher;
+    private ActivityResultLauncher<Intent> HomePageLauncher;
 
 
     @Override
@@ -59,61 +59,20 @@ public class HomePage extends AppCompatActivity {
             return insets;
         });
         mapping();
-        sachViewModel.getLatestBook().observe(this, saches -> {
-            if (saches != null) {
-                newBookArr.clear();
-                newBookArr.addAll(saches);
-                newBookAdt.notifyDataSetChanged();
-            }
-        });
-
-        bookDetailsLauncher = registerForActivityResult(
+        getLatest();
+        HomePageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
-                        sachViewModel.getLatestBook().observe(this, saches -> {
-                            if (saches != null) {
-                                newBookArr.clear();
-                                newBookArr.addAll(saches);
-                                newBookAdt.notifyDataSetChanged();
-                            }
-                        });
-                        pmViewModel.getLatestPhieuMuon().observe(this, phieuMuons -> {
-                            if(phieuMuons!=null){
-                                newPMArr.clear();
-                                newPMArr.addAll(phieuMuons);
-                                newPMAdt.notifyDataSetChanged();
-                            }
-                        });
+                        getLatest();
                     }
                 }
         );
-
         newBook.setOnItemClickListener((parent, view, position, id) -> {
             Sach sach = newBookArr.get(position);
             Intent intent = new Intent(HomePage.this, BookDetails.class);
             intent.putExtra("sach", sach);
-            bookDetailsLauncher.launch(intent);
-        });
-        pmViewModel.getLatestPhieuMuon().observe(this, phieuMuons -> {
-            if(phieuMuons!=null){
-                newPMArr.clear();
-                newPMArr.addAll(phieuMuons);
-                newPMAdt.notifyDataSetChanged();
-            }
-        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sachViewModel.getLatestBook().observe(this, saches -> {
-            if (saches != null) {
-                newBookArr.clear();
-                newBookArr.addAll(saches);
-                newBookAdt.notifyDataSetChanged();
-            }
+            HomePageLauncher.launch(intent);
         });
     }
 
@@ -134,5 +93,20 @@ public class HomePage extends AppCompatActivity {
         pvpBtn=findViewById(R.id.pvpBtn);
         tkBtn=findViewById(R.id.tkBtn);
     }
-
+    private void getLatest() {
+        sachViewModel.getLatestBook().observe(this, saches -> {
+            if (saches != null) {
+                newBookArr.clear();
+                newBookArr.addAll(saches);
+                newBookAdt.notifyDataSetChanged();
+            }
+        });
+        pmViewModel.getLatestPhieuMuon().observe(this, phieuMuons -> {
+            if(phieuMuons!=null){
+                newPMArr.clear();
+                newPMArr.addAll(phieuMuons);
+                newPMAdt.notifyDataSetChanged();
+            }
+        });
+    }
 }
