@@ -24,7 +24,7 @@ public class SachRepository {
     public void getAllSach(MutableLiveData<List<Sach>> data) {
         api.getAllSach().enqueue(new Callback<>() {
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
-                if (res.isSuccessful()) data.setValue(res.body());
+                if (res.isSuccessful()) data.postValue(res.body());
             }
             public void onFailure(Call<List<Sach>> call, Throwable t) {}
         });
