@@ -1,4 +1,4 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.pm;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,6 +21,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.model.TheLoai;
+import com.example.libraryapplication.view.components.MenuBarHandler;
+import com.example.libraryapplication.view.components.StatusBarHandler;
+import com.example.libraryapplication.view.homePage.HomePage;
 import com.example.libraryapplication.viewmodel.PhieuMuonViewModel;
 
 public class PMForm extends AppCompatActivity {
@@ -87,7 +90,7 @@ public class PMForm extends AppCompatActivity {
             }
             else {
                 Toast.makeText(this,"Tạo phiếu mượn thành công",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(PMForm.this,HomePage.class);
+                Intent intent=new Intent(PMForm.this, HomePage.class);
                 setResult(RESULT_OK, intent);
                 finish();
             }

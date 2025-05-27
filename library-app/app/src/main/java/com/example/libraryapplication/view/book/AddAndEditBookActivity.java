@@ -1,4 +1,4 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.book;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;

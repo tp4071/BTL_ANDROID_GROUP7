@@ -15,10 +15,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PhieuViPhamRepository {
-    private SupabaseApi api = SupabaseClient.getApi();
+    private final SupabaseApi api = SupabaseClient.getApi();
 
     public void getAll(MutableLiveData<List<PhieuViPham>> data) {
-        api.getAllPhieuViPham().enqueue(new Callback<List<PhieuViPham>>() {
+        api.getAllPhieuViPham().enqueue(new Callback<>() {
             public void onResponse(Call<List<PhieuViPham>> call, Response<List<PhieuViPham>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
             }
@@ -50,7 +50,7 @@ public class PhieuViPhamRepository {
 
 
     public void create(PhieuViPham vp, Runnable onSuccess) {
-        api.createPhieuViPham(vp).enqueue(new Callback<PhieuViPham>() {
+        api.createPhieuViPham(vp).enqueue(new Callback<>() {
             public void onResponse(Call<PhieuViPham> call, Response<PhieuViPham> res) {
                 if (res.isSuccessful() && onSuccess != null) onSuccess.run();
             }
@@ -64,7 +64,7 @@ public class PhieuViPhamRepository {
         // Chuẩn hóa keyword với định dạng Supabase ILIKE
         String formatted = "ilike.*" + keyword + "*";
 
-        api.searchPhieuViPham(formatted).enqueue(new Callback<List<PhieuViPham>>() {
+        api.searchPhieuViPham(formatted).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<PhieuViPham>> call, Response<List<PhieuViPham>> response) {
                 if (response.isSuccessful() && response.body() != null) {

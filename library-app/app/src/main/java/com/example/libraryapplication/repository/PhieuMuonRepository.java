@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.libraryapplication.model.PhieuMuon;
-import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 
@@ -18,13 +17,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PhieuMuonRepository {
-    private SupabaseApi api = SupabaseClient.getApi();
+    private final SupabaseApi api = SupabaseClient.getApi();
     public PhieuMuonRepository(){
     }
     public void createPhieuMuon(PhieuMuon pm) {
-        api.createPhieuMuon(pm).enqueue(new Callback<PhieuMuon>() {
-            public void onResponse(Call<PhieuMuon> call, Response<PhieuMuon> res) {}
-            public void onFailure(Call<PhieuMuon> call, Throwable t) {}
+        api.createPhieuMuon(pm).enqueue(new Callback<>() {
+            public void onResponse(Call<PhieuMuon> call, Response<PhieuMuon> res) {
+            }
+
+            public void onFailure(Call<PhieuMuon> call, Throwable t) {
+            }
         });
     }
     //check pm
@@ -44,16 +46,18 @@ public class PhieuMuonRepository {
     }
 
     public void getAllPhieuMuon(MutableLiveData<List<PhieuMuon>> data) {
-        api.getAllPhieuMuon().enqueue(new Callback<List<PhieuMuon>>() {
+        api.getAllPhieuMuon().enqueue(new Callback<>() {
             public void onResponse(Call<List<PhieuMuon>> call, Response<List<PhieuMuon>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
             }
-            public void onFailure(Call<List<PhieuMuon>> call, Throwable t) {}
+
+            public void onFailure(Call<List<PhieuMuon>> call, Throwable t) {
+            }
         });
     }
 
     public void updateTrangThai(String id, PhieuMuon pm) {
-        api.updateTrangThaiPM("eq." + id, pm).enqueue(new Callback<List<PhieuMuon>>() {
+        api.updateTrangThaiPM("eq." + id, pm).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<PhieuMuon>> call, Response<List<PhieuMuon>> response) {
                 if (response.isSuccessful()) {
@@ -62,6 +66,7 @@ public class PhieuMuonRepository {
                     Log.e("UpdatePM", "Lỗi cập nhật: " + response.code() + " - " + response.message());
                 }
             }
+
             @Override
             public void onFailure(Call<List<PhieuMuon>> call, Throwable t) {
                 Log.e("UpdatePM", "Lỗi kết nối: " + t.getMessage());
@@ -71,7 +76,7 @@ public class PhieuMuonRepository {
 
     public MutableLiveData<List<PhieuMuon>> getLatestPhieuMuon() {
         MutableLiveData<List<PhieuMuon>> data = new MutableLiveData<>();
-        api.getLatestPhieuMuon("ngayMuon.desc",5).enqueue(new Callback<List<PhieuMuon>>() {
+        api.getLatestPhieuMuon("ngayMuon.desc",5).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<PhieuMuon>> call, Response<List<PhieuMuon>> response) {
                 if (response.isSuccessful() && response.body() != null) {

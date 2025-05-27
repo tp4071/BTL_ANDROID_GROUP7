@@ -1,6 +1,5 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.thuthu;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -21,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.ThuThu;
 import com.example.libraryapplication.sharedPreferences.SessionManager;
+import com.example.libraryapplication.view.components.MenuBarHandler;
+import com.example.libraryapplication.view.components.StatusBarHandler;
 import com.example.libraryapplication.viewmodel.AccountThuThuViewModel;
 
 public class AccountManagedment extends AppCompatActivity {

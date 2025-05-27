@@ -1,5 +1,7 @@
 package com.example.libraryapplication.helper;
 
+import androidx.annotation.NonNull;
+
 import com.example.libraryapplication.model.Sach;
 
 public class BookRank {
@@ -10,6 +12,7 @@ public class BookRank {
         this.rank=rank;
     }
     public Sach getSach(){return s;}
+    @NonNull
     public String toString(){
         return "\n"+rank+". "+s.getTenSach()+"\n"+"Tác giả: "+s.getTacGia()+"\nNhà xuất bản: "+s.getNxb()+"\n"+"Số lượt mượn: "+s.getSlMuon()+"\n";
     }

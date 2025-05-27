@@ -1,4 +1,4 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.pm;
 
 import android.content.Context;
 import android.view.LayoutInflater;

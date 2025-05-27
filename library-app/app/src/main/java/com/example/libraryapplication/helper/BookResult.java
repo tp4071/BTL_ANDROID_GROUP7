@@ -1,5 +1,7 @@
 package com.example.libraryapplication.helper;
 
+import androidx.annotation.NonNull;
+
 import com.example.libraryapplication.model.Sach;
 
 public class BookResult {
@@ -10,8 +12,9 @@ public class BookResult {
         this.text=text;
     }
     public Sach getSach(){return s;}
+    @NonNull
     public String toString(){
         if(s==null)return text;
-        else return s.toString()+"\n";
+        else return s+"\n";
     }
 }

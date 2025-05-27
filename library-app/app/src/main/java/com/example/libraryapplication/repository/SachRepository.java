@@ -17,12 +17,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SachRepository {
-    private SupabaseApi api = SupabaseClient.getApi();
+    private final SupabaseApi api = SupabaseClient.getApi();
     public SachRepository(){
 
     }
     public void getAllSach(MutableLiveData<List<Sach>> data) {
-        api.getAllSach().enqueue(new Callback<List<Sach>>() {
+        api.getAllSach().enqueue(new Callback<>() {
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> res) {
                 if (res.isSuccessful()) data.setValue(res.body());
             }
@@ -66,7 +66,7 @@ public class SachRepository {
     }
 
     public void createSach(Sach sach) {
-        api.createSach(sach).enqueue(new Callback<Sach>() {
+        api.createSach(sach).enqueue(new Callback<>() {
             public void onResponse(Call<Sach> call, Response<Sach> res) {
 
                 if (res.isSuccessful()) {
@@ -87,7 +87,7 @@ public class SachRepository {
     public void updateSach(String id, Sach sach) {
         String filter = "eq." + id;
 
-        api.updateSach(filter, sach).enqueue(new Callback<List<Sach>>() {
+        api.updateSach(filter, sach).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
@@ -107,7 +107,7 @@ public class SachRepository {
 
 
     public void deleteSach(String id) {
-        api.deleteSach("eq." + id).enqueue(new Callback<Void>() {
+        api.deleteSach("eq." + id).enqueue(new Callback<>() {
             public void onResponse(Call<Void> call, Response<Void> res) {
 
             }
@@ -120,7 +120,7 @@ public class SachRepository {
 
     public MutableLiveData<List<Sach>> getLatestBook() {
         MutableLiveData<List<Sach>> data = new MutableLiveData<>();
-        api.getLatestBook("nph.desc",5).enqueue(new Callback<List<Sach>>() {
+        api.getLatestBook("nph.desc",5).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<Sach>> call, Response<List<Sach>> response) {
                 if (response.isSuccessful() && response.body() != null) {

@@ -1,9 +1,8 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.book;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.Sach;
+import com.example.libraryapplication.view.components.MenuBarHandler;
+import com.example.libraryapplication.view.components.StatusBarHandler;
 import com.example.libraryapplication.viewmodel.SachViewModel;
 
 import java.util.ArrayList;

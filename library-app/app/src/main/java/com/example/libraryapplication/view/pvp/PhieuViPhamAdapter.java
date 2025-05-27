@@ -1,4 +1,4 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.pvp;
 
 import android.app.AlertDialog;
 import android.content.Context;

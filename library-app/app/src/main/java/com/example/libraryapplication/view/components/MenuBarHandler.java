@@ -1,4 +1,4 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.components;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.libraryapplication.R;
+import com.example.libraryapplication.view.book.BookManagedment;
+import com.example.libraryapplication.view.pm.PMManagedment;
+import com.example.libraryapplication.view.pvp.PhieuViPhamActivity;
+import com.example.libraryapplication.view.book.Search;
+import com.example.libraryapplication.view.thongke.ThongKe;
 
 public class MenuBarHandler {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_book_details"
-    tools:context=".view.BookDetails"
+    tools:context=".view.book.BookDetails"
     android:background="#FFFFFF">
 
     <include

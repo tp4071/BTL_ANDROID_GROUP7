@@ -16,28 +16,28 @@
         android:theme="@style/Theme.LibraryApplication"
         tools:targetApi="31">
         <activity
-            android:name=".view.AddAndEditBookActivity"
+            android:name=".view.book.AddAndEditBookActivity"
             android:exported="false" />
         <activity
-            android:name=".view.BookDetails"
+            android:name=".view.book.BookDetails"
             android:exported="false" />
         <activity
-            android:name=".view.Search"
+            android:name=".view.book.Search"
             android:exported="false" />
         <activity
-            android:name=".view.AccountManagedment"
+            android:name=".view.thuthu.AccountManagedment"
             android:exported="false" />
         <activity
-            android:name=".view.ThongKe"
+            android:name=".view.thongke.ThongKe"
             android:exported="false" />
         <activity
             android:name=".view.BookForm"
             android:exported="false" />
         <activity
-            android:name=".view.PhieuViPhamActivity"
+            android:name=".view.pvp.PhieuViPhamActivity"
             android:exported="false" />
         <activity
-            android:name=".view.CreatePhieuViPhamActivity"
+            android:name=".view.pvp.CreatePhieuViPhamActivity"
             android:exported="false" /> <!-- <activity -->
         <!-- android:name=".view.HomePage" -->
         <!-- android:exported="true"> -->
@@ -47,13 +47,13 @@
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
-            android:name=".view.PMForm"
+            android:name=".view.pm.PMForm"
             android:exported="false" />
         <activity
-            android:name=".view.BookManagedment"
+            android:name=".view.book.BookManagedment"
             android:exported="false" />
         <activity
-            android:name=".view.Login"
+            android:name=".view.thuthu.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,7 +62,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.HomePage"
+            android:name=".view.homePage.HomePage"
             android:exported="false">
 
             <!-- <intent-filter> -->
@@ -73,7 +73,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".view.PMManagedment"
+            android:name=".view.pm.PMManagedment"
             android:exported="false">
 
             <!-- <intent-filter> -->

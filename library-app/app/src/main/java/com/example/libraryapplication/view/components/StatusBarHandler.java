@@ -1,14 +1,15 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.components;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.sharedPreferences.SessionManager;
+import com.example.libraryapplication.view.thuthu.AccountManagedment;
+import com.example.libraryapplication.view.homePage.HomePage;
 
 public class StatusBarHandler {
     public static void backToHomePage(View rootView, Activity activity){

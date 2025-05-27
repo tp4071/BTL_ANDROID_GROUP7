@@ -3,7 +3,6 @@ package com.example.libraryapplication.model;
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Sach implements Serializable {
@@ -125,7 +124,6 @@ public class Sach implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return "\n"+tenSach+" \n"+"Tác giả: "+tacGia+"\nNhà xuất bản: "+nxb + "\n";
     }
 }

@@ -1,19 +1,14 @@
 package com.example.libraryapplication.repository;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.libraryapplication.model.PhieuMuon;
 import com.example.libraryapplication.model.ThuThu;
 import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
 import com.example.libraryapplication.sharedPreferences.SessionManager;
-import com.example.libraryapplication.view.Login;
 
 import java.util.List;
 
@@ -25,7 +20,7 @@ public class ThuThuRepository {
     private SupabaseApi api = SupabaseClient.getApi();
 
     public void login(ThuThu input, MutableLiveData<List<ThuThu>> result) {
-        api.login(input).enqueue(new Callback<List<ThuThu>>() {
+        api.login(input).enqueue(new Callback<>() {
             public void onResponse(Call<List<ThuThu>> call, Response<List<ThuThu>> res) {
                 if (res.isSuccessful()) result.setValue(res.body());
             }
@@ -34,7 +29,7 @@ public class ThuThuRepository {
     }
 
     public void updateThongTin(String id, ThuThu tt) {
-        api.updateThuThu("eq." + id, tt).enqueue(new Callback<ThuThu>() {
+        api.updateThuThu("eq." + id, tt).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ThuThu> call, Response<ThuThu> response) {
                 if (response.isSuccessful()) {
@@ -53,7 +48,7 @@ public class ThuThuRepository {
     }
 
     public void dangNhapThuThu(String tenTK , String matKhau , Context context , MutableLiveData<Boolean> result) {
-        api.dangNhap("eq." + tenTK , "eq." + matKhau).enqueue(new Callback<List<ThuThu>>() {
+        api.dangNhap("eq." + tenTK , "eq." + matKhau).enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<List<ThuThu>> call, Response<List<ThuThu>> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {

@@ -1,9 +1,7 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.thongke;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -26,6 +22,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.helper.BookRank;
 import com.example.libraryapplication.model.Sach;
+import com.example.libraryapplication.view.book.BookDetails;
+import com.example.libraryapplication.view.components.MenuBarHandler;
+import com.example.libraryapplication.view.components.StatusBarHandler;
 import com.example.libraryapplication.viewmodel.ThongKeViewModel;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;

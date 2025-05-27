@@ -17,8 +17,6 @@ public interface SupabaseApi {
     @GET("phieumuon")
     Call<List<PhieuMuon>> getAllPhieuMuon();
 
-//    @PUT("phieumuon?maPM=eq.{id}")
-//    Call<PhieuMuon> updateTrangThaiPM(@Path("id") String maPM, @Body PhieuMuon pm);
     @PUT("phieumuon")
     Call<List<PhieuMuon>> updateTrangThaiPM(
             @Query("maPM") String maPM,
@@ -75,10 +73,6 @@ public interface SupabaseApi {
             @Query("maTK") String maTK,
             @Body ThuThu thuThu
     );
-    @GET("thuthu")
-    Call<ThuThu> getThuThu(
-            @Query("id") String maTK
-    );
 
     // === Đăng nhập ===
     @GET("thuthu")
@@ -100,14 +94,5 @@ public interface SupabaseApi {
     Call<List<TheLoai>> getTheLoai();
     @GET("theloai")
     Call<List<TheLoai>> getTLByID(@Query("maTL") String maTL);
-
-    @GET("rpc/sach_duoc_muon_it_nhat")
-    Call<List<Sach>> getSachMuonItNhat();
-
-    @GET("rpc/so_phieu_muon_qua_han")
-    Call<Integer> getSoLuongPhieuMuonQuaHan();
-
-    @GET("phieuvipham?trangThai=eq.ChuaThanhToan")
-    Call<List<PhieuViPham>> getViPhamChuaThanhToan();
 
 }

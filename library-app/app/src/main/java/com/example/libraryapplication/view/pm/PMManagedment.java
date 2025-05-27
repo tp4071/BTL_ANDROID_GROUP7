@@ -1,4 +1,4 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.pm;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.libraryapplication.R;
@@ -28,22 +27,15 @@ import com.example.libraryapplication.model.PhieuMuon;
 import com.example.libraryapplication.model.PhieuViPham;
 import com.example.libraryapplication.network.SupabaseApi;
 import com.example.libraryapplication.network.SupabaseClient;
-import com.example.libraryapplication.repository.PhieuMuonRepository;
+import com.example.libraryapplication.view.components.MenuBarHandler;
+import com.example.libraryapplication.view.components.StatusBarHandler;
 import com.example.libraryapplication.viewmodel.PhieuMuonViewModel;
 import com.example.libraryapplication.viewmodel.PhieuViPhamViewModel;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PMManagedment extends AppCompatActivity {
     private SupabaseApi api = SupabaseClient.getApi();
@@ -81,7 +73,7 @@ public class PMManagedment extends AppCompatActivity {
             return insets;
         });
 
-        listPM = new ArrayList<PhieuMuon>() ;
+        listPM = new ArrayList<>() ;
 
         // Tham chiếu giao diện
         myMapping();

@@ -1,4 +1,4 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.pvp;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.PhieuMuon;
 import com.example.libraryapplication.model.PhieuViPham;
+import com.example.libraryapplication.view.pm.BorrowSlipAdapter;
 import com.example.libraryapplication.viewmodel.PhieuMuonViewModel;
 import com.example.libraryapplication.viewmodel.PhieuViPhamViewModel;
 

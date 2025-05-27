@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AccountManagedment">
+    tools:context=".view.thuthu.AccountManagedment">
 
     <!-- Ghim menuBar xuống dưới cùng -->
     <include

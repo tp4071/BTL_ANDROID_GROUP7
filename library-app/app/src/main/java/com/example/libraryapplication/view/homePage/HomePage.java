@@ -1,9 +1,8 @@
-package com.example.libraryapplication.view;
+package com.example.libraryapplication.view.homePage;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -21,6 +20,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.libraryapplication.R;
 import com.example.libraryapplication.model.PhieuMuon;
 import com.example.libraryapplication.model.Sach;
+import com.example.libraryapplication.view.book.BookDetails;
+import com.example.libraryapplication.view.components.MenuBarHandler;
+import com.example.libraryapplication.view.components.StatusBarHandler;
 import com.example.libraryapplication.viewmodel.PhieuMuonViewModel;
 import com.example.libraryapplication.viewmodel.SachViewModel;
 
