@@ -55,25 +55,48 @@ public class Login extends AppCompatActivity {
 
         myMapping() ;
 
+//        btn_DangNhap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String tenTK = edt_TenTaiKhoan.getText().toString().trim() ;
+//                String matKhau = edt_MatKhau.getText().toString().trim() ;
+//                accountThuThuViewModel.dangNhapThuThu(tenTK , matKhau , Login.this);
+//            }
+//        });
+
         btn_DangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tenTK = edt_TenTaiKhoan.getText().toString().trim() ;
-                String matKhau = edt_MatKhau.getText().toString().trim() ;
-                accountThuThuViewModel.dangNhapThuThu(tenTK , matKhau , Login.this);
-                // Quan sát kết quả login
-//                accountThuThuViewModel.getLoginResult().observe(Login.this, isSuccess -> {
-//                    if (isSuccess != null && isSuccess) {
-//                        Toast.makeText(getApplicationContext(), "ĐĂNG NHẬP THÀNH CÔNG", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(Login.this, HomePage.class);
-//                        startActivity(intent);
-//                        finish();
-//                    } else {
-//                        Toast.makeText(getApplicationContext(), "ĐĂNG NHẬP THẤT BẠI", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                try {
+                    String tenTK = edt_TenTaiKhoan.getText().toString().trim();
+                    String matKhau = edt_MatKhau.getText().toString().trim();
+
+                    // Kiểm tra nếu tài khoản hoặc mật khẩu rỗng
+                    if (tenTK.isEmpty() || matKhau.isEmpty()) {
+                        Toast.makeText(Login.this, "Vui lòng nhập đầy đủ tài khoản và mật khẩu!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Kiểm tra tài khoản và mật khẩu có chứa cả chữ cái và số
+                    if (!tenTK.matches("^(?=.*[A-Za-z])(?=.*\\d).+$")) {
+                        Toast.makeText(Login.this, "Tên tài khoản phải chứa cả chữ cái và số!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (!matKhau.matches("^(?=.*[A-Za-z])(?=.*\\d).+$")) {
+                        Toast.makeText(Login.this, "Mật khẩu phải chứa cả chữ cái và số!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Gọi phương thức đăng nhập nếu dữ liệu hợp lệ
+                    accountThuThuViewModel.dangNhapThuThu(tenTK.trim(), matKhau.trim(), Login.this);
+
+                } catch (Exception e) {
+                    Toast.makeText(Login.this, "Đã xảy ra lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
         btn_HuyDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override

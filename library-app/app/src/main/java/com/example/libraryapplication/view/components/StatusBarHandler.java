@@ -30,6 +30,6 @@ public class StatusBarHandler {
         TextView userNameTextView = rootView.findViewById(R.id.user_name);
         SessionManager sessionManager = new SessionManager(activity);
         String tenTaiKhoan = sessionManager.getTenTK();
-        userNameTextView.setText(tenTaiKhoan);
+        userNameTextView.setText(tenTaiKhoan.trim());
     }
 }

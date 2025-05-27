@@ -48,15 +48,6 @@ public class PhieuMuonViewModel extends ViewModel {
             Date ngayMuon = pm.getNgayMuon();
             if (ngayMuon == null) continue;
 
-//            long diffMillis = today.getTime() - ngayMuon.getTime();
-//            long diffDays = diffMillis / (1000 * 60 * 60 * 24);
-//
-//            if (diffDays <= NGAY_TOI_DA) {
-//                ketQua.add(pm);
-//            } else {
-//                Log.d("View ID phiếu mượn quá hạn : " , pm.getMaPM());
-//            }
-
             if (pm.getTrangThai().equals("Chưa trả")) {
                 ketQua.add(pm);
             } else {
@@ -103,9 +94,6 @@ public class PhieuMuonViewModel extends ViewModel {
     }
 
     public void updatePhieuMuon(String maPM, PhieuMuon pm) {
-//        Sach s=sachRepository.getSachById("eq."+pm.getMaSach()).getValue().get(0);
-//        s.setSoLuong(s.getSoLuong()+Integer.valueOf(pm.getSoLuongMuon()));
-//        sachRepository.updateSach("eq."+s.getMaSach(),s);
         repository.updateTrangThai(maPM, pm);
     }
 
