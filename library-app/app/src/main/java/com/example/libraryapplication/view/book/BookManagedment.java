@@ -59,8 +59,8 @@ public class BookManagedment extends AppCompatActivity {
                     .setPositiveButton("Xoá", (dialog, which) -> {
                         viewmodel.deleteSach(ms);
 
-                        // Sau khi xoá thì gọi lại loadBookLists() để cập nhật danh sách
-                        viewmodel.loadBookLists();
+                        listBook.remove(position);
+                        adapter.notifyDataSetChanged();
                     })
                     .setNegativeButton("Huỷ", null)
                     .show();
