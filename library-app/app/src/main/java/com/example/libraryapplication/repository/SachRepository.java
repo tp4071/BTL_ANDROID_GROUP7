@@ -106,16 +106,21 @@ public class SachRepository {
 
 
 
-    public void deleteSach(String id) {
+    public void deleteSach(String id, MutableLiveData<List<Sach>> data) {
         api.deleteSach("eq." + id).enqueue(new Callback<>() {
             public void onResponse(Call<Void> call, Response<Void> res) {
-
+                if (res.isSuccessful()) {
+                    // Gọi lại để cập nhật danh sách sách sau khi xóa
+                    getAllSach(data);
+                }
             }
+
             public void onFailure(Call<Void> call, Throwable t) {
-                // xử lý thất bại
+                Log.e("DELETE_FAIL", "Xóa sách thất bại: " + t.getMessage());
             }
         });
     }
+
 
 
     public MutableLiveData<List<Sach>> getLatestBook() {

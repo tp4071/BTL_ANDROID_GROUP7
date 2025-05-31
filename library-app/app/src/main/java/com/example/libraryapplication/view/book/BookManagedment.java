@@ -59,8 +59,7 @@ public class BookManagedment extends AppCompatActivity {
                     .setPositiveButton("Xoá", (dialog, which) -> {
                         viewmodel.deleteSach(ms);
 
-                        listBook.remove(position);
-                        adapter.notifyDataSetChanged();
+
                     })
                     .setNegativeButton("Huỷ", null)
                     .show();

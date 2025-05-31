@@ -75,6 +75,7 @@ public class BookDetails extends AppCompatActivity {
                     .setMessage("Bạn có chắc chắn muốn xoá sách này không (Xóa sách sẽ đồng thời xóa các phiếu mượn liên quan)?")
                     .setPositiveButton("Xoá", (dialog, which) -> {
                         sachViewModel.deleteSach(s.getMaSach());
+                        setResult(RESULT_OK);
                         finish();
                     })
                     .setNegativeButton("Huỷ", null)

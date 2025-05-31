@@ -55,7 +55,7 @@ public class SachViewModel extends ViewModel {
     }
 
     public void deleteSach(String id) {
-        sachRepository.deleteSach(id);
+        sachRepository.deleteSach(id, listBook);
     }
 
     public LiveData<List<Sach>> getSachById(String id) {
