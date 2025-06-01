@@ -26,7 +26,6 @@ import com.example.libraryapplication.model.Sach;
 import com.example.libraryapplication.view.components.MenuBarHandler;
 import com.example.libraryapplication.view.components.StatusBarHandler;
 import com.example.libraryapplication.viewmodel.SachViewModel;
-import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,6 @@ public class Search extends AppCompatActivity {
     ListView searchResult;
     EditText searchBar;
     ImageView backIcon;
-    ShapeableImageView search;
     SachViewModel sachViewModel;
     ArrayAdapter<BookResult> resultAdt;
     ArrayList<BookResult> resultArr;
@@ -80,14 +78,6 @@ public class Search extends AppCompatActivity {
 
             }
         });
-        search.setOnClickListener(v -> {
-            if(searchBar.getText().toString().isEmpty()){
-                Toast.makeText(Search.this,"Hãy nhập từ khóa cần tìm",Toast.LENGTH_SHORT).show();
-                return;
-            }
-            getSearchResult();
-
-        });
         backIcon.setOnClickListener(v->{
             setResult(RESULT_OK);
             finish();
@@ -102,7 +92,6 @@ public class Search extends AppCompatActivity {
     private void mapping(){
         searchBar=findViewById(R.id.edit_search);
         searchResult=findViewById(R.id.result);
-        search=findViewById(R.id.btn_search);
         resultArr=new ArrayList<>();
         resultAdt=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,resultArr);
         searchResult.setAdapter(resultAdt);
