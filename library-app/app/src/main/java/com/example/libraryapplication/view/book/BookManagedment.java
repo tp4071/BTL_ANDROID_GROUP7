@@ -96,7 +96,7 @@ public class BookManagedment extends AppCompatActivity {
     private void myMapping() {
         lvBooks = findViewById(R.id.lvBooks);
         btnAddBook = findViewById(R.id.btnAddBook);
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1 , listBook);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 , listBook);
         lvBooks.setAdapter(adapter);
     }
     @Override
