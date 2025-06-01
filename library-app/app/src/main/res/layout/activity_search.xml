@@ -37,21 +37,8 @@
             android:textSize="17sp"
             android:inputType="text" />
 
-        <!-- Nút tìm kiếm với icon kính lúp -->
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/btn_search"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_search"
-            android:contentDescription="Tìm kiếm"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:selectableItemBackgroundBorderless"
-            android:padding="8dp"
-            app:tint="#000000" />
     </LinearLayout>
 
-    <!-- ListView để hiển thị kết quả tìm kiếm -->
     <ListView
         android:id="@+id/result"
         android:layout_width="match_parent"
